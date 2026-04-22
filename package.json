@@ -1,0 +1,49 @@
+{
+  "name": "selise-signature",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:regression": "npx playwright test --grep @regression",
+    "test:critical": "npx playwright test --grep @critical",
+    "test:functional": "npx playwright test --grep @functional",
+    "test:stage": "npx playwright test tests/ui/regressionTest.stage.spec.ts --headed",
+    "test:stage:ci": "npx playwright test tests/ui/regressionTest.stage.spec.ts",
+    "test:prod": "npx playwright test tests/ui/regressionTest.prod.spec.ts --headed",
+    "test:prod:ci": "npx playwright test tests/ui/regressionTest.prod.spec.ts",
+    "test:keyboard": "npx playwright test tests/ui/keyboardAccessibilityTest.stage.spec.ts --headed",
+    "test:keyboard:ci": "npx playwright test tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+    "test:a11y": "npx playwright test tests/ui/accessibilityTest.stage.spec.ts --headed",
+    "test:a11y:ci": "npx playwright test tests/ui/accessibilityTest.stage.spec.ts",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write ."
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "e2e"
+  ],
+  "author": "SELISE Digital Platform",
+  "license": "ISC",
+  "description": "Playwright-based UI automation framework",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^24.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-playwright": "^2.2.0",
+    "prettier": "^3.4.2"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "winston": "^3.17.0"
+  }
+}
