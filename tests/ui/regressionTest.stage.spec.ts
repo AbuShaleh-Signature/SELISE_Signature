@@ -864,5 +864,6 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 8.13 [${ENV_NAME}]: AutomatedTest 1 verified\n`);
 
     console.log(`Test 8 [${ENV_NAME}]: Use Workflow from Templates completed\n`);
+    //New test will be added here
   });
 });
