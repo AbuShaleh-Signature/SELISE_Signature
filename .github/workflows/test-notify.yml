@@ -1,13 +1,23 @@
-name: Run Specific Test & Notify Teams
+﻿name: Run Specific Test & Notify Teams
 
 on:
   workflow_dispatch:
     inputs:
       test_name:
-        description: 'Test to run (e.g., "Test 6:", "Test 8:", "all")'
+        description: 'Test to run'
         required: true
         default: 'all'
-        type: string
+        type: choice
+        options:
+          - all
+          - 'Test 1:'
+          - 'Test 2:'
+          - 'Test 3:'
+          - 'Test 4:'
+          - 'Test 5:'
+          - 'Test 6:'
+          - 'Test 7:'
+          - 'Test 8:'
       environment:
         description: 'Environment (stage/prod)'
         required: true
@@ -21,7 +31,7 @@ jobs:
   test-and-notify:
     runs-on: ubuntu-latest
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
     
     steps:
       - name: Checkout code
@@ -33,10 +43,18 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Install Playwright
-        uses: microsoft/playwright-github-action@v1
+      - name: Get Playwright cache
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != true
+        run: npx playwright install --with-deps
 
       - name: Run specific test
         id: run-test
