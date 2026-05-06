@@ -1,0 +1,84 @@
+name: Run Specific Test & Notify Teams
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_name:
+        description: 'Test to run (e.g., "Test 6:", "Test 8:")'
+        required: true
+        default: 'Test 6:'
+        type: string
+      environment:
+        description: 'Environment (stage/prod)'
+        required: true
+        default: 'stage'
+        type: choice
+        options:
+          - stage
+          - prod
+
+jobs:
+  test-and-notify:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run specific test
+        id: run-test
+        continue-on-error: true
+        run: |
+          if [ "${{ inputs.environment }}" = "prod" ]; then
+            npm run test:prod:ci -- --grep "${{ inputs.test_name }}"
+          else
+            npm run test:stage:ci -- --grep "${{ inputs.test_name }}"
+          fi
+
+      - name: Send notification to Teams
+        if: always()
+        run: |
+          if [ "${{ steps.run-test.outcome }}" = "success" ]; then
+            STATUS="✅ PASSED"
+            COLOR="good"
+          else
+            STATUS="❌ FAILED"
+            COLOR="danger"
+          fi
+          
+          curl -H "Content-Type: application/json" \
+               -d "{
+            \"@type\": \"MessageCard\",
+            \"@context\": \"http://schema.org/extensions\",
+            \"themeColor\": \"$COLOR\",
+            \"summary\": \"Test Results\",
+            \"sections\": [{
+              \"activityTitle\": \"🧪 SELISE Signature Test Results\",
+              \"activitySubtitle\": \"Repository: ${{ github.repository }}\",
+              \"facts\": [
+                {\"name\": \"Test:\", \"value\": \"${{ inputs.test_name }}\"},
+                {\"name\": \"Environment:\", \"value\": \"${{ inputs.environment }}\"},
+                {\"name\": \"Status:\", \"value\": \"$STATUS\"},
+                {\"name\": \"Branch:\", \"value\": \"${{ github.ref_name }}\"},
+                {\"name\": \"Run ID:\", \"value\": \"${{ github.run_id }}\"}
+              ],
+              \"markdown\": true
+            }],
+            \"potentialAction\": [{
+              \"@type\": \"OpenUri\",
+              \"name\": \"View Results\",
+              \"targets\": [{\"os\": \"default\", \"uri\": \"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}]
+            }]
+          }" \
+          "${{ secrets.TEAMS_WEBHOOK_URL }}"
