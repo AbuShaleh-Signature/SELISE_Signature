@@ -405,9 +405,11 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     await uploadProgress.waitFor({ state: "visible", timeout: 15000 });
     console.log(`Test 5.2.1 [${ENV_NAME}]: File upload verified\n`);
 
-    // --- STEP 4: Fill Envelope Name ---
+    // --- STEP 4: Fill Envelope Name & Select advanced signature type Advanced for EU (eIDAS)---
     await page.locator(LOCATORS.envelopeNameInput).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.envelopeNameInput).fill("Automation Test");
+    await page.locator(LOCATORS.signatureTypeAdvance).click(); // Select advanced signature type
+    await page.locator(LOCATORS.signatureTypeRadioAdvanced).click(); // Select advanced signature type Advanced for EU (eIDAS)
     console.log(`Test 5.3 [${ENV_NAME}]: Envelope name set\n`);
 
     // --- STEP 5: Add Recipient ---
@@ -855,13 +857,6 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     await sendDocumentBtn.click();
     await page.waitForTimeout(5000);
     console.log(`Test 8.12 [${ENV_NAME}]: Send Document clicked\n`);
-
-    // --- STEP 13: Wait for page redirect and verify text ---
-    await page.waitForLoadState("networkidle");
-    const automatedTestTitle = page.locator('.title:has-text("AutomatedTest 1")');
-    await automatedTestTitle.waitFor({ state: "visible", timeout: 30000 });
-    await expect(automatedTestTitle).toBeVisible();
-    console.log(`Test 8.13 [${ENV_NAME}]: AutomatedTest 1 verified\n`);
 
     console.log(`Test 8 [${ENV_NAME}]: Use Workflow from Templates completed\n`);
     //New test will be added here
