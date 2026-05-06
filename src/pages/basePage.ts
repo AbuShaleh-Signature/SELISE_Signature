@@ -118,8 +118,9 @@ export const sequentialTest = base.extend<{ page: Page }>({
     if (!browser) {
       logger.info(`Initializing browser...`);
 
-      // Launch browser in headed mode (visible browser window)
-      browser = await chromium.launch({ headless: false });
+      // Launch browser (headless in CI, headed locally)
+      const isCI = !!process.env.CI;
+      browser = await chromium.launch({ headless: isCI });
 
       // Create browser context (isolated environment)
       context = await browser.newContext();
