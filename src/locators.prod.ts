@@ -12,9 +12,10 @@
  *   - Production has optimized/release selectors
  *   - Easier maintenance and updates
  *
- * NOTE:
- *   - Production URL: https://selise.app
- *   - Stage URL: https://app.selisestage.com
+ * Selector Types Used:
+ *   - CSS Selectors: 'tag.class', 'tag#id', 'tag[attribute="value"]'
+ *   - Text Matchers: 'text="Exact"', 'has-text("Contains")'
+ *   - Playwright: getByPlaceholder(), getByRole(), etc.
  *
  * ============================================================================
  */
@@ -23,21 +24,24 @@ export const LOCATORS = {
   // ==========================================================================
   // LOGIN PAGE LOCATORS
   // ==========================================================================
+  // Elements on the authentication/login page
 
   usernameField: "Enter your email", // Username input placeholder
   passwordField: "Enter your password", // Password input placeholder
   loginButton: "LOGIN", // Login button text
-  home: "#home-page", // Home page container ID
 
   // ==========================================================================
   // DASHBOARD LOCATORS
   // ==========================================================================
+  // Main page elements after successful login
 
+  home: "#home-page", // Home page container ID
   welcomeMessage: "text=Available Apps", // Welcome text indicating dashboard loaded
 
   // ==========================================================================
   // AVAILABLE APPS LOCATORS
   // ==========================================================================
+  // Application cards displayed on the dashboard
 
   contactsApp: 'p:has-text("Contacts")', // Contacts application card
   signatureApp: 'p:has-text("Signature")', // Signature/e-signature application card
@@ -46,12 +50,14 @@ export const LOCATORS = {
   // ==========================================================================
   // SELISE STORE LOCATOR
   // ==========================================================================
+  // Button to access the SELISE application store
 
   seliseStoreButton: 'button:has-text("SELISE Store")', // SELISE Store navigation button
 
   // ==========================================================================
   // HEADER ELEMENTS
   // ==========================================================================
+  // Navigation and user interface elements in the header bar
 
   logo: 'img.logo-icon[src*="arc2-logo"]', // Application logo image
   myAppsMenu: "button:has(mat-icon)", // My Apps menu button (PROD specific selector)
@@ -60,12 +66,15 @@ export const LOCATORS = {
   // ==========================================================================
   // SIGNATURE MODULE LOCATORS
   // ==========================================================================
+  // Elements specific to the e-signature application
 
   signatureCard: "div.icon mat-icon.icon-icn_esignature", // Signature card icon
 
   // ==========================================================================
   // STATUS CARDS
   // ==========================================================================
+  // Document status indicators in the signature module
+  // These represent different stages of document workflow
 
   yetToSignCard: 'a:has-text("Yet To Sign")', // Documents awaiting signature
   yetToReviewCard: 'a:has-text("Yet To Review")', // Documents pending review
@@ -75,6 +84,7 @@ export const LOCATORS = {
   // ==========================================================================
   // DOCUMENT UPLOAD LOCATORS
   // ==========================================================================
+  // Elements for uploading PDF documents
 
   uploadArea: 'p:has-text("Drag and drop")', // Drag and drop upload zone
   uploadFromDeviceBtn: 'button:has-text("Upload From Device")', // Upload button
@@ -84,6 +94,7 @@ export const LOCATORS = {
   // ==========================================================================
   // ENVELOPE FORM LOCATORS
   // ==========================================================================
+  // Form elements for creating a document envelope
 
   envelopeNameInput: 'input[placeholder="Enter contract name"]', // Envelope/document name input
   addRecipientBtn: 'button:has-text("Add Recipient")', // Add signatory button
@@ -93,6 +104,7 @@ export const LOCATORS = {
   // ==========================================================================
   // DOCUMENT SIGNING LOCATORS
   // ==========================================================================
+  // Elements for the document signing workflow
 
   signatureField: "#ph-signature", // Signature placeholder field ID
   pdfPlaceholder: "div.placeholder-layer", // PDF document placeholder
@@ -111,17 +123,24 @@ export const LOCATORS = {
   signThisContractNowBtn: 'button:has-text("Sign This Contract Now")', // Final sign button
 
   // ==========================================================================
+  // SIGNATURE TYPE LOCATORS
+  // ==========================================================================
+  // Elements for selecting signature type (Simple vs Advanced)
+
+  signatureTypeAdvance: 'mat-icon.material-icons-outlined:has-text("https")', // Advanced signature type icon
+  signatureTypeRadioAdvanced: 'div.sub-type-name:has-text("Advanced for EU (eIDAS)")', // Advanced radio button
+
+  // ==========================================================================
   // WORKFLOW LOCATORS (Templates)
   // ==========================================================================
+  // Elements for Templates section and Workflow creation
 
   workflowContractName: 'input[placeholder="Enter contract name"]', // Workflow contract name
   workflowTagInput: 'input[placeholder="Add a tag..."]', // Tag input field
   workflowAddRecipientBtn: 'button:has-text("Add Recipient")', // Add recipient in workflow
-  workflowAddDynamicSignatoryBtn: 'button:has-text("Add Dynamic Signatory")', // Dynamic signatory option
+  workflowAddDynamicSignatoryBtn: 'span:has-text("Add Dynamic Signatory")', // Dynamic signatory option
   workflowPrepareDocumentBtn: 'button:has-text("Prepare Document")', // Prepare document in workflow
   workflowSaveWorkflowBtn: 'button:has-text("Save Workflow")', // Save workflow button
-  createWorkflowBtn: 'button.create-template-btn:visible', // Create workflow button
+  createWorkflowBtn: "button.create-template-btn:visible", // Create workflow button
   uploadFromDeviceWorkflow: 'button:has-text("Upload From Device")', // Upload in workflow
-  signatureTypeAdvance: 'mat-icon.material-icons-outlined:has-text("https")', // Advanced signature type icon
-  signatureTypeRadioAdvanced: 'div.sub-type-name:has-text("Advanced for EU (eIDAS)")', // Advanced radio button
 } as const;
