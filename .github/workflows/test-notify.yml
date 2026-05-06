@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       test_name:
-        description: 'Test to run (e.g., "Test 6:", "Test 8:")'
+        description: 'Test to run (e.g., "Test 6:", "Test 8:", "all")'
         required: true
-        default: 'Test 6:'
+        default: 'all'
         type: string
       environment:
         description: 'Environment (stage/prod)'
@@ -40,10 +40,18 @@ jobs:
         id: run-test
         continue-on-error: true
         run: |
-          if [ "${{ inputs.environment }}" = "prod" ]; then
-            npm run test:prod:ci -- --grep "${{ inputs.test_name }}"
+          if [ "${{ inputs.test_name }}" = "all" ]; then
+            if [ "${{ inputs.environment }}" = "prod" ]; then
+              npm run test:prod:ci
+            else
+              npm run test:stage:ci
+            fi
           else
-            npm run test:stage:ci -- --grep "${{ inputs.test_name }}"
+            if [ "${{ inputs.environment }}" = "prod" ]; then
+              npm run test:prod:ci -- --grep "${{ inputs.test_name }}"
+            else
+              npm run test:stage:ci -- --grep "${{ inputs.test_name }}"
+            fi
           fi
 
       - name: Send notification to Teams
