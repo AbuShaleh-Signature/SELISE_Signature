@@ -13,9 +13,8 @@
  *   - Easier maintenance and updates
  *
  * NOTE:
- *   The myAppsMenu selector is different from stage:
- *   - Stage: 'mat-icon.icon-icn_available_apps'
- *   - Prod: 'button:has(mat-icon)'
+ *   - Production URL: https://selise.app
+ *   - Stage URL: https://app.selisestage.com
  *
  * ============================================================================
  */
@@ -28,12 +27,12 @@ export const LOCATORS = {
   usernameField: "Enter your email", // Username input placeholder
   passwordField: "Enter your password", // Password input placeholder
   loginButton: "LOGIN", // Login button text
+  home: "#home-page", // Home page container ID
 
   // ==========================================================================
   // DASHBOARD LOCATORS
   // ==========================================================================
 
-  home: "#home-page", // Home page container ID
   welcomeMessage: "text=Available Apps", // Welcome text indicating dashboard loaded
 
   // ==========================================================================
@@ -110,4 +109,19 @@ export const LOCATORS = {
   finishBtn: 'button:has-text("Finish")', // Finish signing button
   signCheckbox: ".mat-checkbox", // Terms acceptance checkbox
   signThisContractNowBtn: 'button:has-text("Sign This Contract Now")', // Final sign button
+
+  // ==========================================================================
+  // WORKFLOW LOCATORS (Templates)
+  // ==========================================================================
+
+  workflowContractName: 'input[placeholder="Enter contract name"]', // Workflow contract name
+  workflowTagInput: 'input[placeholder="Add a tag..."]', // Tag input field
+  workflowAddRecipientBtn: 'button:has-text("Add Recipient")', // Add recipient in workflow
+  workflowAddDynamicSignatoryBtn: 'button:has-text("Add Dynamic Signatory")', // Dynamic signatory option
+  workflowPrepareDocumentBtn: 'button:has-text("Prepare Document")', // Prepare document in workflow
+  workflowSaveWorkflowBtn: 'button:has-text("Save Workflow")', // Save workflow button
+  createWorkflowBtn: 'button.create-template-btn:visible', // Create workflow button
+  uploadFromDeviceWorkflow: 'button:has-text("Upload From Device")', // Upload in workflow
+  signatureTypeAdvance: 'mat-icon.material-icons-outlined:has-text("https")', // Advanced signature type icon
+  signatureTypeRadioAdvanced: 'div.sub-type-name:has-text("Advanced for EU (eIDAS)")', // Advanced radio button
 } as const;
