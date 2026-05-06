@@ -869,11 +869,6 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     });
     await page.waitForTimeout(5000);
     console.log(`Test 8.12 [${ENV_NAME}]: Send Document clicked\n`);
-
-    // --- STEP 13: Wait for page to load ---
-    await page.waitForLoadState("networkidle");
-    console.log(`Test 8.13 [${ENV_NAME}]: Page loaded\n`);
-
     console.log(`Test 8 [${ENV_NAME}]: Use Workflow from Templates completed\n`);
   });
 });

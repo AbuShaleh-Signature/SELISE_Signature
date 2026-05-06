@@ -9,15 +9,15 @@ on:
         default: 'all'
         type: choice
         options:
-          - all
-          - 'Test 1:'
-          - 'Test 2:'
-          - 'Test 3:'
-          - 'Test 4:'
-          - 'Test 5:'
-          - 'Test 6:'
-          - 'Test 7:'
-          - 'Test 8:'
+          - all # Run full regression suite
+          - 'Test 1:' # Verify home page elements
+          - 'Test 2:' # Verify Landing Page Contents
+          - 'Test 3:' # Verify Signature Module
+          - 'Test 4:' # Upload Document
+          - 'Test 5:' # Signature Advance Workflow
+          - 'Test 6:' # Sign A Document flow
+          - 'Test 7:' # Create Workflow from Templates
+          - 'Test 8:' # Use Workflow from Templates
       environment:
         description: 'Environment (stage/prod)'
         required: true
@@ -31,7 +31,7 @@ jobs:
   test-and-notify:
     runs-on: ubuntu-latest
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     
     steps:
       - name: Checkout code
