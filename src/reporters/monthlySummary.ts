@@ -3,9 +3,9 @@
 // Reads accumulated JSON from daily runs and produces a 5-sheet
 // Excel workbook with aggregated metrics for the month.
 //
-// The report is FULLY REGENERATED each time from JSON data,
-// NOT appended row-by-row. This prevents duplicate rows.
-// Existing dates are tracked and skipped when rebuilding.
+// DAILY BREAKDOWN: new rows are APPENDED incrementally.
+// Aggregate sheets (Overview, Flaky Tests, etc.) are recalculated
+// from all data. No data is ever deleted.
 // ============================================================
 
 import ExcelJS from "exceljs";
@@ -90,12 +90,11 @@ function findFlakyTests(dailyRuns: TestRecord[][]): FlakyTest[] {
     { passes: number; failures: number; totalRuns: number; file: string; suite: string; lastError: string }
   >();
 
-  // Count passes and failures per test across all days
   for (const dayRecords of dailyRuns) {
     const seen = new Set<string>();
     for (const record of dayRecords) {
       const key = record.testName;
-      if (seen.has(key)) continue;  // only count each test once per day
+      if (seen.has(key)) continue;  // count each test once per day
       seen.add(key);
 
       if (!testMap.has(key)) {
@@ -121,7 +120,7 @@ function findFlakyTests(dailyRuns: TestRecord[][]): FlakyTest[] {
     }
   }
 
-  // Filter: must have BOTH passes and failures = flaky
+  // Filter: must have BOTH passes and failures
   const flaky: FlakyTest[] = [];
   for (const [name, data] of testMap) {
     if (data.failures > 0 && data.passes > 0) {
@@ -141,13 +140,59 @@ function findFlakyTests(dailyRuns: TestRecord[][]): FlakyTest[] {
   return flaky.sort((a, b) => b.failRate - a.failRate);
 }
 
+// ----------------------------------------------------------
+// Helpers for incremental Excel update
+// ----------------------------------------------------------
+
+// Read existing dates from Daily Breakdown (column A, skip header + TOTAL row)
+function readExistingDates(workbook: ExcelJS.Workbook): string[] {
+  const dates: string[] = [];
+  const sheet = workbook.getWorksheet("Daily Breakdown");
+  if (!sheet) return dates;
+  for (let r = 2; r <= sheet.rowCount; r++) {
+    const cell = sheet.getCell(r, 1);
+    const dateVal = cell.value;
+    let dateStr = "";
+    if (dateVal instanceof Date) {
+      const y = dateVal.getFullYear();
+      const m = String(dateVal.getMonth() + 1).padStart(2, "0");
+      const d = String(dateVal.getDate()).padStart(2, "0");
+      dateStr = `${y}-${m}-${d}`;
+    } else if (typeof dateVal === "string") {
+      dateStr = dateVal;
+    } else if (typeof dateVal === "number") {
+      const d = new Date(Math.round((dateVal - 25569) * 86400 * 1000));
+      dateStr = d.toISOString().split("T")[0];
+    }
+    if (dateStr && dateStr !== "TOTAL") {
+      dates.push(dateStr);
+    }
+  }
+  return dates;
+}
+
+// Find the TOTAL summary row in Daily Breakdown
+function findTotalRow(sheet: ExcelJS.Worksheet): number {
+  for (let r = sheet.rowCount; r >= 1; r--) {
+    if (String(sheet.getCell(r, 1).value) === "TOTAL") return r;
+  }
+  return -1;
+}
+
+// Remove an existing sheet by name and re-add it
+async function replaceAggregateSheet(workbook: ExcelJS.Workbook, sheetName: string, addFn: () => Promise<void>) {
+  const existing = workbook.getWorksheet(sheetName);
+  if (existing) {
+    workbook.removeWorksheet(existing.id);
+  }
+  await addFn();
+}
+
 // ============================================================
 // Main entry: generate (or update) the monthly summary Excel
 // ============================================================
 export async function generateMonthlySummary(env: string, month: string, dataDir: string, outputDir: string) {
   const dailyRuns = loadMonthlyData(env, month, dataDir);
-
-  // Nothing to do if no data for this env/month
   if (dailyRuns.length === 0) {
     console.log(`No data to generate monthly summary for ${env} - ${month}`);
     return;
@@ -157,63 +202,28 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
   const filename = `${env.toLowerCase()}_monthly_summary_${month}.xlsx`;
   const filepath = join(outputDir, filename);
 
-  let workbook: ExcelJS.Workbook;
-  let existingDates: string[] = [];
-
-  // ---- If the file already exists, read it to find which dates are already recorded ----
-  // This avoids duplicate rows when the monthly summary is updated mid-month
-  if (existsSync(filepath)) {
-    console.log(`   Existing file found: ${filepath}`);
-    workbook = await ExcelJS.Workbook.xlsx.readFile(filepath);
-    console.log(`   Worksheets: ${workbook.worksheets.map(w => w.name).join(", ")}`);
-    const existingSheet = workbook.getWorksheet("Daily Breakdown");
-    console.log(`   Daily Breakdown sheet: ${!!existingSheet}`);
-    if (existingSheet) {
-      console.log(`   Sheet rows: ${existingSheet.rowCount}`);
-      // Read column A (Date) from each row, skipping header (row 1) and the TOTAL row
-      for (let r = 2; r <= existingSheet.rowCount; r++) {
-        const cell = existingSheet.getCell(r, 1);
-        const dateVal = cell.value;
-        let dateStr = "";
-
-        // ExcelJS can return dates as Date objects, strings, or serial numbers
-        // Handle all three formats
-        if (dateVal instanceof Date) {
-          const y = dateVal.getFullYear();
-          const m = String(dateVal.getMonth() + 1).padStart(2, "0");
-          const d = String(dateVal.getDate()).padStart(2, "0");
-          dateStr = `${y}-${m}-${d}`;
-          console.log(`   Row ${r}: Date=${dateStr} (Date object)`);
-        } else if (typeof dateVal === "string") {
-          dateStr = dateVal;
-          console.log(`   Row ${r}: Date=${dateStr} (string)`);
-        } else if (typeof dateVal === "number") {
-          // Excel serial number: days since 1899-12-30
-          const d = new Date(Math.round((dateVal - 25569) * 86400 * 1000));
-          dateStr = d.toISOString().split("T")[0];
-          console.log(`   Row ${r}: Date=${dateStr} (serial number ${dateVal})`);
-        } else {
-          console.log(`   Row ${r}: value=${dateVal} type=${typeof dateVal}`);
-        }
-
-        if (dateStr && dateStr !== "TOTAL") {
-          existingDates.push(dateStr);
-        }
-      }
-    }
-
-    // Clear all sheets — we will regenerate them from JSON data
-    while (workbook.worksheets.length > 0) {
-      workbook.removeWorksheet(workbook.worksheets[0].id);
-    }
-  } else {
+  // ---- FRESH FILE: create all 5 sheets from all data ----
+  if (!existsSync(filepath)) {
     console.log(`   No existing file, creating new`);
-    workbook = new ExcelJS.Workbook();
+    const workbook = new ExcelJS.Workbook();
     workbook.creator = "Playwright Monthly Summary Report";
     workbook.created = new Date();
+    await addOverviewSheet(workbook, env, month, dailyRuns);
+    await addDailyBreakdownSheet(workbook, env, month, dailyRuns);
+    await addFlakyTestsSheet(workbook, env, dailyRuns);
+    await addFailedTestsAnalysisSheet(workbook, env, month, dailyRuns);
+    await addTestTrendSheet(workbook, env, dailyRuns);
+    const buffer = await workbook.xlsx.writeBuffer();
+    writeFileSync(filepath, buffer as unknown as Buffer);
+    console.log(`\n📊 Monthly summary generated: ${filepath}`);
+    return;
   }
 
-  // Filter: only days NOT already recorded (for logging)
+  // ---- EXISTING FILE: append only new days, recalc aggregate sheets ----
+  console.log(`   Existing file found: ${filepath}`);
+  const workbook = await ExcelJS.Workbook.xlsx.readFile(filepath);
+  const existingDates = readExistingDates(workbook);
+
   const newDays = dailyRuns.filter((day, index) => {
     const date = day[0]?.timestamp?.split("T")[0] || `Day ${index + 1}`;
     return !existingDates.includes(date);
@@ -221,16 +231,121 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
 
   console.log(`   Existing days: ${existingDates.length}, New days to add: ${newDays.length}`);
 
-  // ---- Generate all 5 sheets from the full dataset ----
-  await addOverviewSheet(workbook, env, month, dailyRuns);
-  await addDailyBreakdownSheet(workbook, env, month, dailyRuns);
-  await addFlakyTestsSheet(workbook, env, dailyRuns);
-  await addFailedTestsAnalysisSheet(workbook, env, month, dailyRuns);
-  await addTestTrendSheet(workbook, env, dailyRuns);
+  if (newDays.length === 0) {
+    console.log(`   No new data to append`);
+    return;
+  }
+
+  // 1) Append new rows to Daily Breakdown + update TOTAL row
+  await appendDailyBreakdownRows(workbook, newDays, dailyRuns);
+
+  // 2) Recalculate Overview metric values in-place
+  await updateOverviewSheet(workbook, env, month, dailyRuns);
+
+  // 3) Rebuild aggregate sheets from ALL data
+  await replaceAggregateSheet(workbook, "Flaky Tests", () => addFlakyTestsSheet(workbook, env, dailyRuns));
+  await replaceAggregateSheet(workbook, `${env} - Failed Tests Analysis`, () => addFailedTestsAnalysisSheet(workbook, env, month, dailyRuns));
+  await replaceAggregateSheet(workbook, "Test Trends", () => addTestTrendSheet(workbook, env, dailyRuns));
 
   const buffer = await workbook.xlsx.writeBuffer();
   writeFileSync(filepath, buffer as unknown as Buffer);
-  console.log(`\n📊 Monthly summary ${existingDates.length > 0 ? "updated" : "generated"}: ${filepath}`);
+  console.log(`\n📊 Monthly summary updated (appended ${newDays.length} new day(s)): ${filepath}`);
+}
+
+// ----------------------------------------------------------
+// Append new rows to Daily Breakdown and rewrite the TOTAL row
+// ----------------------------------------------------------
+async function appendDailyBreakdownRows(workbook: ExcelJS.Workbook, newDays: TestRecord[][], allDailyRuns: TestRecord[][]) {
+  const sheet = workbook.getWorksheet("Daily Breakdown")!;
+
+  // Remove old TOTAL row so new rows go before it
+  const totalRowIdx = findTotalRow(sheet);
+  if (totalRowIdx > 0) {
+    sheet.spliceRows(totalRowIdx, 1);
+  }
+
+  // Add one row per new day
+  newDays.forEach((dayRecords, index) => {
+    const stats = calculateStats(dayRecords);
+    const date = dayRecords[0]?.timestamp?.split("T")[0] || `Day ${index + 1}`;
+    const row = sheet.addRow({
+      date,
+      total: stats.total,
+      passed: stats.passed,
+      failed: stats.failed,
+      timedOut: stats.timedOut,
+      skipped: stats.skipped,
+      passRate: `${stats.passRate.toFixed(2)}%`,
+      duration: (stats.totalDurationMs / 1000).toFixed(2),
+    });
+
+    const passRateCell = row.getCell("passRate");
+    if (stats.passRate === 100) {
+      passRateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC6EFCE" } };
+      passRateCell.font = { color: { argb: "FF006100" }, bold: true };
+    } else if (stats.passRate >= 80) {
+      passRateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFF2CC" } };
+      passRateCell.font = { color: { argb: "FF9C6500" }, bold: true };
+    } else {
+      passRateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFC7CE" } };
+      passRateCell.font = { color: { argb: "FF9C0006" }, bold: true };
+    }
+
+    row.eachCell((cell) => {
+      cell.alignment = { vertical: "middle", horizontal: "center" };
+      cell.border = { top: { style: "thin" }, bottom: { style: "thin" }, left: { style: "thin" }, right: { style: "thin" } };
+    });
+  });
+
+  // Re-add TOTAL row using ALL data
+  const totals = calculateStats(allDailyRuns.flat());
+  const totalRow = sheet.addRow({
+    date: "TOTAL",
+    total: totals.total,
+    passed: totals.passed,
+    failed: totals.failed,
+    timedOut: totals.timedOut,
+    skipped: totals.skipped,
+    passRate: `${totals.passRate.toFixed(2)}%`,
+    duration: (totals.totalDurationMs / 1000).toFixed(2),
+  });
+  totalRow.font = { bold: true };
+  totalRow.eachCell((cell) => {
+    cell.border = { top: { style: "medium" }, bottom: { style: "medium" }, left: { style: "medium" }, right: { style: "medium" } };
+  });
+}
+
+// ----------------------------------------------------------
+// Update Overview sheet values in-place
+// ----------------------------------------------------------
+async function updateOverviewSheet(workbook: ExcelJS.Workbook, env: string, month: string, dailyRuns: TestRecord[][]) {
+  let sheet = workbook.getWorksheet("Overview");
+  if (!sheet) {
+    await addOverviewSheet(workbook, env, month, dailyRuns);
+    return;
+  }
+
+  const allRecords = dailyRuns.flat();
+  const stats = calculateStats(allRecords);
+  const totalExecutionDays = dailyRuns.length;
+
+  const metricValues: Record<string, string> = {
+    "Total Execution Days": totalExecutionDays.toString(),
+    "Total Tests Executed": stats.total.toString(),
+    "Total Passed": stats.passed.toString(),
+    "Total Failed": stats.totalFailures.toString(),
+    "Total Skipped": stats.skipped.toString(),
+    "Overall Pass Rate": `${stats.passRate.toFixed(2)}%`,
+    "Total Execution Time (hrs)": (stats.totalDurationMs / 3600000).toFixed(2),
+    "Average Test Duration (ms)": stats.avgDurationMs.toFixed(2),
+  };
+
+  for (let r = 1; r <= sheet.rowCount; r++) {
+    const metricName = String(sheet.getCell(r, 1).value || "");
+    if (metricValues[metricName] !== undefined) {
+      sheet.getCell(r, 2).value = metricValues[metricName];
+    }
+  }
 }
 
 // ============================================================
@@ -297,7 +412,6 @@ async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, m
   headerRow.font = { bold: true, color: { argb: "FFFFFFFF" } };
   headerRow.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF70AD47" } };
 
-  // One row per day
   dailyRuns.forEach((dayRecords, index) => {
     const stats = calculateStats(dayRecords);
     const date = dayRecords[0]?.timestamp?.split("T")[0] || `Day ${index + 1}`;
@@ -313,7 +427,6 @@ async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, m
       duration: (stats.totalDurationMs / 1000).toFixed(2),
     });
 
-    // Color-code the pass rate cell
     const passRateCell = row.getCell("passRate");
     if (stats.passRate === 100) {
       passRateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC6EFCE" } };
@@ -332,7 +445,6 @@ async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, m
     });
   });
 
-  // Add a TOTAL summary row at the bottom
   const totals = calculateStats(dailyRuns.flat());
   const totalRow = sheet.addRow({
     date: "TOTAL",
@@ -392,7 +504,6 @@ async function addFlakyTestsSheet(workbook: ExcelJS.Workbook, env: string, daily
         lastError: test.lastError,
       });
 
-      // Highlight tests with > 50% failure rate in red
       const rateCell = row.getCell("failRate");
       if (test.failRate > 50) {
         rateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFC7CE" } };
@@ -416,7 +527,6 @@ async function addFlakyTestsSheet(workbook: ExcelJS.Workbook, env: string, daily
 async function addFailedTestsAnalysisSheet(workbook: ExcelJS.Workbook, env: string, month: string, dailyRuns: TestRecord[][]) {
   const allFailed = dailyRuns.flat().filter((r) => r.status === "failed" || r.status === "timedOut");
 
-  // Group failures by test name and track which dates they failed on
   const failureCounts = new Map<string, { count: number; error: string; file: string; suite: string; dates: string[] }>();
 
   for (const record of allFailed) {
@@ -430,7 +540,6 @@ async function addFailedTestsAnalysisSheet(workbook: ExcelJS.Workbook, env: stri
     if (!entry.dates.includes(date)) entry.dates.push(date);
   }
 
-  // Sort: most failures first
   const sortedFailures = Array.from(failureCounts.entries()).sort((a, b) => b[1].count - a[1].count);
 
   // Env prefix prevents STAGE and PROD from overwriting each other's sheet
@@ -489,7 +598,6 @@ async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyR
   headerRow.font = { bold: true, color: { argb: "FFFFFFFF" } };
   headerRow.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF9B59B6" } };
 
-  // Aggregate per-test stats across all days (one entry per day per test)
   const testStats = new Map<string, { runs: number; passes: number; failures: number; durations: number[] }>();
 
   for (const dayRecords of dailyRuns) {
@@ -511,7 +619,6 @@ async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyR
     }
   }
 
-  // Sort alphabetically by test name
   const sortedTests = Array.from(testStats.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 
   sortedTests.forEach(([name, data]) => {
@@ -527,7 +634,6 @@ async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyR
       avgDuration: avgDuration.toFixed(2),
     });
 
-    // Color-code the success rate
     const rateCell = row.getCell("rate");
     if (rate === 100) {
       rateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC6EFCE" } };
@@ -547,7 +653,7 @@ async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyR
 }
 
 // ============================================================
-// CLI entry point — called directly via npm run report:monthly:*
+// CLI entry point
 // e.g. npm run report:monthly:stage -- --env=STAGE --month=2026-05
 // ============================================================
 async function main() {
@@ -575,7 +681,7 @@ async function main() {
   console.log("\nMonthly summary generation complete!");
 }
 
-// Guard: only run main() when this file is executed directly (not when imported)
+// Guard: only run main() when executed directly
 if (process.argv[1]?.endsWith("monthlySummary.ts")) {
   main().catch(console.error);
 }
