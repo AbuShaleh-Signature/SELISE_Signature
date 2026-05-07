@@ -86,28 +86,39 @@ jobs:
         retention-days: 90
     - name: Notify Teams
       if: ${{ always() }}
+      env:
+        TEAMS_STATUS: ${{ job.status }}
+        TEAMS_SHA: ${{ github.sha }}
+        TEAMS_BRANCH: ${{ github.ref_name }}
+        TEAMS_REPO: ${{ github.repository }}
+        TEAMS_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
       run: |
-        curl -s -H "Content-Type: application/json" -d '{
-          "type": "message",
-          "attachments": [{
-            "contentType": "application/vnd.microsoft.card.adaptive",
-            "content": {
-              "type": "AdaptiveCard",
-              "body": [
-                {"type": "TextBlock", "text": "Stage Regression Results", "weight": "Bolder", "size": "Medium"},
-                {"type": "FactSet", "facts": [
-                  {"title": "Status", "value": "${{ job.status }}"},
-                  {"title": "Trigger", "value": "Scheduled (11:00 PM BDT)"},
-                  {"title": "Commit", "value": "${{ github.sha }}"}
+        STATUS_EMOJI="✅"
+        if [ "$TEAMS_STATUS" != "success" ]; then STATUS_EMOJI="❌"; fi
+        curl -s -H "Content-Type: application/json" -d "{
+          \"type\": \"message\",
+          \"attachments\": [{
+            \"contentType\": \"application/vnd.microsoft.card.adaptive\",
+            \"content\": {
+              \"type\": \"AdaptiveCard\",
+              \"body\": [
+                {\"type\": \"TextBlock\", \"text\": \"Stage Regression Results\", \"weight\": \"Bolder\", \"size\": \"Medium\"},
+                {\"type\": \"FactSet\", \"facts\": [
+                  {\"title\": \"Repository\", \"value\": \"$TEAMS_REPO\"},
+                  {\"title\": \"Test\", \"value\": \"all\"},
+                  {\"title\": \"Environment\", \"value\": \"stage\"},
+                  {\"title\": \"Status\", \"value\": \"$STATUS_EMOJI $TEAMS_STATUS\"},
+                  {\"title\": \"Trigger\", \"value\": \"Scheduled (11:00 PM BDT)\"},
+                  {\"title\": \"Branch\", \"value\": \"$TEAMS_BRANCH\"}
                 ]},
-                {"type": "TextBlock", "text": "Excel reports available in Actions artifacts", "isSubtle": true},
-                {"type": "TextBlock", "text": "[View Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})", "weight": "Bolder"}
+                {\"type\": \"TextBlock\", \"text\": \"Excel reports available in Actions artifacts\", \"isSubtle\": true},
+                {\"type\": \"TextBlock\", \"text\": \"[View Report]($TEAMS_RUN_URL)\", \"weight\": \"Bolder\"}
               ],
-              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-              "version": "1.2"
+              \"\$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",
+              \"version\": \"1.2\"
             }
           }]
-        }' ${{ secrets.TEAMS_WEBHOOK_URL }}
+        }" ${{ secrets.TEAMS_WEBHOOK_URL }}
 
   test-prod:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 9 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
@@ -152,25 +163,36 @@ jobs:
         retention-days: 90
     - name: Notify Teams
       if: ${{ always() }}
+      env:
+        TEAMS_STATUS: ${{ job.status }}
+        TEAMS_SHA: ${{ github.sha }}
+        TEAMS_BRANCH: ${{ github.ref_name }}
+        TEAMS_REPO: ${{ github.repository }}
+        TEAMS_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
       run: |
-        curl -s -H "Content-Type: application/json" -d '{
-          "type": "message",
-          "attachments": [{
-            "contentType": "application/vnd.microsoft.card.adaptive",
-            "content": {
-              "type": "AdaptiveCard",
-              "body": [
-                {"type": "TextBlock", "text": "Prod Regression Results", "weight": "Bolder", "size": "Medium"},
-                {"type": "FactSet", "facts": [
-                  {"title": "Status", "value": "${{ job.status }}"},
-                  {"title": "Trigger", "value": "Scheduled (03:00 PM BDT)"},
-                  {"title": "Commit", "value": "${{ github.sha }}"}
+        STATUS_EMOJI="✅"
+        if [ "$TEAMS_STATUS" != "success" ]; then STATUS_EMOJI="❌"; fi
+        curl -s -H "Content-Type: application/json" -d "{
+          \"type\": \"message\",
+          \"attachments\": [{
+            \"contentType\": \"application/vnd.microsoft.card.adaptive\",
+            \"content\": {
+              \"type\": \"AdaptiveCard\",
+              \"body\": [
+                {\"type\": \"TextBlock\", \"text\": \"Prod Regression Results\", \"weight\": \"Bolder\", \"size\": \"Medium\"},
+                {\"type\": \"FactSet\", \"facts\": [
+                  {\"title\": \"Repository\", \"value\": \"$TEAMS_REPO\"},
+                  {\"title\": \"Test\", \"value\": \"all\"},
+                  {\"title\": \"Environment\", \"value\": \"prod\"},
+                  {\"title\": \"Status\", \"value\": \"$STATUS_EMOJI $TEAMS_STATUS\"},
+                  {\"title\": \"Trigger\", \"value\": \"Scheduled (03:00 PM BDT)\"},
+                  {\"title\": \"Branch\", \"value\": \"$TEAMS_BRANCH\"}
                 ]},
-                {"type": "TextBlock", "text": "Excel reports available in Actions artifacts", "isSubtle": true},
-                {"type": "TextBlock", "text": "[View Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})", "weight": "Bolder"}
+                {\"type\": \"TextBlock\", \"text\": \"Excel reports available in Actions artifacts\", \"isSubtle\": true},
+                {\"type\": \"TextBlock\", \"text\": \"[View Report]($TEAMS_RUN_URL)\", \"weight\": \"Bolder\"}
               ],
-              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-              "version": "1.2"
+              \"\$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",
+              \"version\": \"1.2\"
             }
           }]
-        }' ${{ secrets.TEAMS_WEBHOOK_URL }}
+        }" ${{ secrets.TEAMS_WEBHOOK_URL }}
