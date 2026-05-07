@@ -5,7 +5,7 @@ import { join } from "path";
 interface TestRecord {
   testName: string;
   suiteName: string;
-  status: "passed" | "failed" | "skipped" | "timedOut";
+  status: "passed" | "failed" | "skipped" | "timedOut" | "interrupted";
   duration: number;
   file: string;
   lineNumber: number;

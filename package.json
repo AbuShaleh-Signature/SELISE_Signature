@@ -5,7 +5,8 @@
   "scripts": {
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
-    "test:smoke": "npx playwright test --grep @smoke",
+    "test:smoke": "cross-env TEST_ENV=STAGE npx playwright test tests/ui/smokeTest.spec.ts --headed",
+    "test:smoke:ci": "cross-env TEST_ENV=STAGE npx playwright test tests/ui/smokeTest.spec.ts",
     "test:regression": "npx playwright test --grep @regression",
     "test:critical": "npx playwright test --grep @critical",
     "test:functional": "npx playwright test --grep @functional",
