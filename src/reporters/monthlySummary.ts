@@ -173,7 +173,6 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
     }
   } else {
     console.log(`   No existing file, creating new`);
-  }
     workbook = new ExcelJS.Workbook();
     workbook.creator = "Playwright Monthly Summary Report";
     workbook.created = new Date();
@@ -378,7 +377,7 @@ async function addFailedTestsAnalysisSheet(workbook: ExcelJS.Workbook, env: stri
 
   const sortedFailures = Array.from(failureCounts.entries()).sort((a, b) => b[1].count - a[1].count);
 
-  const sheet = workbook.addWorksheet("Failed Tests Analysis", { properties: { tabColor: { argb: "FFFF0000" } } });
+  const sheet = workbook.addWorksheet(`${env} - Failed Tests Analysis`, { properties: { tabColor: { argb: "FFFF0000" } } });
 
   sheet.columns = [
     { header: "No.", key: "no", width: 6 },
