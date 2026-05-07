@@ -1,0 +1,30 @@
+[
+  [
+    {
+      "testName": "Test 7: Create Workflow from Templates",
+      "suiteName": "chromium > ui\\regressionTest.prod.spec.ts > 📋 Regression Suite - PROD Environment",
+      "status": "failed",
+      "duration": 27628,
+      "file": "tests/ui/regressionTest.prod.spec.ts",
+      "lineNumber": 630,
+      "error": "Error: locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('button.create-template-btn:visible').first() to be visible\u001b[22m\n\nError: locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('button.create-template-btn:visible').first() to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.prod.spec.ts:650:29",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-07T19:34:47.287Z",
+      "env": "PROD"
+    },
+    {
+      "testName": "Test 8: Use Workflow from Templates",
+      "suiteName": "chromium > ui\\regressionTest.prod.spec.ts > 📋 Regression Suite - PROD Environment",
+      "status": "skipped",
+      "duration": 0,
+      "file": "tests/ui/regressionTest.prod.spec.ts",
+      "lineNumber": 758,
+      "error": "",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-07T19:34:47.295Z",
+      "env": "PROD"
+    }
+  ]
+]

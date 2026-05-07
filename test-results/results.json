@@ -70,25 +70,25 @@
   },
   "suites": [
     {
-      "title": "ui\\regressionTest.stage.spec.ts",
-      "file": "ui/regressionTest.stage.spec.ts",
+      "title": "ui\\regressionTest.prod.spec.ts",
+      "file": "ui/regressionTest.prod.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "📋 Regression Suite - STAGE Environment",
-          "file": "ui/regressionTest.stage.spec.ts",
-          "line": 66,
+          "title": "📋 Regression Suite - PROD Environment",
+          "file": "ui/regressionTest.prod.spec.ts",
+          "line": 69,
           "column": 25,
           "specs": [
             {
               "title": "Test 7: Create Workflow from Templates",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 600000,
+                  "timeout": 900000,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
@@ -97,9 +97,28 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 55602,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 27628,
+                      "error": {
+                        "message": "Error: locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('button.create-template-btn:visible').first() to be visible\u001b[22m\n",
+                        "stack": "Error: locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('button.create-template-btn:visible').first() to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.prod.spec.ts:650:29",
+                        "location": {
+                          "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.prod.spec.ts",
+                          "column": 29,
+                          "line": 650
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 648 |\u001b[39m     \u001b[90m// --- STEP 3: Click Create Workflow button ---\u001b[39m\n \u001b[90m 649 |\u001b[39m     \u001b[36mconst\u001b[39m createWorkflowBtn \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"button.create-template-btn:visible\"\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 650 |\u001b[39m     \u001b[36mawait\u001b[39m createWorkflowBtn\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 651 |\u001b[39m     \u001b[36mawait\u001b[39m createWorkflowBtn\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 652 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 653 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 7.3 [${ENV_NAME}]: Create Workflow clicked\\n`\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.prod.spec.ts",
+                            "column": 29,
+                            "line": 650
+                          },
+                          "message": "Error: locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('button.create-template-btn:visible').first() to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 648 |\u001b[39m     \u001b[90m// --- STEP 3: Click Create Workflow button ---\u001b[39m\n \u001b[90m 649 |\u001b[39m     \u001b[36mconst\u001b[39m createWorkflowBtn \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m\"button.create-template-btn:visible\"\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 650 |\u001b[39m     \u001b[36mawait\u001b[39m createWorkflowBtn\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 651 |\u001b[39m     \u001b[36mawait\u001b[39m createWorkflowBtn\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 652 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 653 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 7.3 [${ENV_NAME}]: Create Workflow clicked\\n`\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.prod.spec.ts:650:29\u001b[22m"
+                        }
+                      ],
                       "stdout": [
                         {
                           "text": "{\"level\":\"info\",\"message\":\"Initializing browser...\"}\r\n"
@@ -114,64 +133,70 @@
                           "text": "{\"level\":\"info\",\"message\":\"Login successful - Session started\"}\r\n"
                         },
                         {
-                          "text": "Test 7.1 [STAGE]: Navigated to Signature module\n\n"
+                          "text": "Test 7.1 [PROD]: Navigated to Signature module\n\n"
                         },
                         {
-                          "text": "Test 7.2 [STAGE]: Templates section clicked\n\n"
-                        },
-                        {
-                          "text": "Test 7.3 [STAGE]: Create Workflow clicked\n\n"
-                        },
-                        {
-                          "text": "Test 7.4 [STAGE]: Upload From Device clicked\n\n"
-                        },
-                        {
-                          "text": "Test 7.5 [STAGE]: File uploaded\n\n"
-                        },
-                        {
-                          "text": "Test 7.6 [STAGE]: Contract name filled\n\n"
-                        },
-                        {
-                          "text": "Test 7.7 [STAGE]: Tag added\n\n"
-                        },
-                        {
-                          "text": "Test 7.8 [STAGE]: Add Recipient clicked\n\n"
-                        },
-                        {
-                          "text": "Test 7.9 [STAGE]: Add Dynamic Signatory clicked\n\n"
-                        },
-                        {
-                          "text": "Test 7.10 [STAGE]: Prepare Document clicked\n\n"
-                        },
-                        {
-                          "text": "Test 7.11 [STAGE]: Signature dragged\n\n"
-                        },
-                        {
-                          "text": "Test 7.12 [STAGE]: Save Workflow button enabled\n\n"
-                        },
-                        {
-                          "text": "Test 7.13 [STAGE]: Save Workflow clicked\n\n"
-                        },
-                        {
-                          "text": "Test 7.14 [STAGE]: Redirected to workflow page\n\n"
-                        },
-                        {
-                          "text": "Test 7 [STAGE]: Create Workflow from Templates completed\n\n"
+                          "text": "Test 7.2 [PROD]: Templates section clicked\n\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-07T19:10:34.476Z",
+                      "startTime": "2026-05-07T19:34:19.612Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\test-results\\ui-regressionTest.prod-📋--ec647-ate-Workflow-from-Templates-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.prod.spec.ts",
+                        "column": 29,
+                        "line": 650
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "0b0ecd1a950af45878a4-fee677277f5107b625b2",
+              "file": "ui/regressionTest.prod.spec.ts",
+              "line": 630,
+              "column": 3
+            },
+            {
+              "title": "Test 8: Use Workflow from Templates",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T19:34:47.288Z",
                       "annotations": [],
                       "attachments": []
                     }
                   ],
-                  "status": "expected"
+                  "status": "skipped"
                 }
               ],
-              "id": "3fd36ba8e87d40ac9d39-1ec2f490704766186bff",
-              "file": "ui/regressionTest.stage.spec.ts",
-              "line": 629,
+              "id": "0b0ecd1a950af45878a4-b610a2c14935244cf5f7",
+              "file": "ui/regressionTest.prod.spec.ts",
+              "line": 758,
               "column": 3
             }
           ]
@@ -181,11 +206,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-07T19:10:33.397Z",
-    "duration": 57077.695,
-    "expected": 1,
-    "skipped": 0,
-    "unexpected": 0,
+    "startTime": "2026-05-07T19:34:18.885Z",
+    "duration": 29011.754,
+    "expected": 0,
+    "skipped": 1,
+    "unexpected": 1,
     "flaky": 0
   }
 }
