@@ -42,6 +42,21 @@ jobs:
         name: playwright-smoke-report
         path: playwright-report/
         retention-days: 30
+    - name: Notify Teams
+      if: ${{ always() && github.event_name == 'push' }}
+      uses: skitionek/notify-microsoft-teams@master
+      with:
+        webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        job: ${{ job.status }}
+        title: "Smoke Test - Stage"
+        text: |
+          **Smoke Test Results (Stage)**
+          - **Status:** ${{ job.status }}
+          - **Trigger:** ${{ github.event_name }}
+          - **Commit:** ${{ github.sha }}
+          - **Branch:** ${{ github.ref_name }}
+          - **Actor:** ${{ github.actor }}
+          - [View Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
   test-stage:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 17 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
@@ -84,6 +99,20 @@ jobs:
         name: playwright-monthly-data-stage
         path: test-results/excel-reports/monthly-data/
         retention-days: 365
+    - name: Notify Teams
+      if: ${{ always() }}
+      uses: skitionek/notify-microsoft-teams@master
+      with:
+        webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        job: ${{ job.status }}
+        title: "Regression Test - Stage (Scheduled)"
+        text: |
+          **Stage Regression Results**
+          - **Status:** ${{ job.status }}
+          - **Trigger:** Scheduled (11:00 PM BDT)
+          - **Commit:** ${{ github.sha }}
+          - **Excel Report:** Download from Actions artifacts
+          - [View Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
 
   test-prod:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 9 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
@@ -126,3 +155,17 @@ jobs:
         name: playwright-monthly-data-prod
         path: test-results/excel-reports/monthly-data/
         retention-days: 365
+    - name: Notify Teams
+      if: ${{ always() }}
+      uses: skitionek/notify-microsoft-teams@master
+      with:
+        webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        job: ${{ job.status }}
+        title: "Regression Test - Prod (Scheduled)"
+        text: |
+          **Prod Regression Results**
+          - **Status:** ${{ job.status }}
+          - **Trigger:** Scheduled (03:00 PM BDT)
+          - **Commit:** ${{ github.sha }}
+          - **Excel Report:** Download from Actions artifacts
+          - [View Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
