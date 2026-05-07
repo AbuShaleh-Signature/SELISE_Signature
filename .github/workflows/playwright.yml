@@ -108,7 +108,7 @@ jobs:
                   {\"title\": \"Test\", \"value\": \"all\"},
                   {\"title\": \"Environment\", \"value\": \"stage\"},
                   {\"title\": \"Status\", \"value\": \"$STATUS_EMOJI $TEAMS_STATUS\"},
-                  {\"title\": \"Trigger\", \"value\": \"Scheduled (11:00 PM BDT)\"},
+                  {\"title\": \"Trigger\", \"value\": \"Scheduled (11:45 AM BDT)\"},
                   {\"title\": \"Branch\", \"value\": \"$TEAMS_BRANCH\"}
                 ]},
                 {\"type\": \"TextBlock\", \"text\": \"Excel reports available in Actions artifacts\", \"isSubtle\": true},
@@ -185,7 +185,7 @@ jobs:
                   {\"title\": \"Test\", \"value\": \"all\"},
                   {\"title\": \"Environment\", \"value\": \"prod\"},
                   {\"title\": \"Status\", \"value\": \"$STATUS_EMOJI $TEAMS_STATUS\"},
-                  {\"title\": \"Trigger\", \"value\": \"Scheduled (03:00 PM BDT)\"},
+                  {\"title\": \"Trigger\", \"value\": \"Scheduled (04:00 PM BDT)\"},
                   {\"title\": \"Branch\", \"value\": \"$TEAMS_BRANCH\"}
                 ]},
                 {\"type\": \"TextBlock\", \"text\": \"Excel reports available in Actions artifacts\", \"isSubtle\": true},
