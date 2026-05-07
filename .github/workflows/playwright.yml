@@ -42,30 +42,6 @@ jobs:
         name: playwright-smoke-report
         path: playwright-report/
         retention-days: 30
-    - name: Notify Teams
-      if: ${{ always() && github.event_name == 'push' }}
-      run: |
-        curl -s -H "Content-Type: application/json" -d '{
-          "type": "message",
-          "attachments": [{
-            "contentType": "application/vnd.microsoft.card.adaptive",
-            "content": {
-              "type": "AdaptiveCard",
-              "body": [
-                {"type": "TextBlock", "text": "Smoke Test Results (Stage)", "weight": "Bolder", "size": "Medium"},
-                {"type": "FactSet", "facts": [
-                  {"title": "Status", "value": "${{ job.status }}"},
-                  {"title": "Commit", "value": "${{ github.sha }}"},
-                  {"title": "Branch", "value": "${{ github.ref_name }}"},
-                  {"title": "Actor", "value": "${{ github.actor }}"}
-                ]},
-                {"type": "TextBlock", "text": "[View Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})", "weight": "Bolder"}
-              ],
-              "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-              "version": "1.2"
-            }
-          }]
-        }' ${{ secrets.TEAMS_WEBHOOK_URL }}
 
   test-stage:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 17 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
