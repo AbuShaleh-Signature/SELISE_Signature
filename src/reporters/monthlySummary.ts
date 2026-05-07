@@ -1,7 +1,18 @@
+// ============================================================
+// Monthly Summary Generator
+// Reads accumulated JSON from daily runs and produces a 5-sheet
+// Excel workbook with aggregated metrics for the month.
+//
+// The report is FULLY REGENERATED each time from JSON data,
+// NOT appended row-by-row. This prevents duplicate rows.
+// Existing dates are tracked and skipped when rebuilding.
+// ============================================================
+
 import ExcelJS from "exceljs";
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from "fs";
 import { join } from "path";
 
+// A single test result (same shape as excelReporter.ts)
 interface TestRecord {
   testName: string;
   suiteName: string;
@@ -16,6 +27,7 @@ interface TestRecord {
   env: string;
 }
 
+// A test that passed on some days and failed on others
 interface FlakyTest {
   name: string;
   suite: string;
@@ -27,6 +39,9 @@ interface FlakyTest {
   lastError: string;
 }
 
+// ----------------------------------------------------------
+// Load all daily-run arrays for a given env + month from JSON
+// ----------------------------------------------------------
 function loadMonthlyData(env: string, month: string, dataDir: string): TestRecord[][] {
   const monthlyFile = join(dataDir, `${env.toLowerCase()}_${month}.json`);
   if (!existsSync(monthlyFile)) {
@@ -36,6 +51,7 @@ function loadMonthlyData(env: string, month: string, dataDir: string): TestRecor
   return JSON.parse(readFileSync(monthlyFile, "utf-8"));
 }
 
+// List all available month IDs for a given env
 function getAllMonths(env: string, dataDir: string): string[] {
   if (!existsSync(dataDir)) return [];
   const files = readdirSync(dataDir).filter((f) => f.startsWith(env.toLowerCase() + "_"));
@@ -44,6 +60,7 @@ function getAllMonths(env: string, dataDir: string): string[] {
     .sort();
 }
 
+// Compute aggregate stats from an array of test records
 function calculateStats(records: TestRecord[]) {
   const total = records.length;
   const passed = records.filter((r) => r.status === "passed").length;
@@ -65,17 +82,20 @@ function calculateStats(records: TestRecord[]) {
   };
 }
 
+// Identify flaky tests: tests that passed on at least one day
+// AND failed on at least one day across the month
 function findFlakyTests(dailyRuns: TestRecord[][]): FlakyTest[] {
   const testMap = new Map<
     string,
     { passes: number; failures: number; totalRuns: number; file: string; suite: string; lastError: string }
   >();
 
+  // Count passes and failures per test across all days
   for (const dayRecords of dailyRuns) {
     const seen = new Set<string>();
     for (const record of dayRecords) {
       const key = record.testName;
-      if (seen.has(key)) continue;
+      if (seen.has(key)) continue;  // only count each test once per day
       seen.add(key);
 
       if (!testMap.has(key)) {
@@ -101,6 +121,7 @@ function findFlakyTests(dailyRuns: TestRecord[][]): FlakyTest[] {
     }
   }
 
+  // Filter: must have BOTH passes and failures = flaky
   const flaky: FlakyTest[] = [];
   for (const [name, data] of testMap) {
     if (data.failures > 0 && data.passes > 0) {
@@ -120,9 +141,13 @@ function findFlakyTests(dailyRuns: TestRecord[][]): FlakyTest[] {
   return flaky.sort((a, b) => b.failRate - a.failRate);
 }
 
+// ============================================================
+// Main entry: generate (or update) the monthly summary Excel
+// ============================================================
 export async function generateMonthlySummary(env: string, month: string, dataDir: string, outputDir: string) {
   const dailyRuns = loadMonthlyData(env, month, dataDir);
 
+  // Nothing to do if no data for this env/month
   if (dailyRuns.length === 0) {
     console.log(`No data to generate monthly summary for ${env} - ${month}`);
     return;
@@ -135,6 +160,8 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
   let workbook: ExcelJS.Workbook;
   let existingDates: string[] = [];
 
+  // ---- If the file already exists, read it to find which dates are already recorded ----
+  // This avoids duplicate rows when the monthly summary is updated mid-month
   if (existsSync(filepath)) {
     console.log(`   Existing file found: ${filepath}`);
     workbook = await ExcelJS.Workbook.xlsx.readFile(filepath);
@@ -143,10 +170,14 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
     console.log(`   Daily Breakdown sheet: ${!!existingSheet}`);
     if (existingSheet) {
       console.log(`   Sheet rows: ${existingSheet.rowCount}`);
+      // Read column A (Date) from each row, skipping header (row 1) and the TOTAL row
       for (let r = 2; r <= existingSheet.rowCount; r++) {
         const cell = existingSheet.getCell(r, 1);
         const dateVal = cell.value;
         let dateStr = "";
+
+        // ExcelJS can return dates as Date objects, strings, or serial numbers
+        // Handle all three formats
         if (dateVal instanceof Date) {
           const y = dateVal.getFullYear();
           const m = String(dateVal.getMonth() + 1).padStart(2, "0");
@@ -157,17 +188,21 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
           dateStr = dateVal;
           console.log(`   Row ${r}: Date=${dateStr} (string)`);
         } else if (typeof dateVal === "number") {
+          // Excel serial number: days since 1899-12-30
           const d = new Date(Math.round((dateVal - 25569) * 86400 * 1000));
           dateStr = d.toISOString().split("T")[0];
           console.log(`   Row ${r}: Date=${dateStr} (serial number ${dateVal})`);
         } else {
           console.log(`   Row ${r}: value=${dateVal} type=${typeof dateVal}`);
         }
+
         if (dateStr && dateStr !== "TOTAL") {
           existingDates.push(dateStr);
         }
       }
     }
+
+    // Clear all sheets — we will regenerate them from JSON data
     while (workbook.worksheets.length > 0) {
       workbook.removeWorksheet(workbook.worksheets[0].id);
     }
@@ -178,6 +213,7 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
     workbook.created = new Date();
   }
 
+  // Filter: only days NOT already recorded (for logging)
   const newDays = dailyRuns.filter((day, index) => {
     const date = day[0]?.timestamp?.split("T")[0] || `Day ${index + 1}`;
     return !existingDates.includes(date);
@@ -185,6 +221,7 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
 
   console.log(`   Existing days: ${existingDates.length}, New days to add: ${newDays.length}`);
 
+  // ---- Generate all 5 sheets from the full dataset ----
   await addOverviewSheet(workbook, env, month, dailyRuns);
   await addDailyBreakdownSheet(workbook, env, month, dailyRuns);
   await addFlakyTestsSheet(workbook, env, dailyRuns);
@@ -196,6 +233,9 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
   console.log(`\n📊 Monthly summary ${existingDates.length > 0 ? "updated" : "generated"}: ${filepath}`);
 }
 
+// ============================================================
+// Sheet 1: Overview — high-level KPIs for the month
+// ============================================================
 async function addOverviewSheet(workbook: ExcelJS.Workbook, env: string, month: string, dailyRuns: TestRecord[][]) {
   const sheet = workbook.addWorksheet("Overview", { properties: { tabColor: { argb: "FF4472C4" } } });
 
@@ -236,6 +276,9 @@ async function addOverviewSheet(workbook: ExcelJS.Workbook, env: string, month: 
   });
 }
 
+// ============================================================
+// Sheet 2: Daily Breakdown — one row per execution day
+// ============================================================
 async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, month: string, dailyRuns: TestRecord[][]) {
   const sheet = workbook.addWorksheet("Daily Breakdown", { properties: { tabColor: { argb: "FF70AD47" } } });
 
@@ -254,6 +297,7 @@ async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, m
   headerRow.font = { bold: true, color: { argb: "FFFFFFFF" } };
   headerRow.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF70AD47" } };
 
+  // One row per day
   dailyRuns.forEach((dayRecords, index) => {
     const stats = calculateStats(dayRecords);
     const date = dayRecords[0]?.timestamp?.split("T")[0] || `Day ${index + 1}`;
@@ -269,6 +313,7 @@ async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, m
       duration: (stats.totalDurationMs / 1000).toFixed(2),
     });
 
+    // Color-code the pass rate cell
     const passRateCell = row.getCell("passRate");
     if (stats.passRate === 100) {
       passRateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC6EFCE" } };
@@ -287,6 +332,7 @@ async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, m
     });
   });
 
+  // Add a TOTAL summary row at the bottom
   const totals = calculateStats(dailyRuns.flat());
   const totalRow = sheet.addRow({
     date: "TOTAL",
@@ -306,6 +352,9 @@ async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, m
   sheet.views = [{ state: "frozen", ySplit: 1 }];
 }
 
+// ============================================================
+// Sheet 3: Flaky Tests — tests that passed AND failed this month
+// ============================================================
 async function addFlakyTestsSheet(workbook: ExcelJS.Workbook, env: string, dailyRuns: TestRecord[][]) {
   const flakyTests = findFlakyTests(dailyRuns);
 
@@ -343,6 +392,7 @@ async function addFlakyTestsSheet(workbook: ExcelJS.Workbook, env: string, daily
         lastError: test.lastError,
       });
 
+      // Highlight tests with > 50% failure rate in red
       const rateCell = row.getCell("failRate");
       if (test.failRate > 50) {
         rateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFC7CE" } };
@@ -359,9 +409,14 @@ async function addFlakyTestsSheet(workbook: ExcelJS.Workbook, env: string, daily
   sheet.views = [{ state: "frozen", ySplit: 1 }];
 }
 
+// ============================================================
+// Sheet 4: Failed Tests Analysis — grouped by test, with dates
+// Sheet name includes env prefix to avoid cross-env overwrites
+// ============================================================
 async function addFailedTestsAnalysisSheet(workbook: ExcelJS.Workbook, env: string, month: string, dailyRuns: TestRecord[][]) {
   const allFailed = dailyRuns.flat().filter((r) => r.status === "failed" || r.status === "timedOut");
 
+  // Group failures by test name and track which dates they failed on
   const failureCounts = new Map<string, { count: number; error: string; file: string; suite: string; dates: string[] }>();
 
   for (const record of allFailed) {
@@ -375,8 +430,10 @@ async function addFailedTestsAnalysisSheet(workbook: ExcelJS.Workbook, env: stri
     if (!entry.dates.includes(date)) entry.dates.push(date);
   }
 
+  // Sort: most failures first
   const sortedFailures = Array.from(failureCounts.entries()).sort((a, b) => b[1].count - a[1].count);
 
+  // Env prefix prevents STAGE and PROD from overwriting each other's sheet
   const sheet = workbook.addWorksheet(`${env} - Failed Tests Analysis`, { properties: { tabColor: { argb: "FFFF0000" } } });
 
   sheet.columns = [
@@ -413,6 +470,9 @@ async function addFailedTestsAnalysisSheet(workbook: ExcelJS.Workbook, env: stri
   sheet.views = [{ state: "frozen", ySplit: 1 }];
 }
 
+// ============================================================
+// Sheet 5: Test Trends — per-test success rate across all days
+// ============================================================
 async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyRuns: TestRecord[][]) {
   const sheet = workbook.addWorksheet("Test Trends", { properties: { tabColor: { argb: "FF9B59B6" } } });
 
@@ -429,6 +489,7 @@ async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyR
   headerRow.font = { bold: true, color: { argb: "FFFFFFFF" } };
   headerRow.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF9B59B6" } };
 
+  // Aggregate per-test stats across all days (one entry per day per test)
   const testStats = new Map<string, { runs: number; passes: number; failures: number; durations: number[] }>();
 
   for (const dayRecords of dailyRuns) {
@@ -450,6 +511,7 @@ async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyR
     }
   }
 
+  // Sort alphabetically by test name
   const sortedTests = Array.from(testStats.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 
   sortedTests.forEach(([name, data]) => {
@@ -465,6 +527,7 @@ async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyR
       avgDuration: avgDuration.toFixed(2),
     });
 
+    // Color-code the success rate
     const rateCell = row.getCell("rate");
     if (rate === 100) {
       rateCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC6EFCE" } };
@@ -483,6 +546,10 @@ async function addTestTrendSheet(workbook: ExcelJS.Workbook, env: string, dailyR
   sheet.views = [{ state: "frozen", ySplit: 1 }];
 }
 
+// ============================================================
+// CLI entry point — called directly via npm run report:monthly:*
+// e.g. npm run report:monthly:stage -- --env=STAGE --month=2026-05
+// ============================================================
 async function main() {
   const args = process.argv.slice(2);
   const env = args.find((a) => a.startsWith("--env="))?.split("=")[1]?.toUpperCase() || "ALL";
@@ -508,6 +575,7 @@ async function main() {
   console.log("\nMonthly summary generation complete!");
 }
 
+// Guard: only run main() when this file is executed directly (not when imported)
 if (process.argv[1]?.endsWith("monthlySummary.ts")) {
   main().catch(console.error);
 }
