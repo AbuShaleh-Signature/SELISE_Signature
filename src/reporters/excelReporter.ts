@@ -2,6 +2,7 @@ import { Reporter, FullConfig, Suite, TestCase, TestResult, TestStep, FullResult
 import ExcelJS from "exceljs";
 import { join, dirname } from "path";
 import { mkdirSync, existsSync, readFileSync, writeFileSync } from "fs";
+import { generateMonthlySummary } from "./monthlySummary";
 
 interface TestRecord {
   testName: string;
@@ -128,6 +129,31 @@ class ExcelReporter implements Reporter {
     console.log(`   Skipped: ${this.testRecords.filter((t) => t.status === "skipped").length}`);
 
     await this.appendToMonthlyJson(date, this.testRecords);
+    await this.updateMonthlySummary(date);
+  }
+
+  private async updateMonthlySummary(date: Date) {
+    const monthStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+    const monthlyDir = join(this.outputDir, "monthly-data");
+    const envs = ["STAGE", "PROD"];
+    for (const env of envs) {
+      const envFile = join(monthlyDir, `${env.toLowerCase()}_${monthStr}.json`);
+      if (!existsSync(envFile)) continue;
+      console.log(`📈 Updating monthly summary for ${env} - ${monthStr}...`);
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          await generateMonthlySummary(env, monthStr, monthlyDir, this.outputDir);
+          break;
+        } catch (e) {
+          if ((e as NodeJS.ErrnoException).code === "EBUSY") {
+            await new Promise((r) => setTimeout(r, 2000));
+          } else {
+            console.log(`   Monthly summary update for ${env}: ${(e as Error).message}`);
+            break;
+          }
+        }
+      }
+    }
   }
 
   private async addDailySheet(workbook: ExcelJS.Workbook) {

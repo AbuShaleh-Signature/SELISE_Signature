@@ -120,7 +120,7 @@ function findFlakyTests(dailyRuns: TestRecord[][]): FlakyTest[] {
   return flaky.sort((a, b) => b.failRate - a.failRate);
 }
 
-async function generateMonthlySummary(env: string, month: string, dataDir: string, outputDir: string) {
+export async function generateMonthlySummary(env: string, month: string, dataDir: string, outputDir: string) {
   const dailyRuns = loadMonthlyData(env, month, dataDir);
 
   if (dailyRuns.length === 0) {
@@ -459,4 +459,6 @@ async function main() {
   console.log("\nMonthly summary generation complete!");
 }
 
-main().catch(console.error);
+if (process.argv[1]?.endsWith("monthlySummary.ts")) {
+  main().catch(console.error);
+}
