@@ -4,13 +4,13 @@
       "testName": "Test 7: Create Workflow from Templates",
       "suiteName": "chromium > ui\\regressionTest.prod.spec.ts > 📋 Regression Suite - PROD Environment",
       "status": "passed",
-      "duration": 52185,
+      "duration": 48995,
       "file": "tests\\ui\\regressionTest.prod.spec.ts",
       "lineNumber": 630,
       "error": "",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-07T08:26:56.156Z",
+      "timestamp": "2026-05-07T08:58:33.240Z",
       "env": "PROD"
     }
   ]

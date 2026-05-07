@@ -7,9 +7,10 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: 1,
   reporter: [
+    ["line"],
     ["html"],
     ["json", { outputFile: "test-results/results.json" }],
-    ["./src/reporters/excelReporter.ts", { outputDir: "test-results/excel-reports", env: process.env.TEST_ENV || "" }],
+    ["./src/reporters/excelReporter.ts", { outputDir: "test-results/excel-reports", env: process.env.TEST_ENV || "unknown" }],
   ],
   use: {
     viewport: null,

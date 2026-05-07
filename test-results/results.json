@@ -35,6 +35,10 @@
     "quiet": false,
     "reporter": [
       [
+        "line",
+        null
+      ],
+      [
         "html",
         null
       ],
@@ -94,7 +98,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 52185,
+                      "duration": 48995,
                       "errors": [],
                       "stdout": [
                         {
@@ -157,7 +161,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-07T08:26:03.897Z",
+                      "startTime": "2026-05-07T08:57:44.195Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -177,8 +181,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-07T08:26:00.854Z",
-    "duration": 56744.062,
+    "startTime": "2026-05-07T08:57:42.274Z",
+    "duration": 51367.03999999999,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,
