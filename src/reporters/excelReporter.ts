@@ -109,6 +109,11 @@ class ExcelReporter implements Reporter {
   }
 
   async onEnd(result: FullResult) {
+    if (this.testRecords.length === 0) {
+      console.log("   No tests recorded (all filtered out), skipping Excel report");
+      return;
+    }
+
     const workbook = new ExcelJS.Workbook();
     workbook.creator = "Playwright Excel Reporter";
     workbook.created = new Date();
