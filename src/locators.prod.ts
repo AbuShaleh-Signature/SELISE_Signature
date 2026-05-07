@@ -136,7 +136,7 @@ export const LOCATORS = {
   // Elements for Templates section and Workflow creation
 
   workflowContractName: 'input[placeholder="Enter contract name"]', // Workflow contract name
-  workflowTagInput: 'input[placeholder="Add a tag..."]', // Tag input field
+  workflowTagInput: 'input[placeholder="Type and press enter to add tag"]', // Tag input field
   workflowAddRecipientBtn: 'button:has-text("Add Recipient")', // Add recipient in workflow
   workflowAddDynamicSignatoryBtn: 'span:has-text("Add Dynamic Signatory")', // Dynamic signatory option
   workflowPrepareDocumentBtn: 'button:has-text("Prepare Document")', // Prepare document in workflow

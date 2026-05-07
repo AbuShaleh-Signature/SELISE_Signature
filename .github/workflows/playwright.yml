@@ -4,8 +4,22 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  schedule:
+    - cron: '0 17 * * *'  # Stage: 11:00 PM Bangladesh (GMT+6) = 5:00 PM UTC
+    - cron: '0 9 * * *'   # Prod: 03:00 PM Bangladesh (GMT+6) = 9:00 AM UTC
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment to run tests against'
+        required: true
+        type: choice
+        options:
+          - stage
+          - prod
+          - all
 jobs:
-  test:
+  test-stage:
+    if: ${{ github.event_name != 'schedule' || github.event.schedule == '0 17 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -17,11 +31,37 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
+    - name: Run Stage regression tests
+      if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 17 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
+      run: npm run test:stage:ci
+    - name: Run all tests
+      if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
       run: npx playwright test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
+        name: playwright-report-stage
+        path: playwright-report/
+        retention-days: 30
+
+  test-prod:
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 9 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Prod regression tests
+      run: npm run test:prod:ci
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report-prod
         path: playwright-report/
         retention-days: 30
