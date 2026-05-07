@@ -65,6 +65,9 @@ class ExcelReporter implements Reporter {
   }
 
   onTestEnd(test: TestCase, result: TestResult) {
+    const filePath = test.location.file.replace(/\\/g, "/");
+    if (filePath.includes("smokeTest")) return;
+
     const title = test.title;
     const parent = this.getParentSuite(test.parent);
     const error = result.error
@@ -83,7 +86,7 @@ class ExcelReporter implements Reporter {
       suiteName: parent,
       status: result.status,
       duration: result.duration,
-      file: test.location.file.replace(process.cwd(), "").replace(/^[\\/]/, ""),
+      file: filePath.replace(process.cwd().replace(/\\/g, "/") + "/", ""),
       lineNumber: test.location.line,
       error,
       retries: result.retry,
