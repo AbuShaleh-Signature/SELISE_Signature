@@ -120,7 +120,7 @@ class ExcelReporter implements Reporter {
     const filepath = join(this.outputDir, filename);
 
     const buffer = await workbook.xlsx.writeBuffer();
-    writeFileSync(filepath, buffer as Buffer);
+    writeFileSync(filepath, buffer as unknown as Buffer);
 
     console.log(`\n📊 Excel report generated: ${filepath}`);
     console.log(`   Total tests: ${this.testRecords.length}`);

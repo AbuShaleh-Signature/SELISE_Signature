@@ -143,7 +143,7 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
   const filepath = join(outputDir, filename);
 
   const buffer = await workbook.xlsx.writeBuffer();
-  writeFileSync(filepath, buffer as Buffer);
+  writeFileSync(filepath, buffer as unknown as Buffer);
   console.log(`\n📊 Monthly summary generated: ${filepath}`);
 }
 
