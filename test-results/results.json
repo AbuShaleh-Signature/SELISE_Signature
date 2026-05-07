@@ -1,0 +1,187 @@
+{
+  "config": {
+    "configFile": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\playwright.config.ts",
+    "rootDir": "C:/QA Things/SELISE Things/Project/Automation Framework/SELISE_Signature/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/QA Things/SELISE Things/Project/Automation Framework/SELISE_Signature/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/QA Things/SELISE Things/Project/Automation Framework/SELISE_Signature/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\reporters\\excelReporter.ts",
+        {
+          "outputDir": "test-results/excel-reports",
+          "env": "PROD"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "ui\\regressionTest.prod.spec.ts",
+      "file": "ui/regressionTest.prod.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "📋 Regression Suite - PROD Environment",
+          "file": "ui/regressionTest.prod.spec.ts",
+          "line": 69,
+          "column": 25,
+          "specs": [
+            {
+              "title": "Test 7: Create Workflow from Templates",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 52185,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "{\"level\":\"info\",\"message\":\"Initializing browser...\"}\r\n"
+                        },
+                        {
+                          "text": "{\"level\":\"info\",\"message\":\"Setting browser to window size...\"}\r\n"
+                        },
+                        {
+                          "text": "{\"level\":\"info\",\"message\":\"Logging in...\"}\r\n"
+                        },
+                        {
+                          "text": "{\"level\":\"info\",\"message\":\"Login successful - Session started\"}\r\n"
+                        },
+                        {
+                          "text": "Test 7.1 [PROD]: Navigated to Signature module\n\n"
+                        },
+                        {
+                          "text": "Test 7.2 [PROD]: Templates section clicked\n\n"
+                        },
+                        {
+                          "text": "Test 7.3 [PROD]: Create Workflow clicked\n\n"
+                        },
+                        {
+                          "text": "Test 7.4 [PROD]: Upload From Device clicked\n\n"
+                        },
+                        {
+                          "text": "Test 7.5 [PROD]: File uploaded\n\n"
+                        },
+                        {
+                          "text": "Test 7.6 [PROD]: Contract name filled\n\n"
+                        },
+                        {
+                          "text": "Test 7.7 [PROD]: Tag added\n\n"
+                        },
+                        {
+                          "text": "Test 7.8 [PROD]: Add Recipient clicked\n\n"
+                        },
+                        {
+                          "text": "Test 7.9 [PROD]: Add Dynamic Signatory clicked\n\n"
+                        },
+                        {
+                          "text": "Test 7.10 [PROD]: Prepare Document clicked\n\n"
+                        },
+                        {
+                          "text": "Test 7.11 [PROD]: Signature dragged\n\n"
+                        },
+                        {
+                          "text": "Test 7.12 [PROD]: Save Workflow button enabled\n\n"
+                        },
+                        {
+                          "text": "Test 7.13 [PROD]: Save Workflow clicked\n\n"
+                        },
+                        {
+                          "text": "Test 7.14 [PROD]: Redirected to workflow page\n\n"
+                        },
+                        {
+                          "text": "Test 7 [PROD]: Create Workflow from Templates completed\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-07T08:26:03.897Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0b0ecd1a950af45878a4-fee677277f5107b625b2",
+              "file": "ui/regressionTest.prod.spec.ts",
+              "line": 630,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-05-07T08:26:00.854Z",
+    "duration": 56744.062,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

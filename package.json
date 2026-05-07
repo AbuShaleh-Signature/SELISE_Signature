@@ -17,6 +17,9 @@
     "test:keyboard:ci": "npx playwright test tests/ui/keyboardAccessibilityTest.stage.spec.ts",
     "test:a11y": "npx playwright test tests/ui/accessibilityTest.stage.spec.ts --headed",
     "test:a11y:ci": "npx playwright test tests/ui/accessibilityTest.stage.spec.ts",
+    "report:monthly:stage": "npx tsx src/reporters/monthlySummary.ts --env=stage",
+    "report:monthly:prod": "npx tsx src/reporters/monthlySummary.ts --env=prod",
+    "report:monthly:all": "npx tsx src/reporters/monthlySummary.ts --env=all",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "format:check": "prettier --check .",
@@ -39,11 +42,13 @@
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-playwright": "^2.2.0",
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "tsx": "^4.21.0"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
     "winston": "^3.17.0"
   }
 }
