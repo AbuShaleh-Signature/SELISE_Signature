@@ -128,9 +128,63 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
     return;
   }
 
-  const workbook = new ExcelJS.Workbook();
-  workbook.creator = "Playwright Monthly Summary Report";
-  workbook.created = new Date();
+  mkdirSync(outputDir, { recursive: true });
+  const filename = `${env.toLowerCase()}_monthly_summary_${month}.xlsx`;
+  const filepath = join(outputDir, filename);
+
+  let workbook: ExcelJS.Workbook;
+  let existingDates: string[] = [];
+
+  if (existsSync(filepath)) {
+    console.log(`   Existing file found: ${filepath}`);
+    workbook = await ExcelJS.Workbook.xlsx.readFile(filepath);
+    console.log(`   Worksheets: ${workbook.worksheets.map(w => w.name).join(", ")}`);
+    const existingSheet = workbook.getWorksheet("Daily Breakdown");
+    console.log(`   Daily Breakdown sheet: ${!!existingSheet}`);
+    if (existingSheet) {
+      console.log(`   Sheet rows: ${existingSheet.rowCount}`);
+      for (let r = 2; r <= existingSheet.rowCount; r++) {
+        const cell = existingSheet.getCell(r, 1);
+        const dateVal = cell.value;
+        let dateStr = "";
+        if (dateVal instanceof Date) {
+          const y = dateVal.getFullYear();
+          const m = String(dateVal.getMonth() + 1).padStart(2, "0");
+          const d = String(dateVal.getDate()).padStart(2, "0");
+          dateStr = `${y}-${m}-${d}`;
+          console.log(`   Row ${r}: Date=${dateStr} (Date object)`);
+        } else if (typeof dateVal === "string") {
+          dateStr = dateVal;
+          console.log(`   Row ${r}: Date=${dateStr} (string)`);
+        } else if (typeof dateVal === "number") {
+          const d = new Date(Math.round((dateVal - 25569) * 86400 * 1000));
+          dateStr = d.toISOString().split("T")[0];
+          console.log(`   Row ${r}: Date=${dateStr} (serial number ${dateVal})`);
+        } else {
+          console.log(`   Row ${r}: value=${dateVal} type=${typeof dateVal}`);
+        }
+        if (dateStr && dateStr !== "TOTAL") {
+          existingDates.push(dateStr);
+        }
+      }
+    }
+    while (workbook.worksheets.length > 0) {
+      workbook.removeWorksheet(workbook.worksheets[0].id);
+    }
+  } else {
+    console.log(`   No existing file, creating new`);
+  }
+    workbook = new ExcelJS.Workbook();
+    workbook.creator = "Playwright Monthly Summary Report";
+    workbook.created = new Date();
+  }
+
+  const newDays = dailyRuns.filter((day, index) => {
+    const date = day[0]?.timestamp?.split("T")[0] || `Day ${index + 1}`;
+    return !existingDates.includes(date);
+  });
+
+  console.log(`   Existing days: ${existingDates.length}, New days to add: ${newDays.length}`);
 
   await addOverviewSheet(workbook, env, month, dailyRuns);
   await addDailyBreakdownSheet(workbook, env, month, dailyRuns);
@@ -138,13 +192,9 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
   await addFailedTestsAnalysisSheet(workbook, env, month, dailyRuns);
   await addTestTrendSheet(workbook, env, dailyRuns);
 
-  mkdirSync(outputDir, { recursive: true });
-  const filename = `${env.toLowerCase()}_monthly_summary_${month}.xlsx`;
-  const filepath = join(outputDir, filename);
-
   const buffer = await workbook.xlsx.writeBuffer();
   writeFileSync(filepath, buffer as unknown as Buffer);
-  console.log(`\n📊 Monthly summary generated: ${filepath}`);
+  console.log(`\n📊 Monthly summary ${existingDates.length > 0 ? "updated" : "generated"}: ${filepath}`);
 }
 
 async function addOverviewSheet(workbook: ExcelJS.Workbook, env: string, month: string, dailyRuns: TestRecord[][]) {
