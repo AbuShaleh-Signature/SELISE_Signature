@@ -28,16 +28,39 @@ class ExcelReporter implements Reporter {
     this.envName = options.env || this.detectEnv();
   }
 
+  onBegin(config: FullConfig, suite: Suite) {
+    this.suiteName = suite.title || "Test Suite";
+    if (this.envName === "unknown") {
+      this.envName = this.detectEnvFromSuite(suite);
+    }
+    mkdirSync(this.outputDir, { recursive: true });
+  }
+
   private detectEnv(): string {
-    const envFile = process.env.npm_lifecycle_event || "";
-    if (envFile.includes("prod")) return "PROD";
-    if (envFile.includes("stage")) return "STAGE";
+    if (process.env.TEST_ENV) return process.env.TEST_ENV.toUpperCase();
+    const npmEvent = process.env.npm_lifecycle_event || "";
+    if (npmEvent.includes("prod")) return "PROD";
+    if (npmEvent.includes("stage")) return "STAGE";
     return "unknown";
   }
 
-  onBegin(config: FullConfig, suite: Suite) {
-    this.suiteName = suite.title || "Test Suite";
-    mkdirSync(this.outputDir, { recursive: true });
+  private detectEnvFromSuite(suite: Suite): string {
+    const checkNode = (node: Suite | TestCase): string => {
+      if (node.title?.toLowerCase().includes("stage")) return "STAGE";
+      if (node.title?.toLowerCase().includes("prod")) return "PROD";
+      if (node.location?.file?.toLowerCase().includes("stage")) return "STAGE";
+      if (node.location?.file?.toLowerCase().includes("prod")) return "PROD";
+      return "unknown";
+    };
+    let result = checkNode(suite);
+    if (result !== "unknown") return result;
+    if (suite.suites) {
+      for (const child of suite.suites) {
+        result = this.detectEnvFromSuite(child);
+        if (result !== "unknown") return result;
+      }
+    }
+    return "unknown";
   }
 
   onTestEnd(test: TestCase, result: TestResult) {

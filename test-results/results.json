@@ -52,7 +52,7 @@
         "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\reporters\\excelReporter.ts",
         {
           "outputDir": "test-results/excel-reports",
-          "env": "PROD"
+          "env": "unknown"
         }
       ]
     ],
@@ -70,16 +70,16 @@
   },
   "suites": [
     {
-      "title": "ui\\regressionTest.prod.spec.ts",
-      "file": "ui/regressionTest.prod.spec.ts",
+      "title": "ui\\regressionTest.stage.spec.ts",
+      "file": "ui/regressionTest.stage.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "📋 Regression Suite - PROD Environment",
-          "file": "ui/regressionTest.prod.spec.ts",
-          "line": 69,
+          "title": "📋 Regression Suite - STAGE Environment",
+          "file": "ui/regressionTest.stage.spec.ts",
+          "line": 66,
           "column": 25,
           "specs": [
             {
@@ -88,7 +88,7 @@
               "tags": [],
               "tests": [
                 {
-                  "timeout": 900000,
+                  "timeout": 600000,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
@@ -98,7 +98,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 48995,
+                      "duration": 52162,
                       "errors": [],
                       "stdout": [
                         {
@@ -114,54 +114,54 @@
                           "text": "{\"level\":\"info\",\"message\":\"Login successful - Session started\"}\r\n"
                         },
                         {
-                          "text": "Test 7.1 [PROD]: Navigated to Signature module\n\n"
+                          "text": "Test 7.1 [STAGE]: Navigated to Signature module\n\n"
                         },
                         {
-                          "text": "Test 7.2 [PROD]: Templates section clicked\n\n"
+                          "text": "Test 7.2 [STAGE]: Templates section clicked\n\n"
                         },
                         {
-                          "text": "Test 7.3 [PROD]: Create Workflow clicked\n\n"
+                          "text": "Test 7.3 [STAGE]: Create Workflow clicked\n\n"
                         },
                         {
-                          "text": "Test 7.4 [PROD]: Upload From Device clicked\n\n"
+                          "text": "Test 7.4 [STAGE]: Upload From Device clicked\n\n"
                         },
                         {
-                          "text": "Test 7.5 [PROD]: File uploaded\n\n"
+                          "text": "Test 7.5 [STAGE]: File uploaded\n\n"
                         },
                         {
-                          "text": "Test 7.6 [PROD]: Contract name filled\n\n"
+                          "text": "Test 7.6 [STAGE]: Contract name filled\n\n"
                         },
                         {
-                          "text": "Test 7.7 [PROD]: Tag added\n\n"
+                          "text": "Test 7.7 [STAGE]: Tag added\n\n"
                         },
                         {
-                          "text": "Test 7.8 [PROD]: Add Recipient clicked\n\n"
+                          "text": "Test 7.8 [STAGE]: Add Recipient clicked\n\n"
                         },
                         {
-                          "text": "Test 7.9 [PROD]: Add Dynamic Signatory clicked\n\n"
+                          "text": "Test 7.9 [STAGE]: Add Dynamic Signatory clicked\n\n"
                         },
                         {
-                          "text": "Test 7.10 [PROD]: Prepare Document clicked\n\n"
+                          "text": "Test 7.10 [STAGE]: Prepare Document clicked\n\n"
                         },
                         {
-                          "text": "Test 7.11 [PROD]: Signature dragged\n\n"
+                          "text": "Test 7.11 [STAGE]: Signature dragged\n\n"
                         },
                         {
-                          "text": "Test 7.12 [PROD]: Save Workflow button enabled\n\n"
+                          "text": "Test 7.12 [STAGE]: Save Workflow button enabled\n\n"
                         },
                         {
-                          "text": "Test 7.13 [PROD]: Save Workflow clicked\n\n"
+                          "text": "Test 7.13 [STAGE]: Save Workflow clicked\n\n"
                         },
                         {
-                          "text": "Test 7.14 [PROD]: Redirected to workflow page\n\n"
+                          "text": "Test 7.14 [STAGE]: Redirected to workflow page\n\n"
                         },
                         {
-                          "text": "Test 7 [PROD]: Create Workflow from Templates completed\n\n"
+                          "text": "Test 7 [STAGE]: Create Workflow from Templates completed\n\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-07T08:57:44.195Z",
+                      "startTime": "2026-05-07T09:03:02.043Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -169,9 +169,9 @@
                   "status": "expected"
                 }
               ],
-              "id": "0b0ecd1a950af45878a4-fee677277f5107b625b2",
-              "file": "ui/regressionTest.prod.spec.ts",
-              "line": 630,
+              "id": "3fd36ba8e87d40ac9d39-1ec2f490704766186bff",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 629,
               "column": 3
             }
           ]
@@ -181,8 +181,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-07T08:57:42.274Z",
-    "duration": 51367.03999999999,
+    "startTime": "2026-05-07T09:02:59.872Z",
+    "duration": 54869.121,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,
