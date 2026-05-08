@@ -44,7 +44,7 @@ jobs:
         retention-days: 30
 
   test-stage:
-    if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 17 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '45 5 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
@@ -61,7 +61,7 @@ jobs:
     - name: Run Stage regression tests
       run: npm run test:stage:ci
     - name: Generate monthly summary
-      if: ${{ github.event.schedule == '0 17 * * *' }}
+      if: ${{ github.event.schedule == '45 5 * * *' }}
       run: npm run report:monthly:stage
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
@@ -121,7 +121,7 @@ jobs:
         }" ${{ secrets.TEAMS_WEBHOOK_URL }}
 
   test-prod:
-    if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 9 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 10 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
@@ -138,7 +138,7 @@ jobs:
     - name: Run Prod regression tests
       run: npm run test:prod:ci
     - name: Generate monthly summary
-      if: ${{ github.event.schedule == '0 9 * * *' }}
+      if: ${{ github.event.schedule == '0 10 * * *' }}
       run: npm run report:monthly:prod
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
