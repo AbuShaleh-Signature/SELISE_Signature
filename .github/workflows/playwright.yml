@@ -58,6 +58,14 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Restore monthly data cache
+      uses: actions/cache@v4
+      id: cache-stage
+      with:
+        path: test-results/excel-reports/
+        key: monthly-reports-STAGE-${{ github.run_id }}
+        restore-keys: |
+          monthly-reports-STAGE-
     - name: Run Stage regression tests
       run: npm run test:stage:ci
     - name: Generate monthly summary
@@ -135,6 +143,14 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Restore monthly data cache
+      uses: actions/cache@v4
+      id: cache-prod
+      with:
+        path: test-results/excel-reports/
+        key: monthly-reports-PROD-${{ github.run_id }}
+        restore-keys: |
+          monthly-reports-PROD-
     - name: Run Prod regression tests
       run: npm run test:prod:ci
     - name: Generate monthly summary
