@@ -33,13 +33,38 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Run Smoke tests (Stage)
+      run: npm run test:smoke:ci
+    - name: Upload HTML report
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-smoke-report
+        path: playwright-report/
+        retention-days: 30
+
+  test-stage:
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '45 5 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      TEST_ENV: STAGE
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
     - name: Download previous monthly data
       continue-on-error: true
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
         mkdir -p test-results/excel-reports/monthly-data/
-        ARTIFACT_INFO=$(gh api repos/${{ github.repository }}/actions/artifacts?name=playwright-monthly-data-prod\&per_page=1 2>/dev/null)
+        ARTIFACT_INFO=$(gh api repos/${{ github.repository }}/actions/artifacts?name=playwright-monthly-data-stage\&per_page=1 2>/dev/null)
         ARTIFACT_ID=$(echo "$ARTIFACT_INFO" | jq -r '.artifacts[0].id // empty')
         if [ -n "$ARTIFACT_ID" ] && [ "$ARTIFACT_ID" != "null" ]; then
           echo "Restoring monthly data from artifact $ARTIFACT_ID"
@@ -135,23 +160,6 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Download previous monthly data
-      continue-on-error: true
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        mkdir -p test-results/excel-reports/monthly-data/
-        ARTIFACT_INFO=$(gh api repos/${{ github.repository }}/actions/artifacts?name=playwright-monthly-data-prod\&per_page=1 2>/dev/null)
-        ARTIFACT_ID=$(echo "$ARTIFACT_INFO" | jq -r '.artifacts[0].id // empty')
-        if [ -n "$ARTIFACT_ID" ] && [ "$ARTIFACT_ID" != "null" ]; then
-          echo "Restoring monthly data from artifact $ARTIFACT_ID"
-          gh api repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip > /tmp/monthly-data.zip
-          unzip -o /tmp/monthly-data.zip -d test-results/excel-reports/monthly-data/ 2>/dev/null
-          echo "Previous monthly data restored:"
-          ls -la test-results/excel-reports/monthly-data/
-        else
-          echo "No previous monthly data artifact found — starting fresh"
-        fi
     - name: Restore monthly data cache
       uses: actions/cache@v4
       id: cache-prod
