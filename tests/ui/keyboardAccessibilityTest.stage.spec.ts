@@ -215,13 +215,8 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
 
     const signatureField = page.locator(LOCATORS.signatureField);
     await signatureField.waitFor({ state: "visible", timeout: 10000 });
-    await signatureField.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
 
     const documentArea = page.locator(LOCATORS.documentPageArea).last();
-    await documentArea.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(500);
-
     const docBox = await documentArea.boundingBox();
     const sigBox = await signatureField.boundingBox();
 
