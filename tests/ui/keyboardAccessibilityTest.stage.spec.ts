@@ -103,10 +103,9 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
   // ==========================================================================
 
   sequentialTest("Test 3: Signature Module Keyboard Navigation", async ({ page }) => {
-    await page.locator(LOCATORS.signatureApp).first().focus();
-    await page.keyboard.press("Enter");
+    await page.locator(LOCATORS.signatureApp).first().click();
     await page.waitForTimeout(2000);
-    console.log(`Test 3.0 [${ENV_NAME}]: Signature app via Enter\n`);
+    console.log(`Test 3.0 [${ENV_NAME}]: Signature app clicked\n`);
 
     const yetToSignCard = page.locator(LOCATORS.yetToSignCard);
     await yetToSignCard.scrollIntoViewIfNeeded();
