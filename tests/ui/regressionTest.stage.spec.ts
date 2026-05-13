@@ -214,7 +214,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
   sequentialTest("Test 4: Upload Document", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(30000);
     console.log(`Test 4.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- Close any existing alert dialogs ---
@@ -243,7 +243,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 3: Upload PDF File ---
     await page.locator(LOCATORS.uploadInput).setInputFiles("test-data/template.pdf");
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(30000);
     console.log(`Test 4.3 [${ENV_NAME}]: File uploaded\n`);
 
     // --- STEP 4: Fill Envelope Name ---
@@ -267,7 +267,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 4.7 [${ENV_NAME}]: Prepare Document clicked\n`);
 
     // --- STEP 8: Wait for Document to Load ---
-    await page.waitForTimeout(15000);
+    await page.waitForTimeout(30000);
     console.log(`Test 4.8 [${ENV_NAME}]: Document loaded\n`);
 
     // --- STEP 9: Scroll to Bottom of Document ---
