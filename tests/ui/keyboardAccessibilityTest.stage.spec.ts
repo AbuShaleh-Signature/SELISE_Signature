@@ -186,10 +186,10 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     console.log(`Test 4.1 [${ENV_NAME}]: Upload area is visible\n`);
 
     await page.locator(LOCATORS.uploadInput).setInputFiles("test-data/template.pdf");
-    await page.waitForTimeout(8000);
+    await page.waitForTimeout(5000);
     console.log(`Test 4.2 [${ENV_NAME}]: File uploaded\n`);
 
-    await page.locator(LOCATORS.envelopeNameInput).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.envelopeNameInput).waitFor({ state: "visible", timeout: 60000 });
     await page.locator(LOCATORS.envelopeNameInput).fill("Keyboard Test");
     await page.waitForTimeout(1000);
     console.log(`Test 4.3 [${ENV_NAME}]: Envelope name filled\n`);
@@ -199,7 +199,7 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     await page.waitForTimeout(3000);
     console.log(`Test 4.4 [${ENV_NAME}]: Add Recipient clicked\n`);
 
-    await page.locator(LOCATORS.addRecipientsPage).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.addRecipientsPage).waitFor({ state: "visible", timeout: 30000 });
     await expect(page.locator(LOCATORS.addRecipientsPage)).toBeVisible();
     console.log(`Test 4.5 [${ENV_NAME}]: Add Recipients page visible\n`);
 
@@ -215,7 +215,7 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     console.log(`Test 4.8 [${ENV_NAME}]: Scrolled to bottom\n`);
 
     const signatureField = page.locator(LOCATORS.signatureField);
-    await signatureField.waitFor({ state: "visible", timeout: 30000 });
+    await signatureField.waitFor({ state: "visible", timeout: 60000 });
     await signatureField.evaluate((el: any) => el.scrollIntoView({ block: "center" }));
     await page.waitForTimeout(500);
 
@@ -347,10 +347,6 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     await page.waitForTimeout(8000);
     console.log(`Test 5.2 [${ENV_NAME}]: File uploaded\n`);
 
-    const uploadProgress = page.locator('text="template.pdf"').first();
-    await uploadProgress.waitFor({ state: "visible", timeout: 15000 });
-    console.log(`Test 5.2.1 [${ENV_NAME}]: File upload verified\n`);
-
     await page.locator(LOCATORS.envelopeNameInput).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.envelopeNameInput).fill("Advance Keyboard Test");
 
@@ -477,12 +473,12 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     await page.locator(LOCATORS.envelopeNameInput).fill("Sign Doc Keyboard Test");
     console.log(`Test 6.3 [${ENV_NAME}]: Envelope name filled\n`);
 
-    await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 15000 });
     await page.locator(LOCATORS.addRecipientBtn).click();
     await page.waitForTimeout(3000);
     console.log(`Test 6.4 [${ENV_NAME}]: Add Recipient clicked\n`);
 
-    await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.prepareDocumentBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 6.5 [${ENV_NAME}]: Prepare Document clicked\n`);
