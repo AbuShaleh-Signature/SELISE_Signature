@@ -64,16 +64,18 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         mkdir -p test-results/excel-reports/monthly-data/
-        ARTIFACT_INFO=$(gh api repos/${{ github.repository }}/actions/artifacts?name=playwright-monthly-data-stage\&per_page=1 2>/dev/null)
-        ARTIFACT_ID=$(echo "$ARTIFACT_INFO" | jq -r '.artifacts[0].id // empty')
+        echo "=== Attempting to download previous monthly data ==="
+        ARTIFACT_INFO=$(gh api repos/${{ github.repository }}/actions/artifacts?name=playwright-monthly-data-stage\&per_page=1 2>&1)
+        echo "API response: $ARTIFACT_INFO"
+        ARTIFACT_ID=$(echo "$ARTIFACT_INFO" | jq -r '.artifacts[0].id // empty' 2>/dev/null)
         if [ -n "$ARTIFACT_ID" ] && [ "$ARTIFACT_ID" != "null" ]; then
           echo "Restoring monthly data from artifact $ARTIFACT_ID"
-          gh api repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip > /tmp/monthly-data.zip
-          unzip -o /tmp/monthly-data.zip -d test-results/excel-reports/monthly-data/ 2>/dev/null
-          echo "Previous monthly data restored:"
+          gh api repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip > /tmp/monthly-data.zip 2>&1
+          unzip -o /tmp/monthly-data.zip -d test-results/excel-reports/monthly-data/ 2>&1
+          echo "Files in monthly-data/:"
           ls -la test-results/excel-reports/monthly-data/
         else
-          echo "No previous monthly data artifact found — starting fresh"
+          echo "WARNING: No previous monthly data artifact found — starting fresh"
         fi
     - name: Restore monthly reports cache
       uses: actions/cache@v4
@@ -166,16 +168,18 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         mkdir -p test-results/excel-reports/monthly-data/
-        ARTIFACT_INFO=$(gh api repos/${{ github.repository }}/actions/artifacts?name=playwright-monthly-data-prod\&per_page=1 2>/dev/null)
-        ARTIFACT_ID=$(echo "$ARTIFACT_INFO" | jq -r '.artifacts[0].id // empty')
+        echo "=== Attempting to download previous monthly data ==="
+        ARTIFACT_INFO=$(gh api repos/${{ github.repository }}/actions/artifacts?name=playwright-monthly-data-prod\&per_page=1 2>&1)
+        echo "API response: $ARTIFACT_INFO"
+        ARTIFACT_ID=$(echo "$ARTIFACT_INFO" | jq -r '.artifacts[0].id // empty' 2>/dev/null)
         if [ -n "$ARTIFACT_ID" ] && [ "$ARTIFACT_ID" != "null" ]; then
           echo "Restoring monthly data from artifact $ARTIFACT_ID"
-          gh api repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip > /tmp/monthly-data.zip
-          unzip -o /tmp/monthly-data.zip -d test-results/excel-reports/monthly-data/ 2>/dev/null
-          echo "Previous monthly data restored:"
+          gh api repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip > /tmp/monthly-data.zip 2>&1
+          unzip -o /tmp/monthly-data.zip -d test-results/excel-reports/monthly-data/ 2>&1
+          echo "Files in monthly-data/:"
           ls -la test-results/excel-reports/monthly-data/
         else
-          echo "No previous monthly data artifact found — starting fresh"
+          echo "WARNING: No previous monthly data artifact found — starting fresh"
         fi
     - name: Restore monthly data cache
       uses: actions/cache@v4
