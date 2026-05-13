@@ -1,0 +1,108 @@
+[
+  [
+    {
+      "testName": "Test 1: Home Page Keyboard Navigation",
+      "suiteName": "chromium > ui\\keyboardAccessibilityTest.stage.spec.ts > ⌨️  Keyboard Navigation Suite - STAGE",
+      "status": "passed",
+      "duration": 23699,
+      "file": "tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+      "lineNumber": 44,
+      "error": "",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-13T10:50:54.308Z",
+      "env": "STAGE"
+    },
+    {
+      "testName": "Test 2: Landing Page Keyboard Navigation",
+      "suiteName": "chromium > ui\\keyboardAccessibilityTest.stage.spec.ts > ⌨️  Keyboard Navigation Suite - STAGE",
+      "status": "passed",
+      "duration": 73,
+      "file": "tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+      "lineNumber": 78,
+      "error": "",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-13T10:50:54.412Z",
+      "env": "STAGE"
+    },
+    {
+      "testName": "Test 3: Signature Module Keyboard Navigation",
+      "suiteName": "chromium > ui\\keyboardAccessibilityTest.stage.spec.ts > ⌨️  Keyboard Navigation Suite - STAGE",
+      "status": "passed",
+      "duration": 22226,
+      "file": "tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+      "lineNumber": 105,
+      "error": "",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-13T10:51:16.660Z",
+      "env": "STAGE"
+    },
+    {
+      "testName": "Test 4: Upload Document via Keyboard",
+      "suiteName": "chromium > ui\\keyboardAccessibilityTest.stage.spec.ts > ⌨️  Keyboard Navigation Suite - STAGE",
+      "status": "failed",
+      "duration": 361904,
+      "file": "tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+      "lineNumber": 161,
+      "error": "TimeoutError: locator.waitFor: Timeout 300000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Review Document & Sign\")') to be visible\u001b[22m\n\nTimeoutError: locator.waitFor: Timeout 300000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Review Document & Sign\")') to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:291:8",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-13T10:57:18.983Z",
+      "env": "STAGE"
+    },
+    {
+      "testName": "Test 5: Signature Advance Workflow via Keyboard",
+      "suiteName": "chromium > ui\\keyboardAccessibilityTest.stage.spec.ts > ⌨️  Keyboard Navigation Suite - STAGE",
+      "status": "skipped",
+      "duration": 0,
+      "file": "tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+      "lineNumber": 320,
+      "error": "",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-13T10:57:18.985Z",
+      "env": "STAGE"
+    },
+    {
+      "testName": "Test 6: Sign A Document via Keyboard",
+      "suiteName": "chromium > ui\\keyboardAccessibilityTest.stage.spec.ts > ⌨️  Keyboard Navigation Suite - STAGE",
+      "status": "skipped",
+      "duration": 0,
+      "file": "tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+      "lineNumber": 457,
+      "error": "",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-13T10:57:18.985Z",
+      "env": "STAGE"
+    },
+    {
+      "testName": "Test 7: Create Workflow from Templates via Keyboard",
+      "suiteName": "chromium > ui\\keyboardAccessibilityTest.stage.spec.ts > ⌨️  Keyboard Navigation Suite - STAGE",
+      "status": "skipped",
+      "duration": 0,
+      "file": "tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+      "lineNumber": 575,
+      "error": "",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-13T10:57:18.985Z",
+      "env": "STAGE"
+    },
+    {
+      "testName": "Test 8: Use Workflow from Templates via Keyboard",
+      "suiteName": "chromium > ui\\keyboardAccessibilityTest.stage.spec.ts > ⌨️  Keyboard Navigation Suite - STAGE",
+      "status": "skipped",
+      "duration": 0,
+      "file": "tests/ui/keyboardAccessibilityTest.stage.spec.ts",
+      "lineNumber": 694,
+      "error": "",
+      "retries": 0,
+      "tags": [],
+      "timestamp": "2026-05-13T10:57:18.985Z",
+      "env": "STAGE"
+    }
+  ]
+]

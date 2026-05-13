@@ -1,0 +1,510 @@
+{
+  "config": {
+    "configFile": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\playwright.config.ts",
+    "rootDir": "C:/QA Things/SELISE Things/Project/Automation Framework/SELISE_Signature/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/QA Things/SELISE Things/Project/Automation Framework/SELISE_Signature/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/QA Things/SELISE Things/Project/Automation Framework/SELISE_Signature/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\reporters\\excelReporter.ts",
+        {
+          "outputDir": "test-results/excel-reports",
+          "env": "unknown"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "ui\\keyboardAccessibilityTest.stage.spec.ts",
+      "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "⌨️  Keyboard Navigation Suite - STAGE",
+          "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+          "line": 37,
+          "column": 25,
+          "specs": [
+            {
+              "title": "Test 1: Home Page Keyboard Navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 23699,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "{\"level\":\"info\",\"message\":\"Initializing browser...\"}\r\n"
+                        },
+                        {
+                          "text": "{\"level\":\"info\",\"message\":\"Setting browser to window size...\"}\r\n"
+                        },
+                        {
+                          "text": "{\"level\":\"info\",\"message\":\"Logging in...\"}\r\n"
+                        },
+                        {
+                          "text": "{\"level\":\"info\",\"message\":\"Login successful - Session started\"}\r\n"
+                        },
+                        {
+                          "text": "Test 1.0 [STAGE]: Home page loaded\n\n"
+                        },
+                        {
+                          "text": "Test 1.1 [STAGE]: Focusable elements found: 20\n\n"
+                        },
+                        {
+                          "text": "Test 1.2 [STAGE]: Tabbed through 10 elements\n\n"
+                        },
+                        {
+                          "text": "Test 1.3 [STAGE]: Shift+Tab works: A\n\n"
+                        },
+                        {
+                          "text": "Test 1 [STAGE]: Home page keyboard navigation PASSED\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T10:50:30.570Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-38a2734c2af12db218c0",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 44,
+              "column": 3
+            },
+            {
+              "title": "Test 2: Landing Page Keyboard Navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 73,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Test 2.1 [STAGE]: Contacts app is visible\n\n"
+                        },
+                        {
+                          "text": "Test 2.2 [STAGE]: Signature app is visible\n\n"
+                        },
+                        {
+                          "text": "Test 2.3 [STAGE]: File Manager app is visible\n\n"
+                        },
+                        {
+                          "text": "Test 2.4 [STAGE]: SELISE Store button is present\n\n"
+                        },
+                        {
+                          "text": "Test 2.5 [STAGE]: Logo is visible in header\n\n"
+                        },
+                        {
+                          "text": "Test 2.6 [STAGE]: Profile logo is visible in header\n\n"
+                        },
+                        {
+                          "text": "Test 2.7 [STAGE]: My Apps menu is visible in header\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T10:50:54.306Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-049bf1ccd9b618c6c702",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 78,
+              "column": 3
+            },
+            {
+              "title": "Test 3: Signature Module Keyboard Navigation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 22226,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Test 3.0 [STAGE]: Signature app clicked\n\n"
+                        },
+                        {
+                          "text": "Test 3.1 [STAGE]: Yet To Sign opened via Enter\n\n"
+                        },
+                        {
+                          "text": "Test 3.2 [STAGE]: Yet To Review opened via Enter\n\n"
+                        },
+                        {
+                          "text": "Test 3.3 [STAGE]: Pending opened via Enter\n\n"
+                        },
+                        {
+                          "text": "Test 3.4 [STAGE]: Completed opened via Enter\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T10:50:54.411Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-014f4478c341f618e907",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 105,
+              "column": 3
+            },
+            {
+              "title": "Test 4: Upload Document via Keyboard",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 361904,
+                      "error": {
+                        "message": "TimeoutError: locator.waitFor: Timeout 300000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Review Document & Sign\")') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: locator.waitFor: Timeout 300000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Review Document & Sign\")') to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:291:8",
+                        "location": {
+                          "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
+                          "column": 8,
+                          "line": 291
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 289 |\u001b[39m     \u001b[36mawait\u001b[39m page\n \u001b[90m 290 |\u001b[39m       \u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39mreviewDocumentAndSignBtn)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 291 |\u001b[39m       \u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m300000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 292 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39mreviewDocumentAndSignBtn)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 293 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 4.14 [${ENV_NAME}]: Review Document & Sign clicked\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 294 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
+                            "column": 8,
+                            "line": 291
+                          },
+                          "message": "TimeoutError: locator.waitFor: Timeout 300000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Review Document & Sign\")') to be visible\u001b[22m\n\n\n  289 |     await page\n  290 |       .locator(LOCATORS.reviewDocumentAndSignBtn)\n> 291 |       .waitFor({ state: \"visible\", timeout: 300000 });\n      |        ^\n  292 |     await page.locator(LOCATORS.reviewDocumentAndSignBtn).click();\n  293 |     console.log(`Test 4.14 [${ENV_NAME}]: Review Document & Sign clicked\\n`);\n  294 |\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:291:8"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "Test 4.0 [STAGE]: Navigated to Signature module\n\n"
+                        },
+                        {
+                          "text": "Test 4.1 [STAGE]: Upload area is visible\n\n"
+                        },
+                        {
+                          "text": "Test 4.2 [STAGE]: File uploaded\n\n"
+                        },
+                        {
+                          "text": "Test 4.3 [STAGE]: Envelope name filled\n\n"
+                        },
+                        {
+                          "text": "Test 4.4 [STAGE]: Add Recipient clicked\n\n"
+                        },
+                        {
+                          "text": "Test 4.5 [STAGE]: Add Recipients page visible\n\n"
+                        },
+                        {
+                          "text": "Test 4.6 [STAGE]: Prepare Document clicked\n\n"
+                        },
+                        {
+                          "text": "Test 4.7 [STAGE]: Document loaded\n\n"
+                        },
+                        {
+                          "text": "Test 4.8 [STAGE]: Scrolled to bottom\n\n"
+                        },
+                        {
+                          "text": "Test 4.9 [STAGE]: Signature dragged\n\n"
+                        },
+                        {
+                          "text": "Test 4.10 [STAGE]: Send Document clicked\n\n"
+                        },
+                        {
+                          "text": "Test 4.11 [STAGE]: Confirmation dialog appeared\n\n"
+                        },
+                        {
+                          "text": "Test 4.12 [STAGE]: Confirm clicked\n\n"
+                        },
+                        {
+                          "text": "Test 4.13 [STAGE]: Document rollout completed\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T10:51:16.660Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\test-results\\ui-keyboardAccessibilityTe-59429-pload-Document-via-Keyboard-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
+                        "column": 8,
+                        "line": 291
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-fbd83fe2c00a0f09214e",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 161,
+              "column": 3
+            },
+            {
+              "title": "Test 5: Signature Advance Workflow via Keyboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T10:57:18.984Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-a65c6c9f0cc1beb9ecc7",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 320,
+              "column": 3
+            },
+            {
+              "title": "Test 6: Sign A Document via Keyboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T10:57:18.985Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-bae26564ea3cf21d9342",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 457,
+              "column": 3
+            },
+            {
+              "title": "Test 7: Create Workflow from Templates via Keyboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T10:57:18.985Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-dcea565ec1819eac6555",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 575,
+              "column": 3
+            },
+            {
+              "title": "Test 8: Use Workflow from Templates via Keyboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 900000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T10:57:18.985Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-7ba699e22985dad4aca0",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 694,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-05-13T10:50:29.438Z",
+    "duration": 432925.51399999997,
+    "expected": 3,
+    "skipped": 4,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
