@@ -84,7 +84,7 @@
           "specs": [
             {
               "title": "Test 1: Verify home page elements",
-              "ok": true,
+              "ok": false,
               "tags": [],
               "tests": [
                 {
@@ -97,9 +97,28 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 15114,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 35665,
+                      "error": {
+                        "message": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://app.selisestage.com/login\", waiting until \"load\"\u001b[22m\n",
+                        "stack": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://app.selisestage.com/login\", waiting until \"load\"\u001b[22m\n\n    at Object.page (C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\pages\\basePage.ts:151:24)",
+                        "location": {
+                          "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\pages\\basePage.ts",
+                          "column": 24,
+                          "line": 151
+                        },
+                        "snippet": "\u001b[90m   at \u001b[39m..\\src\\pages\\basePage.ts:151\n\n\u001b[0m \u001b[90m 149 |\u001b[39m\n \u001b[90m 150 |\u001b[39m       \u001b[90m// Navigate to login page\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 151 |\u001b[39m       \u001b[36mawait\u001b[39m sharedPage\u001b[33m.\u001b[39mgoto((globalThis \u001b[36mas\u001b[39m any)\u001b[33m.\u001b[39m__TEST_ENV_URL__)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 152 |\u001b[39m       \u001b[36mawait\u001b[39m sharedPage\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 153 |\u001b[39m\n \u001b[90m 154 |\u001b[39m       \u001b[90m// Fill username\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\pages\\basePage.ts",
+                            "column": 24,
+                            "line": 151
+                          },
+                          "message": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://app.selisestage.com/login\", waiting until \"load\"\u001b[22m\n\n\n\u001b[90m   at \u001b[39m..\\src\\pages\\basePage.ts:151\n\n\u001b[0m \u001b[90m 149 |\u001b[39m\n \u001b[90m 150 |\u001b[39m       \u001b[90m// Navigate to login page\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 151 |\u001b[39m       \u001b[36mawait\u001b[39m sharedPage\u001b[33m.\u001b[39mgoto((globalThis \u001b[36mas\u001b[39m any)\u001b[33m.\u001b[39m__TEST_ENV_URL__)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 152 |\u001b[39m       \u001b[36mawait\u001b[39m sharedPage\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m\"domcontentloaded\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 153 |\u001b[39m\n \u001b[90m 154 |\u001b[39m       \u001b[90m// Fill username\u001b[39m\u001b[0m\n\u001b[2m    at Object.page (C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\pages\\basePage.ts:151:24)\u001b[22m"
+                        }
+                      ],
                       "stdout": [
                         {
                           "text": "{\"level\":\"info\",\"message\":\"Initializing browser...\"}\r\n"
@@ -109,22 +128,27 @@
                         },
                         {
                           "text": "{\"level\":\"info\",\"message\":\"Logging in...\"}\r\n"
-                        },
-                        {
-                          "text": "{\"level\":\"info\",\"message\":\"Login successful - Session started\"}\r\n"
-                        },
-                        {
-                          "text": "Test 1 [STAGE]: Home page elements verified\n\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T08:30:00.662Z",
+                      "startTime": "2026-05-13T09:55:02.671Z",
                       "annotations": [],
-                      "attachments": []
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\test-results\\ui-regressionTest.stage-📋-31fb8-1-Verify-home-page-elements-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\pages\\basePage.ts",
+                        "column": 24,
+                        "line": 151
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
               "id": "3fd36ba8e87d40ac9d39-cc54ad07b42fbf754573",
@@ -145,42 +169,20 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 37,
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
                       "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Test 2.1 [STAGE]: Contacts app is visible\n\n"
-                        },
-                        {
-                          "text": "Test 2.2 [STAGE]: Signature app is visible\n\n"
-                        },
-                        {
-                          "text": "Test 2.3 [STAGE]: File Manager app is visible\n\n"
-                        },
-                        {
-                          "text": "Test 2.4 [STAGE]: SELISE Store button is present\n\n"
-                        },
-                        {
-                          "text": "Test 2.5 [STAGE]: Logo is visible in header\n\n"
-                        },
-                        {
-                          "text": "Test 2.6 [STAGE]: Profile logo is visible in header\n\n"
-                        },
-                        {
-                          "text": "Test 2.7 [STAGE]: My Apps menu is visible in header\n\n"
-                        }
-                      ],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T08:30:15.799Z",
+                      "startTime": "2026-05-13T09:55:38.379Z",
                       "annotations": [],
                       "attachments": []
                     }
                   ],
-                  "status": "expected"
+                  "status": "skipped"
                 }
               ],
               "id": "3fd36ba8e87d40ac9d39-572850cc6986cc338100",
@@ -201,36 +203,20 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 20487,
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
                       "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Test 3.0 [STAGE]: Signature app clicked\n\n"
-                        },
-                        {
-                          "text": "Test 3.1 [STAGE]: Yet To Sign clicked and details page opened\n\n"
-                        },
-                        {
-                          "text": "Test 3.2 [STAGE]: Yet To Review clicked and details page opened\n\n"
-                        },
-                        {
-                          "text": "Test 3.3 [STAGE]: Pending clicked and details page opened\n\n"
-                        },
-                        {
-                          "text": "Test 3.4 [STAGE]: Completed clicked and details page opened\n\n"
-                        }
-                      ],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T08:30:15.848Z",
+                      "startTime": "2026-05-13T09:55:38.380Z",
                       "annotations": [],
                       "attachments": []
                     }
                   ],
-                  "status": "expected"
+                  "status": "skipped"
                 }
               ],
               "id": "3fd36ba8e87d40ac9d39-afa67b2521070296bc30",
@@ -240,7 +226,7 @@
             },
             {
               "title": "Test 4: Upload Document",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -251,63 +237,20 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 18435,
-                      "error": {
-                        "message": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n",
-                        "stack": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts:250:52",
-                        "location": {
-                          "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts",
-                          "column": 52,
-                          "line": 250
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 248 |\u001b[39m\n \u001b[90m 249 |\u001b[39m     \u001b[90m// --- STEP 4: Fill Envelope Name ---\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 250 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 251 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mfill(\u001b[32m\"Automation Test\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 252 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 4.4 [${ENV_NAME}]: Envelope name set\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 253 |\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts",
-                            "column": 52,
-                            "line": 250
-                          },
-                          "message": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 248 |\u001b[39m\n \u001b[90m 249 |\u001b[39m     \u001b[90m// --- STEP 4: Fill Envelope Name ---\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 250 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 251 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mfill(\u001b[32m\"Automation Test\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 252 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 4.4 [${ENV_NAME}]: Envelope name set\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 253 |\u001b[39m\u001b[0m\n\u001b[2m    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts:250:52\u001b[22m"
-                        }
-                      ],
-                      "stdout": [
-                        {
-                          "text": "Test 4.0 [STAGE]: Navigated to Signature module\n\n"
-                        },
-                        {
-                          "text": "Test 4.1 [STAGE]: Upload area is visible\n\n"
-                        },
-                        {
-                          "text": "Test 4.2 [STAGE]: Upload From Device button is visible\n\n"
-                        },
-                        {
-                          "text": "Test 4.3 [STAGE]: File uploaded\n\n"
-                        }
-                      ],
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T08:30:36.354Z",
+                      "startTime": "2026-05-13T09:55:38.381Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\test-results\\ui-regressionTest.stage-📋-641b3-ment-Test-4-Upload-Document-chromium\\error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts",
-                        "column": 52,
-                        "line": 250
-                      }
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "skipped"
                 }
               ],
               "id": "3fd36ba8e87d40ac9d39-bf5ac0ff516516fe3ba6",
@@ -336,7 +279,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T08:30:54.872Z",
+                      "startTime": "2026-05-13T09:55:38.381Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -370,7 +313,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T08:30:54.873Z",
+                      "startTime": "2026-05-13T09:55:38.382Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -404,7 +347,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T08:30:54.873Z",
+                      "startTime": "2026-05-13T09:55:38.382Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -438,7 +381,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T08:30:54.873Z",
+                      "startTime": "2026-05-13T09:55:38.382Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -458,10 +401,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-13T08:29:59.914Z",
-    "duration": 55331.659999999996,
-    "expected": 3,
-    "skipped": 4,
+    "startTime": "2026-05-13T09:55:01.892Z",
+    "duration": 36779.161,
+    "expected": 0,
+    "skipped": 7,
     "unexpected": 1,
     "flaky": 0
   }

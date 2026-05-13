@@ -3,53 +3,53 @@
     {
       "testName": "Test 1: Verify home page elements",
       "suiteName": "chromium > ui\\regressionTest.stage.spec.ts > 📋 Regression Suite - STAGE Environment",
-      "status": "passed",
-      "duration": 15114,
+      "status": "failed",
+      "duration": 35665,
       "file": "tests/ui/regressionTest.stage.spec.ts",
       "lineNumber": 77,
-      "error": "",
+      "error": "Error: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://app.selisestage.com/login\", waiting until \"load\"\u001b[22m\n\nError: page.goto: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - navigating to \"https://app.selisestage.com/login\", waiting until \"load\"\u001b[22m\n\n    at Object.page (C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\src\\pages\\basePage.ts:151:24)",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-13T08:30:15.810Z",
+      "timestamp": "2026-05-13T09:55:38.378Z",
       "env": "STAGE"
     },
     {
       "testName": "Test 2: Verify Landing Page Contents",
       "suiteName": "chromium > ui\\regressionTest.stage.spec.ts > 📋 Regression Suite - STAGE Environment",
-      "status": "passed",
-      "duration": 37,
+      "status": "skipped",
+      "duration": 0,
       "file": "tests/ui/regressionTest.stage.spec.ts",
       "lineNumber": 91,
       "error": "",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-13T08:30:15.858Z",
+      "timestamp": "2026-05-13T09:55:38.380Z",
       "env": "STAGE"
     },
     {
       "testName": "Test 3: Verify Signature Module",
       "suiteName": "chromium > ui\\regressionTest.stage.spec.ts > 📋 Regression Suite - STAGE Environment",
-      "status": "passed",
-      "duration": 20487,
+      "status": "skipped",
+      "duration": 0,
       "file": "tests/ui/regressionTest.stage.spec.ts",
       "lineNumber": 129,
       "error": "",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-13T08:30:36.364Z",
+      "timestamp": "2026-05-13T09:55:38.381Z",
       "env": "STAGE"
     },
     {
       "testName": "Test 4: Upload Document",
       "suiteName": "chromium > ui\\regressionTest.stage.spec.ts > 📋 Regression Suite - STAGE Environment",
-      "status": "failed",
-      "duration": 18435,
+      "status": "skipped",
+      "duration": 0,
       "file": "tests/ui/regressionTest.stage.spec.ts",
       "lineNumber": 214,
-      "error": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n\nTimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts:250:52",
+      "error": "",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-13T08:30:54.872Z",
+      "timestamp": "2026-05-13T09:55:38.381Z",
       "env": "STAGE"
     },
     {
@@ -62,7 +62,7 @@
       "error": "",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-13T08:30:54.873Z",
+      "timestamp": "2026-05-13T09:55:38.382Z",
       "env": "STAGE"
     },
     {
@@ -75,7 +75,7 @@
       "error": "",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-13T08:30:54.873Z",
+      "timestamp": "2026-05-13T09:55:38.382Z",
       "env": "STAGE"
     },
     {
@@ -88,7 +88,7 @@
       "error": "",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-13T08:30:54.873Z",
+      "timestamp": "2026-05-13T09:55:38.382Z",
       "env": "STAGE"
     },
     {
@@ -101,7 +101,7 @@
       "error": "",
       "retries": 0,
       "tags": [],
-      "timestamp": "2026-05-13T08:30:54.874Z",
+      "timestamp": "2026-05-13T09:55:38.382Z",
       "env": "STAGE"
     }
   ]
