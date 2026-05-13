@@ -103,9 +103,10 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
   // ==========================================================================
 
   sequentialTest("Test 3: Signature Module Keyboard Navigation", async ({ page }) => {
-    await page.locator(LOCATORS.signatureApp).first().click();
+    await page.locator(LOCATORS.signatureApp).first().focus();
+    await page.keyboard.press("Enter");
     await page.waitForTimeout(2000);
-    console.log(`Test 3.0 [${ENV_NAME}]: Signature app clicked\n`);
+    console.log(`Test 3.0 [${ENV_NAME}]: Signature app via Enter\n`);
 
     const yetToSignCard = page.locator(LOCATORS.yetToSignCard);
     await yetToSignCard.scrollIntoViewIfNeeded();
@@ -212,7 +213,90 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     await page.waitForTimeout(3000);
     console.log(`Test 4.7 [${ENV_NAME}]: Document loaded\n`);
 
-    console.log(`Test 4 [${ENV_NAME}]: Upload via keyboard completed\n`);
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(1000);
+    console.log(`Test 4.8 [${ENV_NAME}]: Scrolled to bottom\n`);
+
+    const signatureField = page.locator(LOCATORS.signatureField);
+    await signatureField.waitFor({ state: "visible", timeout: 10000 });
+
+    const documentArea = page.locator(LOCATORS.documentPageArea).last();
+    const docBox = await documentArea.boundingBox();
+    const sigBox = await signatureField.boundingBox();
+
+    if (sigBox && docBox) {
+      await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
+        steps: 10,
+      });
+      await page.mouse.up();
+      await page.waitForTimeout(2000);
+      console.log(`Test 4.9 [${ENV_NAME}]: Signature dragged\n`);
+    } else {
+      console.log(`Test 4.9 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    }
+
+    const SendButton = page.locator(LOCATORS.sendDocumentBtn);
+    await SendButton.waitFor({ state: "visible", timeout: 10000 });
+    await SendButton.focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 4.10 [${ENV_NAME}]: Send Document via Enter\n`);
+
+    await page.waitForTimeout(3000);
+    const dialog = page.locator('text="Are you sure?"');
+    if (await dialog.isVisible()) {
+      console.log(`Test 4.11 [${ENV_NAME}]: Confirmation dialog appeared\n`);
+      const confirmBtn = page.locator(LOCATORS.confirmSendBtn);
+      await confirmBtn.waitFor({ state: "visible", timeout: 10000 });
+      await page.waitForFunction(
+        () => {
+          const btn = document.querySelector('button[aria-label="Save"]') as HTMLButtonElement;
+          return btn && !btn.disabled;
+        },
+        { timeout: 60000 }
+      );
+      await confirmBtn.focus();
+      await page.keyboard.press("Enter");
+      await page.waitForTimeout(500);
+      console.log(`Test 4.12 [${ENV_NAME}]: Confirm via Enter\n`);
+    } else {
+      console.log(`Test 4.11 [${ENV_NAME}]: INFO - Document sent directly\n`);
+    }
+
+    await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 30000 });
+    console.log(`Test 4.13 [${ENV_NAME}]: Document rollout completed\n`);
+
+    await page.waitForTimeout(3000);
+    await page
+      .locator(LOCATORS.reviewDocumentAndSignBtn)
+      .waitFor({ state: "visible", timeout: 300000 });
+    await page.locator(LOCATORS.reviewDocumentAndSignBtn).focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 4.14 [${ENV_NAME}]: Review Document & Sign via Enter\n`);
+
+    await page.locator(LOCATORS.signatorySignaturePlaceholder).focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 4.15 [${ENV_NAME}]: Signature placeholder via Enter\n`);
+
+    await page.locator(LOCATORS.finishBtn).focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 4.16 [${ENV_NAME}]: Finish via Enter\n`);
+
+    await page.locator(LOCATORS.signCheckbox).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.signCheckbox).focus();
+    await page.keyboard.press("Space");
+    console.log(`Test 4.17 [${ENV_NAME}]: Checkbox via Space\n`);
+
+    await page
+      .locator(LOCATORS.signThisContractNowBtn)
+      .waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.signThisContractNowBtn).focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 4.18 [${ENV_NAME}]: Sign This Contract Now via Enter\n`);
+
+    await page.waitForTimeout(3000);
+    console.log(`Test 4 [${ENV_NAME}]: Upload and sign via keyboard completed\n`);
   });
 
   // ==========================================================================
@@ -277,6 +361,74 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     console.log(`Test 5.6 [${ENV_NAME}]: Prepare Document via Enter\n`);
 
     await page.waitForTimeout(5000);
+    console.log(`Test 5.7 [${ENV_NAME}]: Document loaded\n`);
+
+    const signatureField5 = page.locator(LOCATORS.signatureField);
+    await signatureField5.waitFor({ state: "visible", timeout: 10000 });
+    await signatureField5.scrollIntoViewIfNeeded();
+
+    const documentArea5 = page.locator(LOCATORS.documentPageArea).last();
+    await documentArea5.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1000);
+
+    const docBox5 = await documentArea5.boundingBox();
+    const sigBox5 = await signatureField5.boundingBox();
+
+    if (sigBox5 && docBox5) {
+      await page.mouse.move(sigBox5.x + sigBox5.width / 2, sigBox5.y + sigBox5.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(docBox5.x + docBox5.width / 2, docBox5.y + docBox5.height - 100, {
+        steps: 10,
+      });
+      await page.mouse.up();
+      await page.waitForTimeout(2000);
+      console.log(`Test 5.8 [${ENV_NAME}]: Signature dragged\n`);
+    } else {
+      console.log(`Test 5.8 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    }
+
+    const SendButton5 = page.locator(LOCATORS.sendDocumentBtn);
+    await SendButton5.waitFor({ state: "visible", timeout: 10000 });
+    await page.waitForFunction(
+      () => {
+        const btns = Array.from(document.querySelectorAll("button"));
+        const sendBtn = btns.find((b: any) => b.textContent?.includes("Send Document"));
+        return sendBtn && !sendBtn.disabled;
+      },
+      { timeout: 60000 }
+    );
+    await SendButton5.focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 5.9 [${ENV_NAME}]: Send Document via Enter\n`);
+
+    await page.waitForTimeout(3000);
+    const dialog5 = page.locator('text="Are you sure?"');
+    if (await dialog5.isVisible()) {
+      console.log(`Test 5.10 [${ENV_NAME}]: Confirmation dialog appeared\n`);
+      const confirmBtn5 = page.locator(LOCATORS.confirmSendBtn);
+      await confirmBtn5.waitFor({ state: "visible", timeout: 10000 });
+      await page.waitForFunction(
+        () => {
+          const btn = document.querySelector('button[aria-label="Save"]') as HTMLButtonElement;
+          return btn && !btn.disabled;
+        },
+        { timeout: 60000 }
+      );
+      await confirmBtn5.focus();
+      await page.keyboard.press("Enter");
+      await page.waitForTimeout(500);
+      console.log(`Test 5.11 [${ENV_NAME}]: Confirm via Enter\n`);
+      await dialog5.waitFor({ state: "hidden", timeout: 10000 });
+      await page.waitForTimeout(1000);
+      console.log(`Test 5.11.1 [${ENV_NAME}]: Dialog closed\n`);
+    } else {
+      console.log(`Test 5.10 [${ENV_NAME}]: INFO - Document sent directly\n`);
+    }
+
+    await page.waitForTimeout(3000);
+    await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 30000 });
+    console.log(`Test 5.12 [${ENV_NAME}]: Document rollout completed\n`);
+
     console.log(`Test 5 [${ENV_NAME}]: Advance keyboard workflow completed\n`);
   });
 
@@ -317,83 +469,288 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     await page.waitForTimeout(5000);
     console.log(`Test 6.5 [${ENV_NAME}]: Prepare Document via Enter\n`);
 
+    const signatureField6 = page.locator(LOCATORS.signatureField);
+    await signatureField6.waitFor({ state: "visible", timeout: 10000 });
+    await signatureField6.scrollIntoViewIfNeeded();
+
+    const documentArea6 = page.locator(LOCATORS.documentPageArea).last();
+    await documentArea6.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1000);
+
+    const docBox6 = await documentArea6.boundingBox();
+    const sigBox6 = await signatureField6.boundingBox();
+
+    if (sigBox6 && docBox6) {
+      await page.mouse.move(sigBox6.x + sigBox6.width / 2, sigBox6.y + sigBox6.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(docBox6.x + docBox6.width / 2, docBox6.y + docBox6.height - 100, {
+        steps: 10,
+      });
+      await page.mouse.up();
+      await page.waitForTimeout(2000);
+      console.log(`Test 6.6 [${ENV_NAME}]: Signature dragged\n`);
+    } else {
+      console.log(`Test 6.6 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    }
+
+    const sendButton6 = page.locator('button:has-text("Send Document")');
+    await sendButton6.waitFor({ state: "visible", timeout: 10000 });
+    await sendButton6.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(5000);
+    console.log(`Test 6.7 [${ENV_NAME}]: Send Document via Enter\n`);
+
+    const dialog6 = page.locator('text="Are you sure?"');
+    if (await dialog6.isVisible()) {
+      console.log(`Test 6.8 [${ENV_NAME}]: Confirmation dialog appeared\n`);
+      const confirmBtn6 = page.locator('button:has-text("Confirm")').last();
+      await confirmBtn6.waitFor({ state: "visible", timeout: 10000 });
+      await confirmBtn6.focus();
+      await page.keyboard.press("Enter");
+      await page.waitForTimeout(3000);
+      console.log(`Test 6.8.1 [${ENV_NAME}]: Confirm via Enter\n`);
+    } else {
+      console.log(`Test 6.8 [${ENV_NAME}]: INFO - Document sent directly\n`);
+    }
+
+    await page.waitForTimeout(5000);
+    console.log(`Test 6.9 [${ENV_NAME}]: Document sent\n`);
+
+    await page.waitForTimeout(3000);
+    await page
+      .locator(LOCATORS.reviewDocumentAndSignBtn)
+      .waitFor({ state: "visible", timeout: 300000 });
+    await page.locator(LOCATORS.reviewDocumentAndSignBtn).focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 6.10 [${ENV_NAME}]: Review Document & Sign via Enter\n`);
+
+    await page.locator(LOCATORS.signatorySignaturePlaceholder).focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 6.11 [${ENV_NAME}]: Signature placeholder via Enter\n`);
+
+    await page.locator(LOCATORS.finishBtn).focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 6.12 [${ENV_NAME}]: Finish via Enter\n`);
+
+    await page.locator(LOCATORS.signCheckbox).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.signCheckbox).focus();
+    await page.keyboard.press("Space");
+    console.log(`Test 6.13 [${ENV_NAME}]: Checkbox via Space\n`);
+
+    await page
+      .locator(LOCATORS.signThisContractNowBtn)
+      .waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.signThisContractNowBtn).focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(3000);
+    console.log(`Test 6.14 [${ENV_NAME}]: Sign This Contract Now via Enter\n`);
+
     console.log(`Test 6 [${ENV_NAME}]: Sign A Document keyboard flow completed\n`);
   });
 
   // ==========================================================================
-  // TEST 7: MENU AND DROPDOWN KEYBOARD NAVIGATION
+  // TEST 7: CREATE WORKFLOW FROM TEMPLATES VIA KEYBOARD
   // ==========================================================================
 
-  sequentialTest("Test 7: Menu and Dropdown Keyboard Navigation", async ({ page }) => {
-    await page.goto(`${ENV_URL}/home`);
+  sequentialTest("Test 7: Create Workflow from Templates via Keyboard", async ({ page }) => {
+    await page.goto(`${ENV_URL}/e-signature`);
     await page.waitForTimeout(3000);
-    console.log(`Test 7.0 [${ENV_NAME}]: Testing menu keyboard navigation\n`);
+    console.log(`Test 7.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
-    const menuButton = page.locator(LOCATORS.myAppsMenu);
-    await menuButton.waitFor({ state: "visible", timeout: 5000 });
-    await menuButton.focus();
-    console.log(`Test 7.1 [${ENV_NAME}]: Focused on menu button\n`);
+    await page.locator(LOCATORS.templatesSection).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.templatesSection).focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(2000);
+    console.log(`Test 7.1 [${ENV_NAME}]: Templates section via Enter\n`);
 
-    await page.keyboard.press("Space");
-    await page.waitForTimeout(500);
-    console.log(`Test 7.2 [${ENV_NAME}]: Space key pressed on menu\n`);
+    const createWorkflowBtn = page.locator(LOCATORS.createWorkflowBtn);
+    await createWorkflowBtn.waitFor({ state: "visible", timeout: 15000 });
+    await createWorkflowBtn.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(2000);
+    console.log(`Test 7.2 [${ENV_NAME}]: Create Workflow via Enter\n`);
 
-    await page.keyboard.press("ArrowDown");
-    await page.waitForTimeout(200);
-    const afterArrowDown = await page.evaluate(() => document.activeElement?.tagName);
-    expect(afterArrowDown).toBeTruthy();
-    console.log(`Test 7.3 [${ENV_NAME}]: ArrowDown moves in menu: ${afterArrowDown}\n`);
+    const uploadFromDeviceBtn = page.locator(LOCATORS.uploadFromDeviceWorkflow);
+    await uploadFromDeviceBtn.waitFor({ state: "visible", timeout: 10000 });
+    await uploadFromDeviceBtn.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(2000);
+    console.log(`Test 7.3 [${ENV_NAME}]: Upload From Device via Enter\n`);
 
-    await page.keyboard.press("ArrowUp");
-    await page.waitForTimeout(200);
-    console.log(`Test 7.4 [${ENV_NAME}]: ArrowUp moves in menu\n`);
+    await page.locator(LOCATORS.uploadInput).setInputFiles("test-data/template.pdf");
+    await page.waitForTimeout(8000);
+    console.log(`Test 7.4 [${ENV_NAME}]: File uploaded\n`);
 
-    await page.keyboard.press("Escape");
-    await page.waitForTimeout(500);
-    console.log(`Test 7.5 [${ENV_NAME}]: Escape closes menu\n`);
+    await page.locator(LOCATORS.workflowContractName).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.workflowContractName).focus();
+    await page.keyboard.press("Control+a");
+    await page.keyboard.type("KeyboardAutoTest");
+    console.log(`Test 7.5 [${ENV_NAME}]: Contract name typed via keyboard\n`);
+
+    await page.locator(LOCATORS.workflowTagInput).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.workflowTagInput).focus();
+    await page.keyboard.type("KeyboardAutoTest");
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(1000);
+    console.log(`Test 7.6 [${ENV_NAME}]: Tag added via keyboard\n`);
+
+    await page
+      .locator(LOCATORS.workflowAddRecipientBtn)
+      .waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.workflowAddRecipientBtn).focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(1000);
+    console.log(`Test 7.7 [${ENV_NAME}]: Add Recipient via Enter\n`);
+
+    await page
+      .locator(LOCATORS.workflowAddDynamicSignatoryBtn)
+      .waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.workflowAddDynamicSignatoryBtn).focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(1000);
+    console.log(`Test 7.8 [${ENV_NAME}]: Add Dynamic Signatory via Enter\n`);
+
+    await page
+      .locator(LOCATORS.workflowPrepareDocumentBtn)
+      .waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.workflowPrepareDocumentBtn).focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(5000);
+    console.log(`Test 7.9 [${ENV_NAME}]: Prepare Document via Enter\n`);
+
+    await page.waitForTimeout(2000);
+    const signatureField7 = page.locator(LOCATORS.signatureField);
+    await signatureField7.waitFor({ state: "visible", timeout: 15000 });
+    await signatureField7.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1000);
+
+    const documentArea7 = page.locator(LOCATORS.documentPageArea).last();
+    await documentArea7.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1000);
+
+    const docBox7 = await documentArea7.boundingBox();
+    const sigBox7 = await signatureField7.boundingBox();
+
+    if (sigBox7 && docBox7) {
+      await page.mouse.move(sigBox7.x + sigBox7.width / 2, sigBox7.y + sigBox7.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(docBox7.x + docBox7.width / 2, docBox7.y + docBox7.height - 100, {
+        steps: 10,
+      });
+      await page.mouse.up();
+      await page.waitForTimeout(2000);
+      console.log(`Test 7.10 [${ENV_NAME}]: Signature dragged\n`);
+    } else {
+      console.log(`Test 7.10 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    }
+
+    await page.waitForFunction(
+      () => {
+        const btns = Array.from(document.querySelectorAll("button"));
+        const saveBtn = btns.find((b: any) => b.textContent?.includes("Save Workflow"));
+        return saveBtn && !saveBtn.disabled;
+      },
+      { timeout: 60000 }
+    );
+    console.log(`Test 7.11 [${ENV_NAME}]: Save Workflow button enabled\n`);
+
+    const saveWorkflowBtn = page.locator(LOCATORS.workflowSaveWorkflowBtn);
+    await saveWorkflowBtn.waitFor({ state: "visible", timeout: 10000 });
+    await saveWorkflowBtn.focus();
+    await page.keyboard.press("Enter");
+    console.log(`Test 7.12 [${ENV_NAME}]: Save Workflow via Enter\n`);
+
+    await page.waitForTimeout(5000);
+    console.log(`Test 7 [${ENV_NAME}]: Create Workflow from Templates via keyboard completed\n`);
   });
 
   // ==========================================================================
-  // TEST 8: COMBINED KEYBOARD WORKFLOW
+  // TEST 8: USE WORKFLOW FROM TEMPLATES VIA KEYBOARD
   // ==========================================================================
 
-  sequentialTest("Test 8: Combined Keyboard Workflow", async ({ page }) => {
-    await page.goto(`${ENV_URL}/home`);
+  sequentialTest("Test 8: Use Workflow from Templates via Keyboard", async ({ page }) => {
+    await page.goto(`${ENV_URL}/e-signature`);
     await page.waitForTimeout(3000);
-    console.log(`Test 8.0 [${ENV_NAME}]: Testing complete keyboard workflow\n`);
+    console.log(`Test 8.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
-    let signatureFound = false;
-    for (let i = 0; i < 30; i++) {
-      await page.keyboard.press("Tab");
-      await page.waitForTimeout(100);
-      const text = await page.evaluate(() => document.activeElement?.textContent);
-      if (text?.includes("Signature")) {
-        signatureFound = true;
-        console.log(`Test 8.1 [${ENV_NAME}]: Found Signature app link via Tab\n`);
-        break;
-      }
-    }
+    await page.locator(LOCATORS.templatesSection).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.templatesSection).focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(2000);
+    console.log(`Test 8.1 [${ENV_NAME}]: Templates section via Enter\n`);
 
-    if (signatureFound) {
-      await page.keyboard.press("Enter");
-      await page.waitForTimeout(3000);
-      const onSignaturePage = page.url().includes("e-signature");
-      console.log(`Test 8.2 [${ENV_NAME}]: Navigated to signature page: ${onSignaturePage}\n`);
+    await page.waitForTimeout(2000);
+    const workflowRow = page.locator('div:has-text("KeyboardAutoTest")').first();
+    await workflowRow.waitFor({ state: "visible", timeout: 10000 });
+    await workflowRow.scrollIntoViewIfNeeded();
+    console.log(`Test 8.2 [${ENV_NAME}]: Found KeyboardAutoTest row\n`);
 
-      const uploadArea = page.locator(LOCATORS.uploadArea);
-      if (await uploadArea.isVisible()) {
-        for (let i = 0; i < 10; i++) {
-          await page.keyboard.press("Tab");
-          await page.waitForTimeout(100);
-          const type = await page.evaluate(() => (document.activeElement as any)?.type);
-          if (type === "file") {
-            console.log(`Test 8.3 [${ENV_NAME}]: Found file input via Tab\n`);
-            break;
-          }
-        }
-      }
-    }
+    const useBtn = page.locator(LOCATORS.useWorkflowBtn).first();
+    await useBtn.waitFor({ state: "visible", timeout: 10000 });
+    await useBtn.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(5000);
+    console.log(`Test 8.3 [${ENV_NAME}]: Use workflow via Enter\n`);
 
-    console.log(`Test 8 [${ENV_NAME}]: Combined keyboard workflow PASSED\n`);
+    await page.waitForTimeout(3000);
+    await page.locator(LOCATORS.workflowAddRecipientBtn).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.workflowAddRecipientBtn).focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(2000);
+    console.log(`Test 8.4 [${ENV_NAME}]: Add Recipient via Enter\n`);
+
+    await page.waitForTimeout(2000);
+    await page.locator(LOCATORS.workflowConfirmBtn).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.workflowConfirmBtn).focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(3000);
+    console.log(`Test 8.5 [${ENV_NAME}]: Confirm via Enter\n`);
+
+    await page.waitForTimeout(3000);
+    const confirmPopupBtn = page.locator('button:has-text("Confirm")').last();
+    await confirmPopupBtn.waitFor({ state: "visible", timeout: 10000 });
+    await confirmPopupBtn.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(5000);
+    console.log(`Test 8.6 [${ENV_NAME}]: Confirm on pop-up via Enter\n`);
+
+    await page.waitForTimeout(5000);
+    const addSignatoryInput = page.locator('input[role="combobox"]');
+    await addSignatoryInput.waitFor({ state: "visible", timeout: 30000 });
+    console.log(`Test 8.7 [${ENV_NAME}]: Add Signatory form loaded\n`);
+
+    await addSignatoryInput.focus();
+    await page.waitForTimeout(300);
+    await page.keyboard.type("r", { delay: 300 });
+    await page.waitForTimeout(500);
+    await page.keyboard.type("a", { delay: 300 });
+    await page.waitForTimeout(500);
+    await page.keyboard.type("a", { delay: 300 });
+    await page.waitForTimeout(500);
+    await page.keyboard.type("j", { delay: 300 });
+    await page.waitForTimeout(2000);
+    console.log(`Test 8.8 [${ENV_NAME}]: Raaj typed in Add Signatory\n`);
+
+    await page.keyboard.press("ArrowDown");
+    await page.waitForTimeout(500);
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(2000);
+    console.log(`Test 8.9 [${ENV_NAME}]: Signatory selected from dropdown\n`);
+
+    const prepareDocBtn = page.locator(LOCATORS.prepareDocumentBtn);
+    await prepareDocBtn.waitFor({ state: "visible", timeout: 30000 });
+    await prepareDocBtn.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(5000);
+    console.log(`Test 8.10 [${ENV_NAME}]: Prepare Document via Enter\n`);
+
+    const sendDocumentBtn = page.locator('button:has-text("Send Document")');
+    await sendDocumentBtn.waitFor({ state: "visible", timeout: 30000 });
+    await sendDocumentBtn.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(5000);
+    console.log(`Test 8.11 [${ENV_NAME}]: Send Document via Enter\n`);
+
+    console.log(`Test 8 [${ENV_NAME}]: Use Workflow from Templates via keyboard completed\n`);
   });
 });
