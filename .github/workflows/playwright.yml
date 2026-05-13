@@ -58,6 +58,14 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Restore monthly reports cache
+      uses: actions/cache@v4
+      id: cache-stage
+      with:
+        path: test-results/excel-reports/
+        key: monthly-reports-STAGE-${{ github.run_id }}
+        restore-keys: |
+          monthly-reports-STAGE-
     - name: Download previous monthly data
       continue-on-error: true
       env:
@@ -72,19 +80,10 @@ jobs:
           echo "Restoring monthly data from artifact $ARTIFACT_ID"
           gh api repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip > /tmp/monthly-data.zip 2>&1
           unzip -o /tmp/monthly-data.zip -d test-results/excel-reports/monthly-data/ 2>&1
-          echo "Files in monthly-data/:"
           ls -la test-results/excel-reports/monthly-data/
         else
           echo "WARNING: No previous monthly data artifact found — starting fresh"
         fi
-    - name: Restore monthly reports cache
-      uses: actions/cache@v4
-      id: cache-stage
-      with:
-        path: test-results/excel-reports/
-        key: monthly-reports-STAGE-${{ github.run_id }}
-        restore-keys: |
-          monthly-reports-STAGE-
     - name: Run Stage regression tests
       run: npm run test:stage:ci
     - name: Generate monthly summary
@@ -162,6 +161,14 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Restore monthly reports cache
+      uses: actions/cache@v4
+      id: cache-prod
+      with:
+        path: test-results/excel-reports/
+        key: monthly-reports-PROD-${{ github.run_id }}
+        restore-keys: |
+          monthly-reports-PROD-
     - name: Download previous monthly data
       continue-on-error: true
       env:
@@ -176,19 +183,10 @@ jobs:
           echo "Restoring monthly data from artifact $ARTIFACT_ID"
           gh api repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip > /tmp/monthly-data.zip 2>&1
           unzip -o /tmp/monthly-data.zip -d test-results/excel-reports/monthly-data/ 2>&1
-          echo "Files in monthly-data/:"
           ls -la test-results/excel-reports/monthly-data/
         else
           echo "WARNING: No previous monthly data artifact found — starting fresh"
         fi
-    - name: Restore monthly data cache
-      uses: actions/cache@v4
-      id: cache-prod
-      with:
-        path: test-results/excel-reports/
-        key: monthly-reports-PROD-${{ github.run_id }}
-        restore-keys: |
-          monthly-reports-PROD-
     - name: Run Prod regression tests
       run: npm run test:prod:ci
     - name: Generate monthly summary
