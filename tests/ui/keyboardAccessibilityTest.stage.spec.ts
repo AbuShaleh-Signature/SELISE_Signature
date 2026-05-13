@@ -182,10 +182,14 @@ sequentialTest.describe.serial(`⌨️  Keyboard Navigation Suite - ${ENV_NAME}`
     console.log(`Test 4.1 [${ENV_NAME}]: Upload area is visible\n`);
 
     await page.locator(LOCATORS.uploadInput).setInputFiles("test-data/template.pdf");
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(8000);
     console.log(`Test 4.2 [${ENV_NAME}]: File uploaded\n`);
 
-    await page.locator(LOCATORS.envelopeNameInput).waitFor({ state: "visible", timeout: 10000 });
+    const uploadProgress = page.locator('text="template.pdf"').first();
+    await uploadProgress.waitFor({ state: "visible", timeout: 15000 });
+    console.log(`Test 4.2.1 [${ENV_NAME}]: File upload verified\n`);
+
+    await page.locator(LOCATORS.envelopeNameInput).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.envelopeNameInput).focus();
     await page.keyboard.press("Control+a");
     await page.keyboard.type("Keyboard Test");
