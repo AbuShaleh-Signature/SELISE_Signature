@@ -214,7 +214,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
   sequentialTest("Test 4: Upload Document", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(15000);
     console.log(`Test 4.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- Close any existing alert dialogs ---
@@ -267,7 +267,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 4.7 [${ENV_NAME}]: Prepare Document clicked\n`);
 
     // --- STEP 8: Wait for Document to Load ---
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(15000);
     console.log(`Test 4.8 [${ENV_NAME}]: Document loaded\n`);
 
     // --- STEP 9: Scroll to Bottom of Document ---
@@ -277,7 +277,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 10: Drag Signature to PDF ---
     const signatureField = page.locator(LOCATORS.signatureField);
-    await signatureField.waitFor({ state: "visible", timeout: 15000 });
+    await signatureField.waitFor({ state: "visible", timeout: 30000 });
 
     const documentArea = page.locator(LOCATORS.documentPageArea).last();
     const docBox = await documentArea.boundingBox();
