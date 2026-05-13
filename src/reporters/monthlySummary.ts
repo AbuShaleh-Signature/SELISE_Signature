@@ -221,7 +221,8 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
 
   // ---- EXISTING FILE: append only new days, recalc aggregate sheets ----
   console.log(`   Existing file found: ${filepath}`);
-  const workbook = await ExcelJS.Workbook.xlsx.readFile(filepath);
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.readFile(filepath);
   const existingDates = readExistingDates(workbook);
 
   const newDays = dailyRuns.filter((day, index) => {

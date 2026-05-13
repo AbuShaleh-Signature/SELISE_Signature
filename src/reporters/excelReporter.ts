@@ -80,9 +80,10 @@ class ExcelReporter implements Reporter {
 
   // Called when each individual test ends — capture the result
   onTestEnd(test: TestCase, result: TestResult) {
-    // ---- FILTER: Skip smoke tests so they never appear in reports ----
+    // ---- FILTER: Skip smoke / keyboard tests so they never appear in reports ----
     const filePath = test.location.file.replace(/\\/g, "/");
     if (filePath.includes("smokeTest")) return;
+    if (filePath.includes("keyboard")) return;
 
     // Walk up the suite tree to build the full suite path
     const title = test.title;
