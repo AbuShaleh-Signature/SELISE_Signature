@@ -70,20 +70,20 @@
   },
   "suites": [
     {
-      "title": "ui\\keyboardAccessibilityTest.stage.spec.ts",
-      "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+      "title": "ui\\regressionTest.stage.spec.ts",
+      "file": "ui/regressionTest.stage.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "⌨️  Keyboard Navigation Suite - STAGE",
-          "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-          "line": 37,
+          "title": "📋 Regression Suite - STAGE Environment",
+          "file": "ui/regressionTest.stage.spec.ts",
+          "line": 66,
           "column": 25,
           "specs": [
             {
-              "title": "Test 1: Home Page Keyboard Navigation",
+              "title": "Test 1: Verify home page elements",
               "ok": true,
               "tags": [],
               "tests": [
@@ -98,7 +98,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 14971,
+                      "duration": 15114,
                       "errors": [],
                       "stdout": [
                         {
@@ -114,24 +114,12 @@
                           "text": "{\"level\":\"info\",\"message\":\"Login successful - Session started\"}\r\n"
                         },
                         {
-                          "text": "Test 1.0 [STAGE]: Home page loaded\n\n"
-                        },
-                        {
-                          "text": "Test 1.1 [STAGE]: Focusable elements found: 20\n\n"
-                        },
-                        {
-                          "text": "Test 1.2 [STAGE]: Tabbed through 10 elements\n\n"
-                        },
-                        {
-                          "text": "Test 1.3 [STAGE]: Shift+Tab works: A\n\n"
-                        },
-                        {
-                          "text": "Test 1 [STAGE]: Home page keyboard navigation PASSED\n\n"
+                          "text": "Test 1 [STAGE]: Home page elements verified\n\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T07:28:24.735Z",
+                      "startTime": "2026-05-13T08:30:00.662Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -139,13 +127,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "e1e14f11ecace984309f-38a2734c2af12db218c0",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 44,
+              "id": "3fd36ba8e87d40ac9d39-cc54ad07b42fbf754573",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 77,
               "column": 3
             },
             {
-              "title": "Test 2: Landing Page Keyboard Navigation",
+              "title": "Test 2: Verify Landing Page Contents",
               "ok": true,
               "tags": [],
               "tests": [
@@ -160,7 +148,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 63,
+                      "duration": 37,
                       "errors": [],
                       "stdout": [
                         {
@@ -187,7 +175,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T07:28:39.734Z",
+                      "startTime": "2026-05-13T08:30:15.799Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -195,13 +183,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "e1e14f11ecace984309f-049bf1ccd9b618c6c702",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 78,
+              "id": "3fd36ba8e87d40ac9d39-572850cc6986cc338100",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 91,
               "column": 3
             },
             {
-              "title": "Test 3: Signature Module Keyboard Navigation",
+              "title": "Test 3: Verify Signature Module",
               "ok": true,
               "tags": [],
               "tests": [
@@ -216,28 +204,28 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 17398,
+                      "duration": 20487,
                       "errors": [],
                       "stdout": [
                         {
                           "text": "Test 3.0 [STAGE]: Signature app clicked\n\n"
                         },
                         {
-                          "text": "Test 3.1 [STAGE]: Yet To Sign opened via Enter\n\n"
+                          "text": "Test 3.1 [STAGE]: Yet To Sign clicked and details page opened\n\n"
                         },
                         {
-                          "text": "Test 3.2 [STAGE]: Yet To Review opened via Enter\n\n"
+                          "text": "Test 3.2 [STAGE]: Yet To Review clicked and details page opened\n\n"
                         },
                         {
-                          "text": "Test 3.3 [STAGE]: Pending opened via Enter\n\n"
+                          "text": "Test 3.3 [STAGE]: Pending clicked and details page opened\n\n"
                         },
                         {
-                          "text": "Test 3.4 [STAGE]: Completed opened via Enter\n\n"
+                          "text": "Test 3.4 [STAGE]: Completed clicked and details page opened\n\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T07:28:39.825Z",
+                      "startTime": "2026-05-13T08:30:15.848Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -245,128 +233,13 @@
                   "status": "expected"
                 }
               ],
-              "id": "e1e14f11ecace984309f-014f4478c341f618e907",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 105,
+              "id": "3fd36ba8e87d40ac9d39-afa67b2521070296bc30",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 129,
               "column": 3
             },
             {
-              "title": "Test 4: Upload Document via Keyboard",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 600000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 30404,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Test 4.0 [STAGE]: Navigated to Signature module\n\n"
-                        },
-                        {
-                          "text": "Test 4.1 [STAGE]: Upload area is visible\n\n"
-                        },
-                        {
-                          "text": "Test 4.2 [STAGE]: File uploaded\n\n"
-                        },
-                        {
-                          "text": "Test 4.2.1 [STAGE]: File upload verified\n\n"
-                        },
-                        {
-                          "text": "Test 4.3 [STAGE]: Envelope name typed via keyboard\n\n"
-                        },
-                        {
-                          "text": "Test 4.4 [STAGE]: Add Recipient clicked\n\n"
-                        },
-                        {
-                          "text": "Test 4.5 [STAGE]: Add Recipients page visible\n\n"
-                        },
-                        {
-                          "text": "Test 4.6 [STAGE]: Prepare Document clicked\n\n"
-                        },
-                        {
-                          "text": "Test 4.7 [STAGE]: Document loaded\n\n"
-                        },
-                        {
-                          "text": "Test 4.8 [STAGE]: Scrolled to bottom\n\n"
-                        },
-                        {
-                          "text": "Test 4.9 [STAGE]: SKIPPED - Could not get positions\n\n"
-                        },
-                        {
-                          "text": "Test 4 [STAGE]: Upload and sign via keyboard completed\n\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-05-13T07:28:57.250Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "e1e14f11ecace984309f-fbd83fe2c00a0f09214e",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 161,
-              "column": 3
-            },
-            {
-              "title": "Test 5: Signature Advance Workflow via Keyboard",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 600000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 3198,
-                      "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Test 5.0 [STAGE]: Navigated to Signature module\n\n"
-                        },
-                        {
-                          "text": "Test 5.1 [STAGE]: SKIPPED - Upload area not visible\n\n"
-                        },
-                        {
-                          "text": "Test 5 [STAGE]: SKIPPED - Advance workflow not available\n\n"
-                        }
-                      ],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-05-13T07:29:27.678Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "e1e14f11ecace984309f-a65c6c9f0cc1beb9ecc7",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 309,
-              "column": 3
-            },
-            {
-              "title": "Test 6: Sign A Document via Keyboard",
+              "title": "Test 4: Upload Document",
               "ok": false,
               "tags": [],
               "tests": [
@@ -381,72 +254,69 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 23823,
+                      "duration": 18435,
                       "error": {
-                        "message": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Prepare Document\")') to be visible\u001b[22m\n",
-                        "stack": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Prepare Document\")') to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:461:53",
+                        "message": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts:250:52",
                         "location": {
-                          "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
-                          "column": 53,
-                          "line": 461
+                          "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts",
+                          "column": 52,
+                          "line": 250
                         },
-                        "snippet": "\u001b[0m \u001b[90m 459 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 6.4 [${ENV_NAME}]: Add Recipient clicked\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 460 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 461 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39mprepareDocumentBtn)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 462 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39mprepareDocumentBtn)\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 463 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m5000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 464 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 6.5 [${ENV_NAME}]: Prepare Document clicked\\n`\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                        "snippet": "\u001b[0m \u001b[90m 248 |\u001b[39m\n \u001b[90m 249 |\u001b[39m     \u001b[90m// --- STEP 4: Fill Envelope Name ---\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 250 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 251 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mfill(\u001b[32m\"Automation Test\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 252 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 4.4 [${ENV_NAME}]: Envelope name set\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 253 |\u001b[39m\u001b[0m"
                       },
                       "errors": [
                         {
                           "location": {
-                            "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
-                            "column": 53,
-                            "line": 461
+                            "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts",
+                            "column": 52,
+                            "line": 250
                           },
-                          "message": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button:has-text(\"Prepare Document\")') to be visible\u001b[22m\n\n\n  459 |     console.log(`Test 6.4 [${ENV_NAME}]: Add Recipient clicked\\n`);\n  460 |\n> 461 |     await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: \"visible\", timeout: 10000 });\n      |                                                     ^\n  462 |     await page.locator(LOCATORS.prepareDocumentBtn).click();\n  463 |     await page.waitForTimeout(5000);\n  464 |     console.log(`Test 6.5 [${ENV_NAME}]: Prepare Document clicked\\n`);\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:461:53"
+                          "message": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 248 |\u001b[39m\n \u001b[90m 249 |\u001b[39m     \u001b[90m// --- STEP 4: Fill Envelope Name ---\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 250 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 251 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mfill(\u001b[32m\"Automation Test\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 252 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 4.4 [${ENV_NAME}]: Envelope name set\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 253 |\u001b[39m\u001b[0m\n\u001b[2m    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts:250:52\u001b[22m"
                         }
                       ],
                       "stdout": [
                         {
-                          "text": "Test 6.0 [STAGE]: Navigated to Signature module\n\n"
+                          "text": "Test 4.0 [STAGE]: Navigated to Signature module\n\n"
                         },
                         {
-                          "text": "Test 6.1 [STAGE]: Sign A Document clicked\n\n"
+                          "text": "Test 4.1 [STAGE]: Upload area is visible\n\n"
                         },
                         {
-                          "text": "Test 6.2 [STAGE]: File uploaded\n\n"
+                          "text": "Test 4.2 [STAGE]: Upload From Device button is visible\n\n"
                         },
                         {
-                          "text": "Test 6.3 [STAGE]: Envelope name typed\n\n"
-                        },
-                        {
-                          "text": "Test 6.4 [STAGE]: Add Recipient clicked\n\n"
+                          "text": "Test 4.3 [STAGE]: File uploaded\n\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T07:29:30.910Z",
+                      "startTime": "2026-05-13T08:30:36.354Z",
                       "annotations": [],
                       "attachments": [
                         {
                           "name": "error-context",
                           "contentType": "text/markdown",
-                          "path": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\test-results\\ui-keyboardAccessibilityTe-249f1-ign-A-Document-via-Keyboard-chromium\\error-context.md"
+                          "path": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\test-results\\ui-regressionTest.stage-📋-641b3-ment-Test-4-Upload-Document-chromium\\error-context.md"
                         }
                       ],
                       "errorLocation": {
-                        "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
-                        "column": 53,
-                        "line": 461
+                        "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\regressionTest.stage.spec.ts",
+                        "column": 52,
+                        "line": 250
                       }
                     }
                   ],
                   "status": "unexpected"
                 }
               ],
-              "id": "e1e14f11ecace984309f-bae26564ea3cf21d9342",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 436,
+              "id": "3fd36ba8e87d40ac9d39-bf5ac0ff516516fe3ba6",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 214,
               "column": 3
             },
             {
-              "title": "Test 7: Create Workflow from Templates via Keyboard",
+              "title": "Test 5: Signature Advance Workflow",
               "ok": true,
               "tags": [],
               "tests": [
@@ -466,7 +336,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T07:29:54.819Z",
+                      "startTime": "2026-05-13T08:30:54.872Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -474,13 +344,13 @@
                   "status": "skipped"
                 }
               ],
-              "id": "e1e14f11ecace984309f-dcea565ec1819eac6555",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 543,
+              "id": "3fd36ba8e87d40ac9d39-d92390d9d291fdd7214e",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 373,
               "column": 3
             },
             {
-              "title": "Test 8: Use Workflow from Templates via Keyboard",
+              "title": "Test 6: Sign A Document flow",
               "ok": true,
               "tags": [],
               "tests": [
@@ -500,7 +370,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T07:29:54.819Z",
+                      "startTime": "2026-05-13T08:30:54.873Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -508,9 +378,77 @@
                   "status": "skipped"
                 }
               ],
-              "id": "e1e14f11ecace984309f-7ba699e22985dad4aca0",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 652,
+              "id": "3fd36ba8e87d40ac9d39-d58358601585e771570b",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 508,
+              "column": 3
+            },
+            {
+              "title": "Test 7: Create Workflow from Templates",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T08:30:54.873Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3fd36ba8e87d40ac9d39-1ec2f490704766186bff",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 629,
+              "column": 3
+            },
+            {
+              "title": "Test 8: Use Workflow from Templates",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T08:30:54.873Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "3fd36ba8e87d40ac9d39-112719bbe4e37d6165b5",
+              "file": "ui/regressionTest.stage.spec.ts",
+              "line": 756,
               "column": 3
             }
           ]
@@ -520,10 +458,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-13T07:28:23.832Z",
-    "duration": 91498.658,
-    "expected": 5,
-    "skipped": 2,
+    "startTime": "2026-05-13T08:29:59.914Z",
+    "duration": 55331.659999999996,
+    "expected": 3,
+    "skipped": 4,
     "unexpected": 1,
     "flaky": 0
   }
