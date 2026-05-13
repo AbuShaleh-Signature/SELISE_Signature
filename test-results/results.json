@@ -98,7 +98,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 16271,
+                      "duration": 15483,
                       "errors": [],
                       "stdout": [
                         {
@@ -131,7 +131,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T06:21:46.238Z",
+                      "startTime": "2026-05-13T06:25:55.181Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -160,7 +160,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 30,
+                      "duration": 42,
                       "errors": [],
                       "stdout": [
                         {
@@ -187,7 +187,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T06:22:02.524Z",
+                      "startTime": "2026-05-13T06:26:10.685Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -216,7 +216,7 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 17584,
+                      "duration": 17168,
                       "errors": [],
                       "stdout": [
                         {
@@ -237,7 +237,7 @@
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T06:22:02.569Z",
+                      "startTime": "2026-05-13T06:26:10.743Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -252,6 +252,71 @@
             },
             {
               "title": "Test 4: Upload Document via Keyboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 24337,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Test 4.0 [STAGE]: Navigated to Signature module\n\n"
+                        },
+                        {
+                          "text": "Test 4.1 [STAGE]: Upload area is visible\n\n"
+                        },
+                        {
+                          "text": "Test 4.2 [STAGE]: File uploaded\n\n"
+                        },
+                        {
+                          "text": "Test 4.2.1 [STAGE]: File upload verified\n\n"
+                        },
+                        {
+                          "text": "Test 4.3 [STAGE]: Envelope name typed via keyboard\n\n"
+                        },
+                        {
+                          "text": "Test 4.4 [STAGE]: Add Recipient via Enter\n\n"
+                        },
+                        {
+                          "text": "Test 4.5 [STAGE]: Add Recipients page visible\n\n"
+                        },
+                        {
+                          "text": "Test 4.6 [STAGE]: Prepare Document via Enter\n\n"
+                        },
+                        {
+                          "text": "Test 4.7 [STAGE]: Document loaded\n\n"
+                        },
+                        {
+                          "text": "Test 4 [STAGE]: Upload via keyboard completed\n\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-13T06:26:27.929Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e1e14f11ecace984309f-fbd83fe2c00a0f09214e",
+              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
+              "line": 161,
+              "column": 3
+            },
+            {
+              "title": "Test 5: Signature Advance Workflow via Keyboard",
               "ok": false,
               "tags": [],
               "tests": [
@@ -266,96 +331,71 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 18223,
+                      "duration": 14028,
                       "error": {
-                        "message": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n",
-                        "stack": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:188:52",
+                        "message": "Error: locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('text=\"Add Recipients\"') to be visible\u001b[22m\n",
+                        "stack": "Error: locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('text=\"Add Recipients\"') to be visible\u001b[22m\n\n    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:270:52",
                         "location": {
                           "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
                           "column": 52,
-                          "line": 188
+                          "line": 270
                         },
-                        "snippet": "\u001b[0m \u001b[90m 186 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 4.2 [${ENV_NAME}]: File uploaded\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 187 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 188 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 189 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mfocus()\u001b[33m;\u001b[39m\n \u001b[90m 190 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mkeyboard\u001b[33m.\u001b[39mpress(\u001b[32m\"Control+a\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 191 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mkeyboard\u001b[33m.\u001b[39mtype(\u001b[32m\"Keyboard Test\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                        "snippet": "\u001b[0m \u001b[90m 268 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 5.4 [${ENV_NAME}]: Add Recipient via Enter\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 269 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 270 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39maddRecipientsPage)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 271 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39maddRecipientsPage))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 272 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 5.5 [${ENV_NAME}]: Add Recipients page visible\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 273 |\u001b[39m\u001b[0m"
                       },
                       "errors": [
                         {
                           "location": {
                             "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
                             "column": 52,
-                            "line": 188
+                            "line": 270
                           },
-                          "message": "TimeoutError: locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[placeholder=\"Enter contract name\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 186 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 4.2 [${ENV_NAME}]: File uploaded\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 187 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 188 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 189 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39menvelopeNameInput)\u001b[33m.\u001b[39mfocus()\u001b[33m;\u001b[39m\n \u001b[90m 190 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mkeyboard\u001b[33m.\u001b[39mpress(\u001b[32m\"Control+a\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 191 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mkeyboard\u001b[33m.\u001b[39mtype(\u001b[32m\"Keyboard Test\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:188:52\u001b[22m"
+                          "message": "Error: locator.waitFor: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('text=\"Add Recipients\"') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 268 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 5.4 [${ENV_NAME}]: Add Recipient via Enter\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 269 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 270 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39maddRecipientsPage)\u001b[33m.\u001b[39mwaitFor({ state\u001b[33m:\u001b[39m \u001b[32m\"visible\"\u001b[39m\u001b[33m,\u001b[39m timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 271 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[33mLOCATORS\u001b[39m\u001b[33m.\u001b[39maddRecipientsPage))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 272 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Test 5.5 [${ENV_NAME}]: Add Recipients page visible\\n`\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 273 |\u001b[39m\u001b[0m\n\u001b[2m    at C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts:270:52\u001b[22m"
                         }
                       ],
                       "stdout": [
                         {
-                          "text": "Test 4.0 [STAGE]: Navigated to Signature module\n\n"
+                          "text": "Test 5.0 [STAGE]: Navigated to Signature module\n\n"
                         },
                         {
-                          "text": "Test 4.1 [STAGE]: Upload area is visible\n\n"
+                          "text": "Test 5.1 [STAGE]: Upload area is visible\n\n"
                         },
                         {
-                          "text": "Test 4.2 [STAGE]: File uploaded\n\n"
+                          "text": "Test 5.2 [STAGE]: File uploaded\n\n"
+                        },
+                        {
+                          "text": "Test 5.2.1 [STAGE]: File upload verified\n\n"
+                        },
+                        {
+                          "text": "Test 5.3 [STAGE]: Signature type selected via keyboard\n\n"
+                        },
+                        {
+                          "text": "Test 5.4 [STAGE]: Add Recipient via Enter\n\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T06:22:20.170Z",
+                      "startTime": "2026-05-13T06:26:52.283Z",
                       "annotations": [],
                       "attachments": [
                         {
                           "name": "error-context",
                           "contentType": "text/markdown",
-                          "path": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\test-results\\ui-keyboardAccessibilityTe-59429-pload-Document-via-Keyboard-chromium\\error-context.md"
+                          "path": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\test-results\\ui-keyboardAccessibilityTe-fc146-vance-Workflow-via-Keyboard-chromium\\error-context.md"
                         }
                       ],
                       "errorLocation": {
                         "file": "C:\\QA Things\\SELISE Things\\Project\\Automation Framework\\SELISE_Signature\\tests\\ui\\keyboardAccessibilityTest.stage.spec.ts",
                         "column": 52,
-                        "line": 188
+                        "line": 270
                       }
                     }
                   ],
                   "status": "unexpected"
                 }
               ],
-              "id": "e1e14f11ecace984309f-fbd83fe2c00a0f09214e",
-              "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 161,
-              "column": 3
-            },
-            {
-              "title": "Test 5: Signature Advance Workflow via Keyboard",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 600000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": -1,
-                      "parallelIndex": -1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-05-13T06:22:38.427Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "skipped"
-                }
-              ],
               "id": "e1e14f11ecace984309f-a65c6c9f0cc1beb9ecc7",
               "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 218,
+              "line": 222,
               "column": 3
             },
             {
@@ -379,7 +419,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T06:22:38.427Z",
+                      "startTime": "2026-05-13T06:27:06.348Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -389,7 +429,7 @@
               ],
               "id": "e1e14f11ecace984309f-bae26564ea3cf21d9342",
               "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 283,
+              "line": 287,
               "column": 3
             },
             {
@@ -413,7 +453,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T06:22:38.428Z",
+                      "startTime": "2026-05-13T06:27:06.348Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -423,7 +463,7 @@
               ],
               "id": "e1e14f11ecace984309f-6c9b313a2018b8004a3d",
               "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 323,
+              "line": 327,
               "column": 3
             },
             {
@@ -447,7 +487,7 @@
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-05-13T06:22:38.428Z",
+                      "startTime": "2026-05-13T06:27:06.349Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -457,7 +497,7 @@
               ],
               "id": "e1e14f11ecace984309f-7697ac7269277ab55ac1",
               "file": "ui/keyboardAccessibilityTest.stage.spec.ts",
-              "line": 356,
+              "line": 360,
               "column": 3
             }
           ]
@@ -467,10 +507,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-13T06:21:45.537Z",
-    "duration": 53199.11,
-    "expected": 3,
-    "skipped": 4,
+    "startTime": "2026-05-13T06:25:54.530Z",
+    "duration": 72223.975,
+    "expected": 4,
+    "skipped": 3,
     "unexpected": 1,
     "flaky": 0
   }

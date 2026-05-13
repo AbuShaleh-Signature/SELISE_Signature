@@ -251,31 +251,31 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     await page.locator(LOCATORS.envelopeNameInput).fill("Automation Test");
     console.log(`Test 4.4 [${ENV_NAME}]: Envelope name set\n`);
 
-    // --- STEP 6: Add Recipient ---
+    // --- STEP 5: Add Recipient ---
     await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 10000 });
     await page.locator(LOCATORS.addRecipientBtn).click();
-    console.log(`Test 5.5 [${ENV_NAME}]: Add Recipient clicked\n`);
+    console.log(`Test 4.5 [${ENV_NAME}]: Add Recipient clicked\n`);
 
-    // --- STEP 7: Verify Add Recipients Page ---
+    // --- STEP 6: Verify Add Recipients Page ---
     await page.locator(LOCATORS.addRecipientsPage).waitFor({ state: "visible", timeout: 10000 });
     await expect(page.locator(LOCATORS.addRecipientsPage)).toBeVisible();
-    console.log(`Test 5.6 [${ENV_NAME}]: Add Recipients page visible\n`);
+    console.log(`Test 4.6 [${ENV_NAME}]: Add Recipients page visible\n`);
 
-    // --- STEP 8: Prepare Document ---
+    // --- STEP 7: Prepare Document ---
     await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 10000 });
     await page.locator(LOCATORS.prepareDocumentBtn).click();
-    console.log(`Test 5.7 [${ENV_NAME}]: Prepare Document clicked\n`);
+    console.log(`Test 4.7 [${ENV_NAME}]: Prepare Document clicked\n`);
 
-    // --- STEP 9: Wait for Document to Load ---
+    // --- STEP 8: Wait for Document to Load ---
     await page.waitForTimeout(3000);
-    console.log(`Test 5.8 [${ENV_NAME}]: Document loaded\n`);
+    console.log(`Test 4.8 [${ENV_NAME}]: Document loaded\n`);
 
-    // --- STEP 10: Scroll to Bottom of Document ---
+    // --- STEP 9: Scroll to Bottom of Document ---
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await page.waitForTimeout(1000);
-    console.log(`Test 5.9 [${ENV_NAME}]: Scrolled to bottom\n`);
+    console.log(`Test 4.9 [${ENV_NAME}]: Scrolled to bottom\n`);
 
-    // --- STEP 11: Drag Signature to PDF ---
+    // --- STEP 10: Drag Signature to PDF ---
     const signatureField = page.locator(LOCATORS.signatureField);
     await signatureField.waitFor({ state: "visible", timeout: 10000 });
 
@@ -294,7 +294,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       await page.waitForTimeout(2000);
       console.log(`Test 4.10 [${ENV_NAME}]: Signature dragged\n`);
     } else {
-      console.log(`Test 5.10 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+      console.log(`Test 4.10 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
     }
 
     // --- STEP 12: Send Document ---
@@ -431,7 +431,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     await page.waitForTimeout(5000);
     console.log(`Test 5.7 [${ENV_NAME}]: Document loaded\n`);
 
-    // --- STEP 10: Drag Signature to PDF ---
+    // --- STEP 9: Drag Signature to PDF ---
     const signatureField = page.locator(LOCATORS.signatureField);
     await signatureField.waitFor({ state: "visible", timeout: 10000 });
     await signatureField.scrollIntoViewIfNeeded();
@@ -451,9 +451,9 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       });
       await page.mouse.up();
       await page.waitForTimeout(2000);
-      console.log(`Test 5.10 [${ENV_NAME}]: Signature dragged\n`);
+      console.log(`Test 5.8 [${ENV_NAME}]: Signature dragged\n`);
     } else {
-      console.log(`Test 5.10 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+      console.log(`Test 5.8 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
     }
 
     // --- STEP 11: Send Document ---
@@ -509,7 +509,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
     await page.waitForTimeout(3000);
-    console.log(`Test 6.1 [${ENV_NAME}]: Navigated to Signature module\n`);
+    console.log(`Test 6.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Sign A Document button ---
     const signADocBtn = page.locator('button:has-text("Sign A Document")');
@@ -580,7 +580,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       await confirmBtn.waitFor({ state: "visible", timeout: 10000 });
       await confirmBtn.click();
       await page.waitForTimeout(3000);
-      console.log(`Test 6.9 [${ENV_NAME}]: Confirm clicked\n`);
+      console.log(`Test 6.9.1 [${ENV_NAME}]: Confirm clicked\n`);
     } else {
       console.log(`Test 6.9 [${ENV_NAME}]: INFO - Document sent directly\n`);
     }
@@ -630,7 +630,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
     await page.waitForTimeout(3000);
-    console.log(`Test 7.1 [${ENV_NAME}]: Navigated to Signature module\n`);
+    console.log(`Test 7.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Templates section ---
     await page.evaluate(() => {
@@ -757,7 +757,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
     await page.waitForTimeout(3000);
-    console.log(`Test 8.1 [${ENV_NAME}]: Navigated to Signature module\n`);
+    console.log(`Test 8.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Templates section ---
     await page.evaluate(() => {
