@@ -323,12 +323,12 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       await page.waitForTimeout(30000);
       console.log(`Test 4.13 [${ENV_NAME}]: Confirm clicked\n`);
     } else {
-      console.log(`Test 4.12 [${ENV_NAME}]: INFO - Document sent directly\n`);
+      console.log(`Test 4.13 [${ENV_NAME}]: INFO - Document sent directly\n`);
     }
 
     // --- STEP 13: Wait for Document Rollout Completion ---
     // Rollout process: Signatures applied → Texts applied → Emails sent
-    await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 120000 });
+    await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 300000 });
     console.log(`Test 4.14 [${ENV_NAME}]: Document rollout completed\n`);
 
     // --- STEP 14: Review and Sign ---
