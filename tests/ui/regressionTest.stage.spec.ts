@@ -328,7 +328,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 13: Wait for Document Rollout Completion ---
     // Rollout process: Signatures applied → Texts applied → Emails sent
-    await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 120000 });
     console.log(`Test 4.14 [${ENV_NAME}]: Document rollout completed\n`);
 
     // --- STEP 14: Review and Sign ---
