@@ -202,55 +202,21 @@ export async function generateMonthlySummary(env: string, month: string, dataDir
   const filename = `${env.toLowerCase()}_monthly_summary_${month}.xlsx`;
   const filepath = join(outputDir, filename);
 
-  // ---- FRESH FILE: create all 5 sheets from all data ----
-  if (!existsSync(filepath)) {
-    console.log(`   No existing file, creating new`);
-    const workbook = new ExcelJS.Workbook();
-    workbook.creator = "Playwright Monthly Summary Report";
-    workbook.created = new Date();
-    await addOverviewSheet(workbook, env, month, dailyRuns);
-    await addDailyBreakdownSheet(workbook, env, month, dailyRuns);
-    await addFlakyTestsSheet(workbook, env, dailyRuns);
-    await addFailedTestsAnalysisSheet(workbook, env, month, dailyRuns);
-    await addTestTrendSheet(workbook, env, dailyRuns);
-    const buffer = await workbook.xlsx.writeBuffer();
-    writeFileSync(filepath, buffer as unknown as Buffer);
-    console.log(`\n📊 Monthly summary generated: ${filepath}`);
-    return;
-  }
-
-  // ---- EXISTING FILE: append only new days, recalc aggregate sheets ----
-  console.log(`   Existing file found: ${filepath}`);
+  // Always regenerate from scratch using all accumulated JSON data
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile(filepath);
-  const existingDates = readExistingDates(workbook);
-
-  const newDays = dailyRuns.filter((day, index) => {
-    const date = day[0]?.timestamp?.split("T")[0] || `Day ${index + 1}`;
-    return !existingDates.includes(date);
-  });
-
-  console.log(`   Existing days: ${existingDates.length}, New days to add: ${newDays.length}`);
-
-  if (newDays.length === 0) {
-    console.log(`   No new data to append`);
-    return;
-  }
-
-  // 1) Append new rows to Daily Breakdown + update TOTAL row
-  await appendDailyBreakdownRows(workbook, newDays, dailyRuns);
-
-  // 2) Recalculate Overview metric values in-place
-  await updateOverviewSheet(workbook, env, month, dailyRuns);
-
-  // 3) Rebuild aggregate sheets from ALL data
-  await replaceAggregateSheet(workbook, "Flaky Tests", () => addFlakyTestsSheet(workbook, env, dailyRuns));
-  await replaceAggregateSheet(workbook, `${env} - Failed Tests Analysis`, () => addFailedTestsAnalysisSheet(workbook, env, month, dailyRuns));
-  await replaceAggregateSheet(workbook, "Test Trends", () => addTestTrendSheet(workbook, env, dailyRuns));
-
+  workbook.creator = "Playwright Monthly Summary Report";
+  workbook.created = new Date();
+  await addOverviewSheet(workbook, env, month, dailyRuns);
+  await addDailyBreakdownSheet(workbook, env, month, dailyRuns);
+  await addFlakyTestsSheet(workbook, env, dailyRuns);
+  await addFailedTestsAnalysisSheet(workbook, env, month, dailyRuns);
+  await addTestTrendSheet(workbook, env, dailyRuns);
   const buffer = await workbook.xlsx.writeBuffer();
   writeFileSync(filepath, buffer as unknown as Buffer);
-  console.log(`\n📊 Monthly summary updated (appended ${newDays.length} new day(s)): ${filepath}`);
+
+  const dayCount = dailyRuns.length;
+  const totalRecords = dailyRuns.reduce((sum, d) => sum + d.length, 0);
+  console.log(`\n📊 Monthly summary generated: ${filepath} (${dayCount} day(s), ${totalRecords} records)`);
 }
 
 // ----------------------------------------------------------
@@ -413,9 +379,10 @@ async function addDailyBreakdownSheet(workbook: ExcelJS.Workbook, env: string, m
   headerRow.font = { bold: true, color: { argb: "FFFFFFFF" } };
   headerRow.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF70AD47" } };
 
+  // Each run gets its own row (multiple runs on the same date appear incrementally)
   dailyRuns.forEach((dayRecords, index) => {
     const stats = calculateStats(dayRecords);
-    const date = dayRecords[0]?.timestamp?.split("T")[0] || `Day ${index + 1}`;
+    const date = dayRecords[0]?.timestamp?.split("T")[0] || `Run ${index + 1}`;
 
     const row = sheet.addRow({
       date,
