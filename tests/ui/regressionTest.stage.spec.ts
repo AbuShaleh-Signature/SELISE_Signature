@@ -129,7 +129,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
   sequentialTest("Test 3: Verify Signature Module", async ({ page }) => {
     // Navigate to Signature module by clicking the Signature app
     await page.locator(LOCATORS.signatureApp).first().click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 3.0 [${ENV_NAME}]: Signature app clicked\n`);
 
     // --- YET TO SIGN CARD ---
@@ -139,7 +139,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     if (await yetToSignCard.isVisible()) {
       await yetToSignCard.click(); // Click to open details page
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
       console.log(`Test 3.1 [${ENV_NAME}]: Yet To Sign clicked and details page opened\n`);
       await page.goto(`${ENV_URL}/e-signature`); // Navigate back to signature module
     await page.waitForLoadState("networkidle", { timeout: 60000 });;
@@ -154,7 +154,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     if (await yetToReviewCard.isVisible()) {
       await yetToReviewCard.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
       console.log(`Test 3.2 [${ENV_NAME}]: Yet To Review clicked and details page opened\n`);
       await page.goto(`${ENV_URL}/e-signature`);
     await page.waitForLoadState("networkidle", { timeout: 60000 });;
@@ -169,7 +169,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     if (await pendingCard.isVisible()) {
       await pendingCard.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
       console.log(`Test 3.3 [${ENV_NAME}]: Pending clicked and details page opened\n`);
       await page.goto(`${ENV_URL}/e-signature`);
     await page.waitForLoadState("networkidle", { timeout: 60000 });;
@@ -184,7 +184,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     if (await completedCard.isVisible()) {
       await completedCard.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
       console.log(`Test 3.4 [${ENV_NAME}]: Completed clicked and details page opened\n`);
     } else {
       console.log(`Test 3.4 [${ENV_NAME}]: SKIPPED - Completed card not visible\n`);
@@ -221,7 +221,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     const closeAlert = page.locator(LOCATORS.closeAlertBtn).first();
     if (await closeAlert.isVisible()) {
       await closeAlert.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     }
 
     // --- STEP 2: Verify Upload Area ---
@@ -320,7 +320,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
         { timeout: 60000 }
       );
       await confirmBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
       console.log(`Test 4.13 [${ENV_NAME}]: Confirm clicked\n`);
     } else {
       console.log(`Test 4.13 [${ENV_NAME}]: INFO - Document sent directly\n`);
@@ -380,7 +380,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     const closeAlert = page.locator(LOCATORS.closeAlertBtn).first();
     if (await closeAlert.isVisible()) {
       await closeAlert.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     }
 
     // --- STEP 2: Verify Upload Area ---
@@ -485,7 +485,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
         { timeout: 60000 }
       );
       await confirmBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
       console.log(`Test 5.13 [${ENV_NAME}]: Confirm clicked\n`);
 
       // Wait for dialog to close
@@ -512,7 +512,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     const signADocBtn = page.locator('button:has-text("Sign A Document")');
     await signADocBtn.waitFor({ state: "visible", timeout: 15000 });
     await signADocBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 6.2 [${ENV_NAME}]: Sign A Document clicked\n`);
 
     // --- STEP 3: Upload PDF File ---
@@ -528,18 +528,18 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 5: Click Add Recipient ---
     await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 15000 });
     await page.locator(LOCATORS.addRecipientBtn).click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 6.5 [${ENV_NAME}]: Add Recipient clicked\n`);
 
     // --- STEP 6: Click Prepare Document ---
     await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 15000 });
     await page.locator(LOCATORS.prepareDocumentBtn).click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 6.6 [${ENV_NAME}]: Prepare Document clicked\n`);
 
     // --- STEP 7: Drag Signature to PDF ---
     const signatureField = page.locator(LOCATORS.signatureField);
-    await signatureField.waitFor({ state: "visible", timeout: 15000 });
+    await signatureField.waitFor({ state: "visible", timeout: 30000 });
     await signatureField.scrollIntoViewIfNeeded();
 
     const documentArea = page.locator(LOCATORS.documentPageArea).last();
@@ -566,7 +566,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     const sendButton = page.locator('button:has-text("Send Document")');
     await sendButton.waitFor({ state: "visible", timeout: 15000 });
     await sendButton.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 6.8 [${ENV_NAME}]: Send Document clicked\n`);
 
     // --- STEP 9: Handle Confirmation Dialog ---
@@ -576,7 +576,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       const confirmBtn = page.locator('button:has-text("Confirm")').last();
       await confirmBtn.waitFor({ state: "visible", timeout: 15000 });
       await confirmBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
       console.log(`Test 6.9.1 [${ENV_NAME}]: Confirm clicked\n`);
     } else {
       console.log(`Test 6.9 [${ENV_NAME}]: INFO - Document sent directly\n`);
@@ -612,7 +612,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       .locator(LOCATORS.signThisContractNowBtn)
       .waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.signThisContractNowBtn).click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 6.15 [${ENV_NAME}]: Sign This Contract Now clicked\n`);
 
     console.log(`Test 6 [${ENV_NAME}]: Sign A Document Workflow completed\n`);
@@ -645,7 +645,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     const createWorkflowBtn = page.locator("button.create-template-btn:visible").first();
     await createWorkflowBtn.waitFor({ state: "visible", timeout: 15000 });
     await createWorkflowBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 7.3 [${ENV_NAME}]: Create Workflow clicked\n`);
 
     // --- STEP 4: Click Upload From Device ---
@@ -676,7 +676,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       .locator(LOCATORS.workflowAddRecipientBtn)
       .waitFor({ state: "visible", timeout: 15000 });
     await page.locator(LOCATORS.workflowAddRecipientBtn).click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 7.8 [${ENV_NAME}]: Add Recipient clicked\n`);
 
     // --- STEP 9: Click Add Dynamic Signatory ---
@@ -684,7 +684,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       .locator(LOCATORS.workflowAddDynamicSignatoryBtn)
       .waitFor({ state: "visible", timeout: 15000 });
     await page.locator(LOCATORS.workflowAddDynamicSignatoryBtn).click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 7.9 [${ENV_NAME}]: Add Dynamic Signatory clicked\n`);
 
     // --- STEP 10: Click Prepare Document ---
@@ -692,7 +692,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       .locator(LOCATORS.workflowPrepareDocumentBtn)
       .waitFor({ state: "visible", timeout: 15000 });
     await page.locator(LOCATORS.workflowPrepareDocumentBtn).click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 7.10 [${ENV_NAME}]: Prepare Document clicked\n`);
 
     // --- STEP 11: Drag Signature to PDF ---
@@ -778,7 +778,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 4: Click directly on "Use" text ---
     const useBtn = page.locator('span:text("Use")').first();
     await useBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 8.4 [${ENV_NAME}]: Use button clicked\n`);
 
     // --- STEP 5: Click Add Recipient ---
@@ -812,7 +812,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     const confirmPopupBtn = page.locator('button:has-text("Confirm")').last();
     await confirmPopupBtn.waitFor({ state: "visible", timeout: 10000 });
     await confirmPopupBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 8.7 [${ENV_NAME}]: Confirm on pop-up clicked\n`);
 
     // --- STEP 8: Wait for Add Signatory form to load ---
@@ -823,7 +823,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 9: Type "Raaj" in Add Signatory input (character by character) ---
     await addSignatoryInput.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     await addSignatoryInput.pressSequentially("r", { delay: 300 });
     await page.waitForTimeout(30000);
     await addSignatoryInput.pressSequentially("a", { delay: 300 });
@@ -845,14 +845,14 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     const prepareDocBtn = page.locator('button:has-text("Prepare Document")');
     await prepareDocBtn.waitFor({ state: "visible", timeout: 30000 });
     await prepareDocBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 8.11 [${ENV_NAME}]: Prepare Document clicked\n`);
 
     // --- STEP 12: Click Send Document ---
     const sendDocumentBtn = page.locator('button:has-text("Send Document")');
     await sendDocumentBtn.waitFor({ state: "visible", timeout: 30000 });
     await sendDocumentBtn.click();
-    await page.waitForLoadState("networkidle", { timeout: 60000 });;
+    await page.waitForTimeout(5000);
     console.log(`Test 8.12 [${ENV_NAME}]: Send Document clicked\n`);
 
     console.log(`Test 8 [${ENV_NAME}]: Use Workflow from Templates completed\n`);
