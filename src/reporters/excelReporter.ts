@@ -169,30 +169,28 @@ class ExcelReporter implements Reporter {
   }
 
   // ----------------------------------------------------------
-  // Generate / update monthly summary Excel for BOTH environments
-  // (if JSON data exists for that env)
+  // Generate / update monthly summary Excel for the current env only
   // ----------------------------------------------------------
   private async updateMonthlySummary(date: Date) {
     const monthStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
     const monthlyDir = join(this.outputDir, "monthly-data");
-    // Try both environments — the monthly summary file may already exist for the other env
-    const envs = ["STAGE", "PROD"];
-    for (const env of envs) {
-      const envFile = join(monthlyDir, `${env.toLowerCase()}_${monthStr}.json`);
-      if (!existsSync(envFile)) continue;
-      console.log(`📈 Updating monthly summary for ${env} - ${monthStr}...`);
-      // Retry up to 3 times with 2s delay if the file is busy (EBUSY)
-      for (let attempt = 0; attempt < 3; attempt++) {
-        try {
-          await generateMonthlySummary(env, monthStr, monthlyDir, this.outputDir);
+    const env = this.envName;
+    const envFile = join(monthlyDir, `${env.toLowerCase()}_${monthStr}.json`);
+    if (!existsSync(envFile)) {
+      console.log(`   No monthly data found for ${env} - ${monthStr}, skipping summary update`);
+      return;
+    }
+    console.log(`📈 Updating monthly summary for ${env} - ${monthStr}...`);
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        await generateMonthlySummary(env, monthStr, monthlyDir, this.outputDir);
+        break;
+      } catch (e) {
+        if ((e as NodeJS.ErrnoException).code === "EBUSY") {
+          await new Promise((r) => setTimeout(r, 2000));
+        } else {
+          console.log(`   Monthly summary update for ${env}: ${(e as Error).message}`);
           break;
-        } catch (e) {
-          if ((e as NodeJS.ErrnoException).code === "EBUSY") {
-            await new Promise((r) => setTimeout(r, 2000));
-          } else {
-            console.log(`   Monthly summary update for ${env}: ${(e as Error).message}`);
-            break;
-          }
         }
       }
     }

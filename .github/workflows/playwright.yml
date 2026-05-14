@@ -96,19 +96,26 @@ jobs:
         name: playwright-html-report-stage
         path: playwright-report/
         retention-days: 30
-    - name: Upload Excel reports
+    - name: Upload daily Excel report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-excel-reports-stage
-        path: test-results/excel-reports/*.xlsx
+        name: playwright-excel-daily-stage
+        path: test-results/excel-reports/stage_report_*.xlsx
+        retention-days: 90
+    - name: Upload monthly summary Excel
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-excel-monthly-stage
+        path: test-results/excel-reports/stage_monthly_summary_*.xlsx
         retention-days: 90
     - name: Upload monthly data
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-monthly-data-stage
-        path: test-results/excel-reports/monthly-data/
+        path: test-results/excel-reports/monthly-data/stage_*.json
         retention-days: 90
     - name: Notify Teams
       if: ${{ always() }}
@@ -199,19 +206,26 @@ jobs:
         name: playwright-html-report-prod
         path: playwright-report/
         retention-days: 30
-    - name: Upload Excel reports
+    - name: Upload daily Excel report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-excel-reports-prod
-        path: test-results/excel-reports/*.xlsx
+        name: playwright-excel-daily-prod
+        path: test-results/excel-reports/prod_report_*.xlsx
+        retention-days: 90
+    - name: Upload monthly summary Excel
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-excel-monthly-prod
+        path: test-results/excel-reports/prod_monthly_summary_*.xlsx
         retention-days: 90
     - name: Upload monthly data
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-monthly-data-prod
-        path: test-results/excel-reports/monthly-data/
+        path: test-results/excel-reports/monthly-data/prod_*.json
         retention-days: 90
     - name: Notify Teams
       if: ${{ always() }}
