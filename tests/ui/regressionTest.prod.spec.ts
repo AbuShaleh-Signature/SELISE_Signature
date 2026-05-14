@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ============================================================================
  * REGRESSION TEST - PROD ENVIRONMENT
  * ============================================================================
@@ -58,7 +58,7 @@ import { LOCATORS } from "../../src/locators.prod";
 // ENVIRONMENT INFO
 // ============================================================================
 
-console.log(`\n≡ƒöº Running: Regression Suite - ${ENV_NAME} Environment`);
+console.log(`\n=��� Running: Regression Suite - ${ENV_NAME} Environment`);
 console.log(`   URL: ${ENV_URL}`);
 console.log(`-----------------------------------\n`);
 
@@ -66,7 +66,7 @@ console.log(`-----------------------------------\n`);
 // TEST SUITE
 // ============================================================================
 
-sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environment`, () => {
+sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Environment`, () => {
   // Set test timeout to 15 minutes (900000ms)
   // This is needed because some operations like document upload take time
   sequentialTest.setTimeout(900000);
@@ -145,7 +145,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
     await page.waitForTimeout(5000);
       console.log(`Test 3.1 [${ENV_NAME}]: Yet To Sign clicked and details page opened\n`);
       await page.goto(`${ENV_URL}/e-signature`); // Navigate back to signature module
-    await page.waitForLoadState("networkidle", { timeout: 60000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     } else {
       console.log(`Test 3.1 [${ENV_NAME}]: SKIPPED - Yet To Sign card not visible\n`);
     }
@@ -160,7 +160,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
     await page.waitForTimeout(5000);
       console.log(`Test 3.2 [${ENV_NAME}]: Yet To Review clicked and details page opened\n`);
       await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForLoadState("networkidle", { timeout: 60000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     } else {
       console.log(`Test 3.2 [${ENV_NAME}]: SKIPPED - Yet To Review card not visible\n`);
     }
@@ -175,7 +175,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
     await page.waitForTimeout(5000);
       console.log(`Test 3.3 [${ENV_NAME}]: Pending clicked and details page opened\n`);
       await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForLoadState("networkidle", { timeout: 60000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     } else {
       console.log(`Test 3.3 [${ENV_NAME}]: SKIPPED - Pending card not visible\n`);
     }
@@ -217,7 +217,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
   sequentialTest("Test 4: Upload Document", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForLoadState("networkidle", { timeout: 60000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     console.log(`Test 4.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- Close any existing alert dialogs ---
@@ -330,7 +330,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
     }
 
     // --- STEP 13: Wait for Document Rollout Completion ---
-    // Rollout process: Signatures applied ΓåÆ Texts applied ΓåÆ Emails sent
+    // Rollout process: Signatures applied G�� Texts applied G�� Emails sent
     await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 30000 });
     console.log(`Test 4.14 [${ENV_NAME}]: Document rollout completed\n`);
 
@@ -376,7 +376,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
   sequentialTest("Test 5: Signature Advance Workflow", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForLoadState("networkidle", { timeout: 60000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     console.log(`Test 5.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- Close any existing alert dialogs ---
@@ -509,7 +509,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
   sequentialTest("Test 6: Sign A Document Workflow", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForLoadState("networkidle", { timeout: 60000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     console.log(`Test 6.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Sign A Document button ---
@@ -630,7 +630,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
   sequentialTest("Test 7: Create Workflow from Templates", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForLoadState("networkidle", { timeout: 60000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     console.log(`Test 7.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Templates section ---
@@ -758,7 +758,7 @@ sequentialTest.describe.serial(`≡ƒôï Regression Suite - ${ENV_NAME} Environ
   sequentialTest("Test 8: Use Workflow from Templates", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
-    await page.waitForLoadState("networkidle", { timeout: 60000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     console.log(`Test 8.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Templates section ---
