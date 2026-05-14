@@ -634,19 +634,12 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
     console.log(`Test 7.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Templates section ---
-    await page.evaluate(() => {
-      const templates = document.querySelectorAll("span.option-text");
-      templates.forEach((el) => {
-        if (el.textContent?.includes("Templates")) {
-          (el as HTMLElement).click();
-        }
-      });
-    });
+    await page.locator(LOCATORS.templatesSection).first().click({ force: true });
     await page.waitForTimeout(5000);
     console.log(`Test 7.2 [${ENV_NAME}]: Templates section clicked\n`);
 
     // --- STEP 3: Click Create Workflow button ---
-    const createWorkflowBtn = page.locator("button.create-template-btn:visible").first();
+    const createWorkflowBtn = page.locator(LOCATORS.createWorkflowBtn).first();
     await createWorkflowBtn.waitFor({ state: "visible", timeout: 30000 });
     await createWorkflowBtn.click();
     await page.waitForTimeout(5000);
