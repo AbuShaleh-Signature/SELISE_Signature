@@ -25,7 +25,7 @@ interface TestRecord {
 }
 
 class ExcelReporter implements Reporter {
-  // Accumulates all test results during the run
+  // Accumulates all test results during the run — only the final retry per test
   private testRecords: TestRecord[] = [];
   private suiteName: string = "";
   private outputDir: string;
@@ -114,7 +114,14 @@ class ExcelReporter implements Reporter {
       env: this.envName,
     };
 
-    this.testRecords.push(record);
+    // Only keep the LAST retry attempt per test (dedup retries in daily report)
+    const key = `${record.file}:${record.lineNumber}:${record.testName}`;
+    const existingIdx = this.testRecords.findIndex((t) => `${t.file}:${t.lineNumber}:${t.testName}` === key);
+    if (existingIdx >= 0) {
+      this.testRecords[existingIdx] = record; // replace previous retry
+    } else {
+      this.testRecords.push(record);
+    }
   }
 
   // Walk up the suite tree and build the full path
