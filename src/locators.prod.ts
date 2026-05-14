@@ -140,6 +140,7 @@ export const LOCATORS = {
   workflowAddRecipientBtn: 'button:has-text("Add Recipient")', // Add recipient in workflow
   workflowAddDynamicSignatoryBtn: 'span:has-text("Add Dynamic Signatory")', // Dynamic signatory option
   workflowPrepareDocumentBtn: 'button:has-text("Prepare Document")', // Prepare document in workflow
+  workflowConfirmBtn: 'button:has-text("Confirm")', // Confirm button
   workflowSaveWorkflowBtn: 'button:has-text("Save Workflow")', // Save workflow button
   templatesSection: 'span.option-text:has-text("Templates")', // Templates section in sidebar
   createWorkflowBtn: "button.create-template-btn", // Create workflow button

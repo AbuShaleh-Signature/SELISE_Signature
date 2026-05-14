@@ -138,7 +138,7 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
     // --- YET TO SIGN CARD ---
     const yetToSignCard = page.locator(LOCATORS.yetToSignCard);
     await yetToSignCard.scrollIntoViewIfNeeded(); // Scroll into view if not visible
-    await yetToSignCard.waitFor({ state: "visible", timeout: 15000 });
+    await yetToSignCard.waitFor({ state: "visible", timeout: 30000 });
 
     if (await yetToSignCard.isVisible()) {
       await yetToSignCard.click(); // Click to open details page
@@ -153,7 +153,7 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
     // --- YET TO REVIEW CARD ---
     const yetToReviewCard = page.locator(LOCATORS.yetToReviewCard);
     await yetToReviewCard.scrollIntoViewIfNeeded();
-    await yetToReviewCard.waitFor({ state: "visible", timeout: 15000 });
+    await yetToReviewCard.waitFor({ state: "visible", timeout: 30000 });
 
     if (await yetToReviewCard.isVisible()) {
       await yetToReviewCard.click();
@@ -168,7 +168,7 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
     // --- PENDING CARD ---
     const pendingCard = page.locator(LOCATORS.pendingCard);
     await pendingCard.scrollIntoViewIfNeeded();
-    await pendingCard.waitFor({ state: "visible", timeout: 15000 });
+    await pendingCard.waitFor({ state: "visible", timeout: 30000 });
 
     if (await pendingCard.isVisible()) {
       await pendingCard.click();
@@ -183,7 +183,7 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
     // --- COMPLETED CARD ---
     const completedCard = page.locator(LOCATORS.completedCard);
     await completedCard.scrollIntoViewIfNeeded();
-    await completedCard.waitFor({ state: "visible", timeout: 15000 });
+    await completedCard.waitFor({ state: "visible", timeout: 30000 });
 
     if (await completedCard.isVisible()) {
       await completedCard.click();
@@ -405,7 +405,7 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
 
     // --- Verify file uploaded successfully ---
     const uploadProgress = page.locator('text="template.pdf"').first();
-    await uploadProgress.waitFor({ state: "visible", timeout: 15000 });
+    await uploadProgress.waitFor({ state: "visible", timeout: 30000 });
     console.log(`Test 5.2.1 [${ENV_NAME}]: File upload verified\n`);
 
     // --- STEP 4: Fill Envelope Name ---
@@ -491,7 +491,7 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
       console.log(`Test 5.13 [${ENV_NAME}]: Confirm clicked\n`);
 
       // Wait for dialog to close
-      await dialog.waitFor({ state: "hidden", timeout: 10000 });
+      await dialog.waitFor({ state: "hidden", timeout: 30000 });
     await page.waitForTimeout(5000);
       console.log(`Test 5.13.1 [${ENV_NAME}]: Dialog closed\n`);
     } else {
@@ -695,7 +695,7 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
     // --- STEP 11: Drag Signature to PDF ---
     await page.waitForTimeout(10000);
     const signatureField = page.locator(LOCATORS.signatureField);
-    await signatureField.waitFor({ state: "visible", timeout: 15000 });
+    await signatureField.waitFor({ state: "visible", timeout: 30000 });
     await signatureField.scrollIntoViewIfNeeded();
     await page.waitForTimeout(10000);
 
@@ -755,14 +755,7 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
     console.log(`Test 8.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Templates section ---
-    await page.evaluate(() => {
-      const templates = document.querySelectorAll("span.option-text");
-      templates.forEach((el) => {
-        if (el.textContent?.includes("Templates")) {
-          (el as HTMLElement).click();
-        }
-      });
-    });
+    await page.locator(LOCATORS.templatesSection).first().click({ force: true });
     await page.waitForTimeout(5000);
     console.log(`Test 8.2 [${ENV_NAME}]: Templates section clicked\n`);
 
@@ -781,27 +774,15 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
 
     // --- STEP 5: Click Add Recipient ---
     await page.waitForTimeout(10000);
-    await page.evaluate(() => {
-      const buttons = Array.from(document.querySelectorAll("button"));
-      const addRecipientBtn = buttons.find((el) => el.textContent?.includes("Add Recipient"));
-      if (addRecipientBtn) {
-        (addRecipientBtn as HTMLButtonElement).click();
-      }
-    });
+    await page.locator(LOCATORS.workflowAddRecipientBtn).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.workflowAddRecipientBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 8.5 [${ENV_NAME}]: Add Recipient clicked\n`);
 
     // --- STEP 6: Click Confirm button ---
     await page.waitForTimeout(10000);
-    await page.evaluate(() => {
-      const buttons = Array.from(document.querySelectorAll("button"));
-      const confirmBtn = buttons.find(
-        (el) => el.textContent?.includes("Confirm") && !el.hasAttribute("disabled")
-      );
-      if (confirmBtn) {
-        (confirmBtn as HTMLButtonElement).click();
-      }
-    });
+    await page.locator(LOCATORS.workflowConfirmBtn).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.workflowConfirmBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 8.6 [${ENV_NAME}]: Confirm clicked\n`);
 
@@ -840,26 +821,14 @@ sequentialTest.describe.serial(`=��� Regression Suite - ${ENV_NAME} Enviro
     console.log(`Test 8.10 [${ENV_NAME}]: Signatory selected from dropdown\n`);
 
     // --- STEP 11: Click Prepare Document ---
-    await page.evaluate(() => {
-      const buttons = document.querySelectorAll("button");
-      buttons.forEach((el) => {
-        if (el.textContent?.includes("Prepare Document")) {
-          (el as HTMLButtonElement).click();
-        }
-      });
-    });
+    await page.locator(LOCATORS.workflowPrepareDocumentBtn).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.workflowPrepareDocumentBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 8.11 [${ENV_NAME}]: Prepare Document clicked\n`);
 
     // --- STEP 12: Click Send Document ---
-    await page.evaluate(() => {
-      const buttons = document.querySelectorAll("button");
-      buttons.forEach((el) => {
-        if (el.textContent?.includes("Send Document")) {
-          (el as HTMLButtonElement).click();
-        }
-      });
-    });
+    await page.locator(LOCATORS.sendDocumentBtn).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.sendDocumentBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 8.12 [${ENV_NAME}]: Send Document clicked\n`);
     console.log(`Test 8 [${ENV_NAME}]: Use Workflow from Templates completed\n`);

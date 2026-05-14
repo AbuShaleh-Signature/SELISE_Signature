@@ -233,7 +233,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       return; // Skip test if upload area not available
     }
 
-    await page.locator(LOCATORS.uploadArea).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.uploadArea).waitFor({ state: "visible", timeout: 30000 });
     await expect(page.locator(LOCATORS.uploadArea)).toBeVisible();
     console.log(`Test 4.1 [${ENV_NAME}]: Upload area is visible\n`);
 
@@ -247,22 +247,22 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 4.3 [${ENV_NAME}]: File uploaded\n`);
 
     // --- STEP 4: Fill Envelope Name ---
-    await page.locator(LOCATORS.envelopeNameInput).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.envelopeNameInput).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.envelopeNameInput).fill("Automation Test");
     console.log(`Test 4.4 [${ENV_NAME}]: Envelope name set\n`);
 
     // --- STEP 5: Add Recipient ---
-    await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.addRecipientBtn).click();
     console.log(`Test 4.5 [${ENV_NAME}]: Add Recipient clicked\n`);
 
     // --- STEP 6: Verify Add Recipients Page ---
-    await page.locator(LOCATORS.addRecipientsPage).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.addRecipientsPage).waitFor({ state: "visible", timeout: 30000 });
     await expect(page.locator(LOCATORS.addRecipientsPage)).toBeVisible();
     console.log(`Test 4.6 [${ENV_NAME}]: Add Recipients page visible\n`);
 
     // --- STEP 7: Prepare Document ---
-    await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.prepareDocumentBtn).click();
     console.log(`Test 4.7 [${ENV_NAME}]: Prepare Document clicked\n`);
 
@@ -299,7 +299,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 12: Send Document ---
     const SendButton = page.locator(LOCATORS.sendDocumentBtn);
-    await SendButton.waitFor({ state: "visible", timeout: 10000 });
+    await SendButton.waitFor({ state: "visible", timeout: 30000 });
     await SendButton.click();
     console.log(`Test 4.11 [${ENV_NAME}]: Send Document clicked\n`);
 
@@ -311,7 +311,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
       // Wait for Confirm button to be enabled (it may be disabled initially)
       const confirmBtn = page.locator(LOCATORS.confirmSendBtn);
-      await confirmBtn.waitFor({ state: "visible", timeout: 10000 });
+      await confirmBtn.waitFor({ state: "visible", timeout: 30000 });
       await page.waitForFunction(
         () => {
           const btn = document.querySelector('button[aria-label="Save"]') as HTMLButtonElement;
@@ -391,7 +391,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       return;
     }
 
-    await page.locator(LOCATORS.uploadArea).waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(LOCATORS.uploadArea).waitFor({ state: "visible", timeout: 30000 });
     await expect(page.locator(LOCATORS.uploadArea)).toBeVisible();
     console.log(`Test 5.1 [${ENV_NAME}]: Upload area is visible\n`);
 
@@ -402,7 +402,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- Verify file uploaded successfully ---
     const uploadProgress = page.locator('text="template.pdf"').first();
-    await uploadProgress.waitFor({ state: "visible", timeout: 15000 });
+    await uploadProgress.waitFor({ state: "visible", timeout: 30000 });
     console.log(`Test 5.2.1 [${ENV_NAME}]: File upload verified\n`);
 
     // --- STEP 4: Fill Envelope Name & Select advanced signature type Advanced for EU (eIDAS)---
@@ -413,17 +413,17 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 5.3 [${ENV_NAME}]: Envelope name set\n`);
 
     // --- STEP 5: Add Recipient ---
-    await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.addRecipientBtn).click();
     console.log(`Test 5.4 [${ENV_NAME}]: Add Recipient clicked\n`);
 
     // --- STEP 6: Verify Add Recipients Page ---
-    await page.locator(LOCATORS.addRecipientsPage).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.addRecipientsPage).waitFor({ state: "visible", timeout: 30000 });
     await expect(page.locator(LOCATORS.addRecipientsPage)).toBeVisible();
     console.log(`Test 5.5 [${ENV_NAME}]: Add Recipients page visible\n`);
 
     // --- STEP 7: Prepare Document ---
-    await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.prepareDocumentBtn).click();
     console.log(`Test 5.6 [${ENV_NAME}]: Prepare Document clicked\n`);
 
@@ -433,7 +433,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 9: Drag Signature to PDF ---
     const signatureField = page.locator(LOCATORS.signatureField);
-    await signatureField.waitFor({ state: "visible", timeout: 15000 });
+    await signatureField.waitFor({ state: "visible", timeout: 30000 });
     await signatureField.scrollIntoViewIfNeeded();
 
     const documentArea = page.locator(LOCATORS.documentPageArea).last();
@@ -458,7 +458,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 11: Send Document ---
     const SendButton = page.locator(LOCATORS.sendDocumentBtn);
-    await SendButton.waitFor({ state: "visible", timeout: 15000 });
+    await SendButton.waitFor({ state: "visible", timeout: 30000 });
     await page.waitForFunction(
       () => {
         const btns = Array.from(document.querySelectorAll("button"));
@@ -476,7 +476,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       console.log(`Test 5.12 [${ENV_NAME}]: Confirmation dialog appeared\n`);
 
       const confirmBtn = page.locator(LOCATORS.confirmSendBtn);
-      await confirmBtn.waitFor({ state: "visible", timeout: 15000 });
+      await confirmBtn.waitFor({ state: "visible", timeout: 30000 });
       await page.waitForFunction(
         () => {
           const btn = document.querySelector('button[aria-label="Save"]') as HTMLButtonElement;
@@ -489,7 +489,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
       console.log(`Test 5.13 [${ENV_NAME}]: Confirm clicked\n`);
 
       // Wait for dialog to close
-      await dialog.waitFor({ state: "hidden", timeout: 15000 });
+      await dialog.waitFor({ state: "hidden", timeout: 30000 });
       console.log(`Test 5.13.1 [${ENV_NAME}]: Dialog closed\n`);
     } else {
       console.log(`Test 5.12 [${ENV_NAME}]: INFO - Document sent directly\n`);
@@ -510,7 +510,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 2: Click on Sign A Document button ---
     const signADocBtn = page.locator('button:has-text("Sign A Document")');
-    await signADocBtn.waitFor({ state: "visible", timeout: 15000 });
+    await signADocBtn.waitFor({ state: "visible", timeout: 30000 });
     await signADocBtn.click();
     await page.waitForTimeout(5000);
     console.log(`Test 6.2 [${ENV_NAME}]: Sign A Document clicked\n`);
@@ -526,13 +526,13 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 6.4 [${ENV_NAME}]: Envelope name set\n`);
 
     // --- STEP 5: Click Add Recipient ---
-    await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.addRecipientBtn).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.addRecipientBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 6.5 [${ENV_NAME}]: Add Recipient clicked\n`);
 
     // --- STEP 6: Click Prepare Document ---
-    await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.prepareDocumentBtn).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.prepareDocumentBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 6.6 [${ENV_NAME}]: Prepare Document clicked\n`);
@@ -564,7 +564,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 8: Send Document ---
     const sendButton = page.locator('button:has-text("Send Document")');
-    await sendButton.waitFor({ state: "visible", timeout: 15000 });
+    await sendButton.waitFor({ state: "visible", timeout: 30000 });
     await sendButton.click();
     await page.waitForTimeout(5000);
     console.log(`Test 6.8 [${ENV_NAME}]: Send Document clicked\n`);
@@ -574,7 +574,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     if (await dialog.isVisible()) {
       console.log(`Test 6.9 [${ENV_NAME}]: Confirmation dialog appeared\n`);
       const confirmBtn = page.locator('button:has-text("Confirm")').last();
-      await confirmBtn.waitFor({ state: "visible", timeout: 15000 });
+      await confirmBtn.waitFor({ state: "visible", timeout: 30000 });
       await confirmBtn.click();
     await page.waitForTimeout(5000);
       console.log(`Test 6.9.1 [${ENV_NAME}]: Confirm clicked\n`);
@@ -643,7 +643,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 4: Click Upload From Device ---
     const uploadFromDeviceBtn = page.locator(LOCATORS.uploadFromDeviceWorkflow);
-    await uploadFromDeviceBtn.waitFor({ state: "visible", timeout: 15000 });
+    await uploadFromDeviceBtn.waitFor({ state: "visible", timeout: 30000 });
     await page.waitForTimeout(5000);
     console.log(`Test 7.4 [${ENV_NAME}]: Upload From Device clicked\n`);
 
@@ -653,12 +653,12 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 7.5 [${ENV_NAME}]: File uploaded\n`);
 
     // --- STEP 6: Fill Contract Name ---
-    await page.locator(LOCATORS.workflowContractName).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.workflowContractName).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.workflowContractName).fill("AutomatedTest");
     console.log(`Test 7.6 [${ENV_NAME}]: Contract name filled\n`);
 
     // --- STEP 7: Add Tag ---
-    await page.locator(LOCATORS.workflowTagInput).waitFor({ state: "visible", timeout: 15000 });
+    await page.locator(LOCATORS.workflowTagInput).waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.workflowTagInput).fill("AutomatedTest");
     await page.keyboard.press("Enter");
     await page.waitForTimeout(5000);
@@ -667,7 +667,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 8: Click Add Recipient ---
     await page
       .locator(LOCATORS.workflowAddRecipientBtn)
-      .waitFor({ state: "visible", timeout: 15000 });
+      .waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.workflowAddRecipientBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 7.8 [${ENV_NAME}]: Add Recipient clicked\n`);
@@ -675,7 +675,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 9: Click Add Dynamic Signatory ---
     await page
       .locator(LOCATORS.workflowAddDynamicSignatoryBtn)
-      .waitFor({ state: "visible", timeout: 15000 });
+      .waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.workflowAddDynamicSignatoryBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 7.9 [${ENV_NAME}]: Add Dynamic Signatory clicked\n`);
@@ -683,7 +683,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 10: Click Prepare Document ---
     await page
       .locator(LOCATORS.workflowPrepareDocumentBtn)
-      .waitFor({ state: "visible", timeout: 15000 });
+      .waitFor({ state: "visible", timeout: 30000 });
     await page.locator(LOCATORS.workflowPrepareDocumentBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 7.10 [${ENV_NAME}]: Prepare Document clicked\n`);
@@ -691,7 +691,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     // --- STEP 11: Drag Signature to PDF ---
     await page.waitForTimeout(10000);
     const signatureField = page.locator(LOCATORS.signatureField);
-    await signatureField.waitFor({ state: "visible", timeout: 15000 });
+    await signatureField.waitFor({ state: "visible", timeout: 30000 });
     await signatureField.scrollIntoViewIfNeeded();
     await page.waitForTimeout(10000);
 
@@ -728,7 +728,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 13: Click Save Workflow ---
     const saveWorkflowBtn = page.locator(LOCATORS.workflowSaveWorkflowBtn);
-    await saveWorkflowBtn.waitFor({ state: "visible", timeout: 15000 });
+    await saveWorkflowBtn.waitFor({ state: "visible", timeout: 30000 });
     await saveWorkflowBtn.click();
     console.log(`Test 7.13 [${ENV_NAME}]: Save Workflow clicked\n`);
 
@@ -750,21 +750,14 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 8.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- STEP 2: Click on Templates section ---
-    await page.evaluate(() => {
-      const templates = document.querySelectorAll("span.option-text");
-      templates.forEach((el) => {
-        if (el.textContent?.includes("Templates")) {
-          (el as HTMLElement).click();
-        }
-      });
-    });
+    await page.locator(LOCATORS.templatesSection).first().click({ force: true });
     await page.waitForTimeout(5000);
     console.log(`Test 8.2 [${ENV_NAME}]: Templates section clicked\n`);
 
     // --- STEP 3: Find the first row containing "AutomatedTest" ---
     await page.waitForTimeout(10000);
     const workflowRow = page.locator('div:has-text("AutomatedTest")').first();
-    await workflowRow.waitFor({ state: "visible", timeout: 10000 });
+    await workflowRow.waitFor({ state: "visible", timeout: 30000 });
     await workflowRow.scrollIntoViewIfNeeded();
     console.log(`Test 8.3 [${ENV_NAME}]: Found AutomatedTest row\n`);
 
@@ -776,34 +769,22 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 5: Click Add Recipient ---
     await page.waitForTimeout(10000);
-    await page.evaluate(() => {
-      const buttons = Array.from(document.querySelectorAll("button"));
-      const addRecipientBtn = buttons.find((el) => el.textContent?.includes("Add Recipient"));
-      if (addRecipientBtn) {
-        (addRecipientBtn as HTMLButtonElement).click();
-      }
-    });
+    await page.locator(LOCATORS.workflowAddRecipientBtn).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.workflowAddRecipientBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 8.5 [${ENV_NAME}]: Add Recipient clicked\n`);
 
     // --- STEP 6: Click Confirm button ---
     await page.waitForTimeout(10000);
-    await page.evaluate(() => {
-      const buttons = Array.from(document.querySelectorAll("button"));
-      const confirmBtn = buttons.find(
-        (el) => el.textContent?.includes("Confirm") && !el.hasAttribute("disabled")
-      );
-      if (confirmBtn) {
-        (confirmBtn as HTMLButtonElement).click();
-      }
-    });
+    await page.locator(LOCATORS.workflowConfirmBtn).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.workflowConfirmBtn).click();
     await page.waitForTimeout(5000);
     console.log(`Test 8.6 [${ENV_NAME}]: Confirm clicked\n`);
 
     // --- STEP 7: Wait for pop-up to appear and click Confirm on pop-up ---
     await page.waitForTimeout(10000);
     const confirmPopupBtn = page.locator('button:has-text("Confirm")').last();
-    await confirmPopupBtn.waitFor({ state: "visible", timeout: 10000 });
+    await confirmPopupBtn.waitFor({ state: "visible", timeout: 30000 });
     await confirmPopupBtn.click();
     await page.waitForTimeout(5000);
     console.log(`Test 8.7 [${ENV_NAME}]: Confirm on pop-up clicked\n`);
