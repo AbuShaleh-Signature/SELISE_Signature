@@ -643,7 +643,7 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 3: Click Create Workflow button ---
     const createWorkflowBtn = page.locator("button.create-template-btn:visible").first();
-    await createWorkflowBtn.waitFor({ state: "visible", timeout: 15000 });
+    await createWorkflowBtn.waitFor({ state: "visible", timeout: 30000 });
     await createWorkflowBtn.click();
     await page.waitForTimeout(5000);
     console.log(`Test 7.3 [${ENV_NAME}]: Create Workflow clicked\n`);

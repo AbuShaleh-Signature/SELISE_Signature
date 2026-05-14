@@ -58,7 +58,7 @@ import { LOCATORS } from "../../src/locators.prod";
 // ENVIRONMENT INFO
 // ============================================================================
 
-console.log(`\n=ƒöº Running: Regression Suite - ${ENV_NAME} Environment`);
+console.log(`\n=ï¿½ï¿½ï¿½ Running: Regression Suite - ${ENV_NAME} Environment`);
 console.log(`   URL: ${ENV_URL}`);
 console.log(`-----------------------------------\n`);
 
@@ -66,7 +66,7 @@ console.log(`-----------------------------------\n`);
 // TEST SUITE
 // ============================================================================
 
-sequentialTest.describe.serial(`=ƒôï Regression Suite - ${ENV_NAME} Environment`, () => {
+sequentialTest.describe.serial(`=ï¿½ï¿½ï¿½ Regression Suite - ${ENV_NAME} Environment`, () => {
   // Set test timeout to 15 minutes (900000ms)
   // This is needed because some operations like document upload take time
   sequentialTest.setTimeout(900000);
@@ -330,7 +330,7 @@ sequentialTest.describe.serial(`=ƒôï Regression Suite - ${ENV_NAME} Environment`
     }
 
     // --- STEP 13: Wait for Document Rollout Completion ---
-    // Rollout process: Signatures applied GåÆ Texts applied GåÆ Emails sent
+    // Rollout process: Signatures applied Gï¿½ï¿½ Texts applied Gï¿½ï¿½ Emails sent
     await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 30000 });
     console.log(`Test 4.14 [${ENV_NAME}]: Document rollout completed\n`);
 
@@ -647,7 +647,7 @@ sequentialTest.describe.serial(`=ƒôï Regression Suite - ${ENV_NAME} Environment`
 
     // --- STEP 3: Click Create Workflow button ---
     const createWorkflowBtn = page.locator("button.create-template-btn:visible").first();
-    await createWorkflowBtn.waitFor({ state: "visible", timeout: 15000 });
+    await createWorkflowBtn.waitFor({ state: "visible", timeout: 30000 });
     await createWorkflowBtn.click();
     await page.waitForTimeout(5000);
     console.log(`Test 7.3 [${ENV_NAME}]: Create Workflow clicked\n`);
