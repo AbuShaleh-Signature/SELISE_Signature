@@ -471,7 +471,6 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
     console.log(`Test 5.11 [${ENV_NAME}]: Send Document clicked\n`);
 
     // --- STEP 12: Handle Confirmation Dialog ---
-    await page.waitForTimeout(30000);
     const dialog = page.locator('text="Are you sure?"');
     if (await dialog.isVisible()) {
       console.log(`Test 5.12 [${ENV_NAME}]: Confirmation dialog appeared\n`);
@@ -491,15 +490,13 @@ sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`
 
       // Wait for dialog to close
       await dialog.waitFor({ state: "hidden", timeout: 15000 });
-      await page.waitForTimeout(30000);
       console.log(`Test 5.13.1 [${ENV_NAME}]: Dialog closed\n`);
     } else {
       console.log(`Test 5.12 [${ENV_NAME}]: INFO - Document sent directly\n`);
     }
 
     // --- STEP 13: Wait for Document Rollout Completion ---
-    await page.waitForTimeout(30000);
-    await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 30000 });
+    await page.locator(LOCATORS.documentSentSuccess).waitFor({ state: "visible", timeout: 180000 });
     console.log(`Test 5.14 [${ENV_NAME}]: Document rollout completed\n`);
 
     console.log(`Test 5 [${ENV_NAME}]: Upload workflow completed\n`);
