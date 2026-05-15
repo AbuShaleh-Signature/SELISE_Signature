@@ -96,12 +96,14 @@ jobs:
         name: playwright-html-report-stage
         path: playwright-report/
         retention-days: 30
+    - name: Set report date
+      run: echo "REPORT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Upload daily Excel report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-excel-daily-stage
-        path: test-results/excel-reports/stage_report_*.xlsx
+        path: test-results/excel-reports/stage_report_${{ env.REPORT_DATE }}.xlsx
         retention-days: 90
     - name: Upload monthly summary Excel
       uses: actions/upload-artifact@v4
@@ -206,12 +208,14 @@ jobs:
         name: playwright-html-report-prod
         path: playwright-report/
         retention-days: 30
+    - name: Set report date
+      run: echo "REPORT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Upload daily Excel report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-excel-daily-prod
-        path: test-results/excel-reports/prod_report_*.xlsx
+        path: test-results/excel-reports/prod_report_${{ env.REPORT_DATE }}.xlsx
         retention-days: 90
     - name: Upload monthly summary Excel
       uses: actions/upload-artifact@v4
