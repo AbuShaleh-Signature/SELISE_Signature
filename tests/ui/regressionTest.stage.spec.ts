@@ -63,7 +63,7 @@ console.log(`-----------------------------------\n`);
 // TEST SUITE
 // ============================================================================
 
-sequentialTest.describe.serial(`📋 Regression Suite - ${ENV_NAME} Environment`, () => {
+sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () => {
   // Set test timeout to 10 minutes (600000ms)
   // This is needed because some operations like document upload take time
   sequentialTest.setTimeout(900000);
