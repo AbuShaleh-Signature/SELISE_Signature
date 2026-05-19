@@ -162,9 +162,8 @@ jobs:
           }]
         }" ${{ secrets.TEAMS_WEBHOOK_URL }}
     - name: Notify on failure
-      if: ${{ failure() }}
+      if: failure()
       env:
-        FAILURE_WEBHOOK_URL: ${{ secrets.FAILURE_WEBHOOK_URL }}
         FAILURE_REPO: ${{ github.repository }}
         FAILURE_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         FAILURE_BRANCH: ${{ github.ref_name }}
@@ -175,7 +174,7 @@ jobs:
           \"branch\": \"$FAILURE_BRANCH\",
           \"environment\": \"stage\",
           \"run_url\": \"$FAILURE_RUN_URL\"
-        }" "$FAILURE_WEBHOOK_URL"
+        }" "${{ secrets.FAILURE_WEBHOOK_URL }}"
 
   test-prod:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 10 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
@@ -296,9 +295,8 @@ jobs:
           }]
         }" ${{ secrets.TEAMS_WEBHOOK_URL }}
     - name: Notify on failure
-      if: ${{ failure() }}
+      if: failure()
       env:
-        FAILURE_WEBHOOK_URL: ${{ secrets.FAILURE_WEBHOOK_URL }}
         FAILURE_REPO: ${{ github.repository }}
         FAILURE_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         FAILURE_BRANCH: ${{ github.ref_name }}
@@ -309,4 +307,4 @@ jobs:
           \"branch\": \"$FAILURE_BRANCH\",
           \"environment\": \"prod\",
           \"run_url\": \"$FAILURE_RUN_URL\"
-        }" "$FAILURE_WEBHOOK_URL"
+        }" "${{ secrets.FAILURE_WEBHOOK_URL }}"
