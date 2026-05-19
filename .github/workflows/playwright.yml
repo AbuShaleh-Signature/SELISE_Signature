@@ -161,6 +161,20 @@ jobs:
             }
           }]
         }" ${{ secrets.TEAMS_WEBHOOK_URL }}
+    - name: Notify on failure
+      if: ${{ failure() }}
+      env:
+        FAILURE_REPO: ${{ github.repository }}
+        FAILURE_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        FAILURE_BRANCH: ${{ github.ref_name }}
+      run: |
+        curl -s -H "Content-Type: application/json" -d "{
+          \"status\": \"failed\",
+          \"repository\": \"$FAILURE_REPO\",
+          \"branch\": \"$FAILURE_BRANCH\",
+          \"environment\": \"stage\",
+          \"run_url\": \"$FAILURE_RUN_URL\"
+        }" "https://default5c6dd6a7f0c74a328f7c9ca7cebf6e.87.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e8bc2f919f124fd8acf9f2071ac93df2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=s5VnjAN6eLh_L1DnPdBDoteUVPim-DbmNexhz5biSIU"
 
   test-prod:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 10 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
@@ -280,3 +294,17 @@ jobs:
             }
           }]
         }" ${{ secrets.TEAMS_WEBHOOK_URL }}
+    - name: Notify on failure
+      if: ${{ failure() }}
+      env:
+        FAILURE_REPO: ${{ github.repository }}
+        FAILURE_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        FAILURE_BRANCH: ${{ github.ref_name }}
+      run: |
+        curl -s -H "Content-Type: application/json" -d "{
+          \"status\": \"failed\",
+          \"repository\": \"$FAILURE_REPO\",
+          \"branch\": \"$FAILURE_BRANCH\",
+          \"environment\": \"prod\",
+          \"run_url\": \"$FAILURE_RUN_URL\"
+        }" "https://default5c6dd6a7f0c74a328f7c9ca7cebf6e.87.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e8bc2f919f124fd8acf9f2071ac93df2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=s5VnjAN6eLh_L1DnPdBDoteUVPim-DbmNexhz5biSIU"
