@@ -16,6 +16,7 @@ export default defineConfig({
   use: {
     viewport: null,
     trace: "on-first-retry",
+    video: "retain-on-failure",
   },
   projects: [
     {

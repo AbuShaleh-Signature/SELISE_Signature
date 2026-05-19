@@ -96,6 +96,13 @@ jobs:
         name: playwright-html-report-stage
         path: playwright-report/
         retention-days: 30
+    - name: Upload videos
+      uses: actions/upload-artifact@v4
+      if: ${{ failure() }}
+      with:
+        name: playwright-videos-stage
+        path: test-results/playwright-output/**/*.webm
+        retention-days: 30
     - name: Set report date
       run: echo "REPORT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Upload daily Excel report
@@ -207,6 +214,13 @@ jobs:
       with:
         name: playwright-html-report-prod
         path: playwright-report/
+        retention-days: 30
+    - name: Upload videos
+      uses: actions/upload-artifact@v4
+      if: ${{ failure() }}
+      with:
+        name: playwright-videos-prod
+        path: test-results/playwright-output/**/*.webm
         retention-days: 30
     - name: Set report date
       run: echo "REPORT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
