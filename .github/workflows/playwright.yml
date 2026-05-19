@@ -103,7 +103,7 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: playwright-excel-daily-stage
-        path: test-results/excel-reports/stage_report_${{ env.REPORT_DATE }}.xlsx
+        path: test-results/excel-reports/stage_report_*.xlsx
         retention-days: 90
     - name: Upload monthly summary Excel
       uses: actions/upload-artifact@v4
@@ -215,7 +215,7 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: playwright-excel-daily-prod
-        path: test-results/excel-reports/prod_report_${{ env.REPORT_DATE }}.xlsx
+        path: test-results/excel-reports/prod_report_*.xlsx
         retention-days: 90
     - name: Upload monthly summary Excel
       uses: actions/upload-artifact@v4
