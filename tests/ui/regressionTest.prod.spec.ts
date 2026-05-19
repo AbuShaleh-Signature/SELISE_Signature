@@ -506,7 +506,7 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     console.log(`Test 5 [${ENV_NAME}]: Upload workflow completed\n`);
   });
 
-  sequentialTest("Test 6: Sign A Document Workflow", async ({ page }) => {
+  sequentialTest("Test 6: Sign A Document flow", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
     await page.waitForLoadState("load", { timeout: 30000 });

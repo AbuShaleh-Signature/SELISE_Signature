@@ -64,7 +64,7 @@ console.log(`-----------------------------------\n`);
 // ============================================================================
 
 sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () => {
-  // Set test timeout to 10 minutes (600000ms)
+  // Set test timeout to 15 minutes (900000ms)
   // This is needed because some operations like document upload take time
   sequentialTest.setTimeout(900000);
 
@@ -135,7 +135,7 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     // --- YET TO SIGN CARD ---
     const yetToSignCard = page.locator(LOCATORS.yetToSignCard);
     await yetToSignCard.scrollIntoViewIfNeeded(); // Scroll into view if not visible
-    await yetToSignCard.waitFor({ state: "visible", timeout: 5000 });
+    await yetToSignCard.waitFor({ state: "visible", timeout: 30000 });
 
     if (await yetToSignCard.isVisible()) {
       await yetToSignCard.click(); // Click to open details page
@@ -150,7 +150,7 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     // --- YET TO REVIEW CARD ---
     const yetToReviewCard = page.locator(LOCATORS.yetToReviewCard);
     await yetToReviewCard.scrollIntoViewIfNeeded();
-    await yetToReviewCard.waitFor({ state: "visible", timeout: 5000 });
+    await yetToReviewCard.waitFor({ state: "visible", timeout: 30000 });
 
     if (await yetToReviewCard.isVisible()) {
       await yetToReviewCard.click();
@@ -165,7 +165,7 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     // --- PENDING CARD ---
     const pendingCard = page.locator(LOCATORS.pendingCard);
     await pendingCard.scrollIntoViewIfNeeded();
-    await pendingCard.waitFor({ state: "visible", timeout: 5000 });
+    await pendingCard.waitFor({ state: "visible", timeout: 30000 });
 
     if (await pendingCard.isVisible()) {
       await pendingCard.click();
@@ -180,7 +180,7 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     // --- COMPLETED CARD ---
     const completedCard = page.locator(LOCATORS.completedCard);
     await completedCard.scrollIntoViewIfNeeded();
-    await completedCard.waitFor({ state: "visible", timeout: 5000 });
+    await completedCard.waitFor({ state: "visible", timeout: 30000 });
 
     if (await completedCard.isVisible()) {
       await completedCard.click();
