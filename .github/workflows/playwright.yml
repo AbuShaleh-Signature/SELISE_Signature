@@ -105,6 +105,8 @@ jobs:
         retention-days: 30
     - name: Set report date
       run: echo "REPORT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+    - name: Clean old daily reports
+      run: find test-results/excel-reports/ -name "stage_report_*.xlsx" ! -name "stage_report_$(date +'%Y-%m-%d').xlsx" -delete
     - name: Upload daily Excel report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
@@ -243,6 +245,8 @@ jobs:
         retention-days: 30
     - name: Set report date
       run: echo "REPORT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+    - name: Clean old daily reports
+      run: find test-results/excel-reports/ -name "prod_report_*.xlsx" ! -name "prod_report_$(date +'%Y-%m-%d').xlsx" -delete
     - name: Upload daily Excel report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
