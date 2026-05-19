@@ -55,7 +55,7 @@ import { LOCATORS } from "../../src/locators.stage";
 // ENVIRONMENT INFO
 // ============================================================================
 
-console.log(`\n🔧 Running: Regression Suite - ${ENV_NAME} Environment`);
+console.log(`\n Running: Regression Suite - ${ENV_NAME} Environment`);
 console.log(`   URL: ${ENV_URL}`);
 console.log(`-----------------------------------\n`);
 
