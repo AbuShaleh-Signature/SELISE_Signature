@@ -157,7 +157,7 @@ Tests keyboard-only navigation across the application.
 | Trigger | Job | Schedule |
 |---------|-----|----------|
 | Push/PR to `main`/`master` | `smoke-test` | On every push/PR |
-| `schedule` | `test-stage` | 11:45 AM BDT daily |
+| `schedule` | `test-stage` | 09:00 AM BDT daily |
 | `schedule` | `test-prod` | 04:00 PM BDT daily |
 | `workflow_dispatch` | Choose environment | Manual |
 

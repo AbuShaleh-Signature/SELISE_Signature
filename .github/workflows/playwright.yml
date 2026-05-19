@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main, master ]
   schedule:
-    - cron: '45 5 * * *'  # Stage: 11:45 AM Bangladesh (GMT+6) = 5:45 AM UTC
+    - cron: '0 3 * * *'  # Stage: 09:00 AM Bangladesh (GMT+6) = 3:00 AM UTC
     - cron: '0 10 * * *'  # Prod: 04:00 PM Bangladesh (GMT+6) = 10:00 AM UTC
   workflow_dispatch:
     inputs:
@@ -44,7 +44,7 @@ jobs:
         retention-days: 30
 
   test-stage:
-    if: ${{ github.event_name == 'schedule' && github.event.schedule == '45 5 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 3 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
@@ -87,7 +87,7 @@ jobs:
     - name: Run Stage regression tests
       run: npm run test:stage:ci
     - name: Generate monthly summary
-      if: ${{ github.event.schedule == '45 5 * * *' }}
+      if: ${{ github.event.schedule == '0 3 * * *' }}
       run: npm run report:monthly:stage
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
@@ -143,7 +143,7 @@ jobs:
                   {\"title\": \"Test\", \"value\": \"all\"},
                   {\"title\": \"Environment\", \"value\": \"stage\"},
                   {\"title\": \"Status\", \"value\": \"$STATUS_EMOJI $TEAMS_STATUS\"},
-                  {\"title\": \"Trigger\", \"value\": \"Scheduled (11:45 AM BDT)\"},
+                  {\"title\": \"Trigger\", \"value\": \"Scheduled (09:00 AM BDT)\"},
                   {\"title\": \"Branch\", \"value\": \"$TEAMS_BRANCH\"}
                 ]},
                 {\"type\": \"TextBlock\", \"text\": \"Excel reports available in Actions artifacts\", \"isSubtle\": true},
