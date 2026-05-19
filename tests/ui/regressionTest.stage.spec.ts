@@ -66,7 +66,7 @@ console.log(`-----------------------------------\n`);
 sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () => {
   // Set test timeout to 10 minutes (600000ms)
   // This is needed because some operations like document upload take time
-  sequentialTest.setTimeout(9000);
+  sequentialTest.setTimeout(900000);
 
   // ==========================================================================
   // TEST 1: HOME PAGE VERIFICATION
@@ -284,18 +284,18 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     const sigBox = await signatureField.boundingBox();
 
     // Perform drag and drop operation
-    // if (sigBox && docBox) {
-    //   await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
-    //   await page.mouse.down();
-    //   await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
-    //     steps: 10, // Smooth movement
-    //   });
-    //   await page.mouse.up();
-    // await page.waitForTimeout(10000);
-    //   console.log(`Test 4.10 [${ENV_NAME}]: Signature dragged\n`);
-    // } else {
-    //   console.log(`Test 4.10 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
-    // }
+    if (sigBox && docBox) {
+      await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
+        steps: 10, // Smooth movement
+      });
+      await page.mouse.up();
+    await page.waitForTimeout(10000);
+      console.log(`Test 4.10 [${ENV_NAME}]: Signature dragged\n`);
+    } else {
+      console.log(`Test 4.10 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    }
 
     // --- STEP 12: Send Document ---
     const SendButton = page.locator(LOCATORS.sendDocumentBtn);
@@ -443,18 +443,18 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     const docBox = await documentArea.boundingBox();
     const sigBox = await signatureField.boundingBox();
 
-    // if (sigBox && docBox) {
-    //   await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
-    //   await page.mouse.down();
-    //   await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
-    //     steps: 10,
-    //   });
-    //   await page.mouse.up();
-    // await page.waitForTimeout(10000);
-    //   console.log(`Test 5.8 [${ENV_NAME}]: Signature dragged\n`);
-    // } else {
-    //   console.log(`Test 5.8 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
-    // }
+    if (sigBox && docBox) {
+      await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
+        steps: 10,
+      });
+      await page.mouse.up();
+    await page.waitForTimeout(10000);
+      console.log(`Test 5.8 [${ENV_NAME}]: Signature dragged\n`);
+    } else {
+      console.log(`Test 5.8 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    }
 
     // --- STEP 11: Send Document ---
     const SendButton = page.locator(LOCATORS.sendDocumentBtn);
@@ -549,18 +549,18 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     const docBox = await documentArea.boundingBox();
     const sigBox = await signatureField.boundingBox();
 
-    // if (sigBox && docBox) {
-    //   await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
-    //   await page.mouse.down();
-    //   await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
-    //     steps: 10,
-    //   });
-    //   await page.mouse.up();
-    // await page.waitForTimeout(10000);
-    //   console.log(`Test 6.7 [${ENV_NAME}]: Signature dragged\n`);
-    // } else {
-    //   console.log(`Test 6.7 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
-    // }
+    if (sigBox && docBox) {
+      await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
+        steps: 10,
+      });
+      await page.mouse.up();
+    await page.waitForTimeout(10000);
+      console.log(`Test 6.7 [${ENV_NAME}]: Signature dragged\n`);
+    } else {
+      console.log(`Test 6.7 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    }
 
     // --- STEP 8: Send Document ---
     const sendButton = page.locator('button:has-text("Send Document")');
@@ -702,18 +702,18 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     const docBox = await documentArea.boundingBox();
     const sigBox = await signatureField.boundingBox();
 
-    // if (sigBox && docBox) {
-    //   await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
-    //   await page.mouse.down();
-    //   await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
-    //     steps: 10,
-    //   });
-    //   await page.mouse.up();
-    // await page.waitForTimeout(10000);
-    //   console.log(`Test 7.11 [${ENV_NAME}]: Signature dragged\n`);
-    // } else {
-    //   console.log(`Test 7.11 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
-    // }
+    if (sigBox && docBox) {
+      await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
+        steps: 10,
+      });
+      await page.mouse.up();
+    await page.waitForTimeout(10000);
+      console.log(`Test 7.11 [${ENV_NAME}]: Signature dragged\n`);
+    } else {
+      console.log(`Test 7.11 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    }
 
     // --- STEP 12: Wait for Save Workflow button to be enabled ---
     await page.waitForFunction(
