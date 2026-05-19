@@ -170,18 +170,21 @@ jobs:
         FAILURE_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         FAILURE_BRANCH: ${{ github.ref_name }}
       run: |
-        jq -n --arg msg "{\"type\":\"AdaptiveCard\",\"\$schema\":\"http://adaptivecards.io/schemas/adaptive-card.json\",\"version\":\"1.2\",\"body\":[{\"type\":\"TextBlock\",\"text\":\"Stage Regression Failed\",\"weight\":\"Bolder\",\"size\":\"Medium\"},{\"type\":\"FactSet\",\"facts\":[{\"title\":\"Repository\",\"value\":\"$FAILURE_REPO\"},{\"title\":\"Environment\",\"value\":\"stage\"},{\"title\":\"Status\",\"value\":\"❌ failed\"},{\"title\":\"Branch\",\"value\":\"$FAILURE_BRANCH\"}]},{\"type\":\"TextBlock\",\"text\":\"[View Run]($FAILURE_RUN_URL)\",\"weight\":\"Bolder\"}]}" '{
-          "host": {
-            "connectionReferenceName": "shared_teams",
-            "operationId": "PostCardToConversation"
-          },
-          "parameters": {
-            "poster": "Flow bot",
-            "location": "Group chat",
-            "body/recipient": "19:4530c285b41e4276a17627c24c2e85e8@thread.v2",
-            "body/messageBody": $msg
-          }
-        }' | curl -s -H "Content-Type: application/json" -d @- "${{ secrets.FAILURE_WEBHOOK_URL }}"
+        curl -s -H "Content-Type: application/json" -d "{
+          \"type\":\"AdaptiveCard\",
+          \"\$schema\":\"http://adaptivecards.io/schemas/adaptive-card.json\",
+          \"version\":\"1.2\",
+          \"body\":[
+            {\"type\":\"TextBlock\",\"text\":\"Stage Regression Failed\",\"weight\":\"Bolder\",\"size\":\"Medium\"},
+            {\"type\":\"FactSet\",\"facts\":[
+              {\"title\":\"Repository\",\"value\":\"$FAILURE_REPO\"},
+              {\"title\":\"Environment\",\"value\":\"stage\"},
+              {\"title\":\"Status\",\"value\":\"❌ failed\"},
+              {\"title\":\"Branch\",\"value\":\"$FAILURE_BRANCH\"}
+            ]},
+            {\"type\":\"TextBlock\",\"text\":\"[View Run]($FAILURE_RUN_URL)\",\"weight\":\"Bolder\"}
+          ]
+        }" "${{ secrets.FAILURE_WEBHOOK_URL }}"
 
   test-prod:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 10 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
@@ -310,15 +313,18 @@ jobs:
         FAILURE_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         FAILURE_BRANCH: ${{ github.ref_name }}
       run: |
-        jq -n --arg msg "{\"type\":\"AdaptiveCard\",\"\$schema\":\"http://adaptivecards.io/schemas/adaptive-card.json\",\"version\":\"1.2\",\"body\":[{\"type\":\"TextBlock\",\"text\":\"Prod Regression Failed\",\"weight\":\"Bolder\",\"size\":\"Medium\"},{\"type\":\"FactSet\",\"facts\":[{\"title\":\"Repository\",\"value\":\"$FAILURE_REPO\"},{\"title\":\"Environment\",\"value\":\"prod\"},{\"title\":\"Status\",\"value\":\"❌ failed\"},{\"title\":\"Branch\",\"value\":\"$FAILURE_BRANCH\"}]},{\"type\":\"TextBlock\",\"text\":\"[View Run]($FAILURE_RUN_URL)\",\"weight\":\"Bolder\"}]}" '{
-          "host": {
-            "connectionReferenceName": "shared_teams",
-            "operationId": "PostCardToConversation"
-          },
-          "parameters": {
-            "poster": "Flow bot",
-            "location": "Group chat",
-            "body/recipient": "19:4530c285b41e4276a17627c24c2e85e8@thread.v2",
-            "body/messageBody": $msg
-          }
-        }' | curl -s -H "Content-Type: application/json" -d @- "${{ secrets.FAILURE_WEBHOOK_URL }}"
+        curl -s -H "Content-Type: application/json" -d "{
+          \"type\":\"AdaptiveCard\",
+          \"\$schema\":\"http://adaptivecards.io/schemas/adaptive-card.json\",
+          \"version\":\"1.2\",
+          \"body\":[
+            {\"type\":\"TextBlock\",\"text\":\"Prod Regression Failed\",\"weight\":\"Bolder\",\"size\":\"Medium\"},
+            {\"type\":\"FactSet\",\"facts\":[
+              {\"title\":\"Repository\",\"value\":\"$FAILURE_REPO\"},
+              {\"title\":\"Environment\",\"value\":\"prod\"},
+              {\"title\":\"Status\",\"value\":\"❌ failed\"},
+              {\"title\":\"Branch\",\"value\":\"$FAILURE_BRANCH\"}
+            ]},
+            {\"type\":\"TextBlock\",\"text\":\"[View Run]($FAILURE_RUN_URL)\",\"weight\":\"Bolder\"}
+          ]
+        }" "${{ secrets.FAILURE_WEBHOOK_URL }}"
