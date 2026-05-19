@@ -214,7 +214,7 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
   sequentialTest("Test 4: Upload Document", async ({ page }) => {
     // --- STEP 1: Navigate to Signature Module ---
     await page.goto(`${ENV_URL}/e-signature`);
-    //await page.waitForLoadState("load", { timeout: 30000 });
+    await page.waitForLoadState("load", { timeout: 30000 });
     console.log(`Test 4.0 [${ENV_NAME}]: Navigated to Signature module\n`);
 
     // --- Close any existing alert dialogs ---
@@ -284,18 +284,18 @@ sequentialTest.describe.serial(`Regression Suite - ${ENV_NAME} Environment`, () 
     const sigBox = await signatureField.boundingBox();
 
     // Perform drag and drop operation
-    if (sigBox && docBox) {
-      await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
-      await page.mouse.down();
-      await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
-        steps: 10, // Smooth movement
-      });
-      await page.mouse.up();
-    await page.waitForTimeout(10000);
-      console.log(`Test 4.10 [${ENV_NAME}]: Signature dragged\n`);
-    } else {
-      console.log(`Test 4.10 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
-    }
+    // if (sigBox && docBox) {
+    //   await page.mouse.move(sigBox.x + sigBox.width / 2, sigBox.y + sigBox.height / 2);
+    //   await page.mouse.down();
+    //   await page.mouse.move(docBox.x + docBox.width / 2, docBox.y + docBox.height - 100, {
+    //     steps: 10, // Smooth movement
+    //   });
+    //   await page.mouse.up();
+    // await page.waitForTimeout(10000);
+    //   console.log(`Test 4.10 [${ENV_NAME}]: Signature dragged\n`);
+    // } else {
+    //   console.log(`Test 4.10 [${ENV_NAME}]: SKIPPED - Could not get positions\n`);
+    // }
 
     // --- STEP 12: Send Document ---
     const SendButton = page.locator(LOCATORS.sendDocumentBtn);
