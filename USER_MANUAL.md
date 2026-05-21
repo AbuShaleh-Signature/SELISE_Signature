@@ -351,7 +351,7 @@ npx playwright show-report
 | Trigger | Job | What It Runs |
 |---------|-----|--------------|
 | Push/PR to `main`/`master` | `smoke-test` | Smoke tests on Stage (15 min timeout) |
-| Schedule: 09:00 AM BDT | `test-stage` | Full regression on Stage |
+| Schedule: 07:00 AM BDT | `test-stage` | Full regression on Stage |
 | Schedule: 04:00 PM BDT | `test-prod` | Full regression on Prod |
 | Manual (`workflow_dispatch`) | Choose: stage/prod/all | Selected environment |
 
@@ -371,7 +371,7 @@ npx playwright show-report
 
 ## Microsoft Teams Notifications
 
-Scheduled regression runs (Stage at 09:00 AM, Prod at 04:00 PM BDT) post results to a Teams channel via an incoming webhook.
+Scheduled regression runs (Stage at 07:00 AM, Prod at 04:00 PM BDT) post results to a Teams channel via an incoming webhook.
 
 ### Setup
 
@@ -389,7 +389,7 @@ Repository    AbuShaleh-Signature/SELISE_Signature
 Test          all
 Environment   stage/prod
 Status        ✅ success / ❌ failure
-Trigger       Scheduled (09:00 AM / 04:00 PM BDT)
+Trigger       Scheduled (07:00 AM / 04:00 PM BDT)
 Branch        main
 ─────────────────────────────
 Excel reports available in Actions artifacts

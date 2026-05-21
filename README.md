@@ -15,7 +15,7 @@ A comprehensive Playwright-based automation framework for testing the SELISE Sig
 - **Environment Handling**: Separate `.env.stage` and `.env.prod` configurations with dedicated locator files
 - **Excel Reporting**: Daily test reports and monthly summaries generated as `.xlsx` files
 - **Microsoft Teams Notifications**: Automated test result notifications via webhook on scheduled runs
-- **CI/CD Ready**: GitHub Actions with scheduled runs (Stage: 11 PM BDT, Prod: 3 PM BDT)
+- **CI/CD Ready**: GitHub Actions with scheduled runs (Stage: 07:00 AM BDT, Prod: 04:00 PM BDT)
 - **Smoke Testing**: Quick landing page verification on every push/PR
 
 ## Prerequisites
@@ -157,7 +157,7 @@ Tests keyboard-only navigation across the application.
 | Trigger | Job | Schedule |
 |---------|-----|----------|
 | Push/PR to `main`/`master` | `smoke-test` | On every push/PR |
-| `schedule` | `test-stage` | 09:00 AM BDT daily |
+| `schedule` | `test-stage` | 07:00 AM BDT daily |
 | `schedule` | `test-prod` | 04:00 PM BDT daily |
 | `workflow_dispatch` | Choose environment | Manual |
 
