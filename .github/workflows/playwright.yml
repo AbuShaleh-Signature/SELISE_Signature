@@ -171,19 +171,25 @@ jobs:
         FAILURE_BRANCH: ${{ github.ref_name }}
       run: |
         curl -s -H "Content-Type: application/json" -d "{
-          \"type\":\"AdaptiveCard\",
-          \"\$schema\":\"http://adaptivecards.io/schemas/adaptive-card.json\",
-          \"version\":\"1.2\",
-          \"body\":[
-            {\"type\":\"TextBlock\",\"text\":\"Stage Regression Failed\",\"weight\":\"Bolder\",\"size\":\"Medium\"},
-            {\"type\":\"FactSet\",\"facts\":[
-              {\"title\":\"Repository\",\"value\":\"$FAILURE_REPO\"},
-              {\"title\":\"Environment\",\"value\":\"stage\"},
-              {\"title\":\"Status\",\"value\":\"❌ failed\"},
-              {\"title\":\"Branch\",\"value\":\"$FAILURE_BRANCH\"}
-            ]},
-            {\"type\":\"TextBlock\",\"text\":\"[View Run]($FAILURE_RUN_URL)\",\"weight\":\"Bolder\"}
-          ]
+          \"type\": \"message\",
+          \"attachments\": [{
+            \"contentType\": \"application/vnd.microsoft.card.adaptive\",
+            \"content\": {
+              \"type\": \"AdaptiveCard\",
+              \"body\": [
+                {\"type\": \"TextBlock\", \"text\": \"Stage Regression Failed\", \"weight\": \"Bolder\", \"size\": \"Medium\"},
+                {\"type\": \"FactSet\", \"facts\": [
+                  {\"title\": \"Repository\", \"value\": \"$FAILURE_REPO\"},
+                  {\"title\": \"Environment\", \"value\": \"stage\"},
+                  {\"title\": \"Status\", \"value\": \"❌ failed\"},
+                  {\"title\": \"Branch\", \"value\": \"$FAILURE_BRANCH\"}
+                ]},
+                {\"type\": \"TextBlock\", \"text\": \"[View Run]($FAILURE_RUN_URL)\", \"weight\": \"Bolder\"}
+              ],
+              \"\$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",
+              \"version\": \"1.2\"
+            }
+          }]
         }" "${{ secrets.FAILURE_WEBHOOK_URL }}"
 
   test-prod:
@@ -314,17 +320,23 @@ jobs:
         FAILURE_BRANCH: ${{ github.ref_name }}
       run: |
         curl -s -H "Content-Type: application/json" -d "{
-          \"type\":\"AdaptiveCard\",
-          \"\$schema\":\"http://adaptivecards.io/schemas/adaptive-card.json\",
-          \"version\":\"1.2\",
-          \"body\":[
-            {\"type\":\"TextBlock\",\"text\":\"Prod Regression Failed\",\"weight\":\"Bolder\",\"size\":\"Medium\"},
-            {\"type\":\"FactSet\",\"facts\":[
-              {\"title\":\"Repository\",\"value\":\"$FAILURE_REPO\"},
-              {\"title\":\"Environment\",\"value\":\"prod\"},
-              {\"title\":\"Status\",\"value\":\"❌ failed\"},
-              {\"title\":\"Branch\",\"value\":\"$FAILURE_BRANCH\"}
-            ]},
-            {\"type\":\"TextBlock\",\"text\":\"[View Run]($FAILURE_RUN_URL)\",\"weight\":\"Bolder\"}
-          ]
+          \"type\": \"message\",
+          \"attachments\": [{
+            \"contentType\": \"application/vnd.microsoft.card.adaptive\",
+            \"content\": {
+              \"type\": \"AdaptiveCard\",
+              \"body\": [
+                {\"type\": \"TextBlock\", \"text\": \"Prod Regression Failed\", \"weight\": \"Bolder\", \"size\": \"Medium\"},
+                {\"type\": \"FactSet\", \"facts\": [
+                  {\"title\": \"Repository\", \"value\": \"$FAILURE_REPO\"},
+                  {\"title\": \"Environment\", \"value\": \"prod\"},
+                  {\"title\": \"Status\", \"value\": \"❌ failed\"},
+                  {\"title\": \"Branch\", \"value\": \"$FAILURE_BRANCH\"}
+                ]},
+                {\"type\": \"TextBlock\", \"text\": \"[View Run]($FAILURE_RUN_URL)\", \"weight\": \"Bolder\"}
+              ],
+              \"\$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",
+              \"version\": \"1.2\"
+            }
+          }]
         }" "${{ secrets.FAILURE_WEBHOOK_URL }}"
