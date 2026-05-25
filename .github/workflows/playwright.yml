@@ -162,7 +162,7 @@ jobs:
               \"version\": \"1.2\"
             }
           }]
-        }" ${{ secrets.TEAMS_WEBHOOK_URL }}
+        }" "${{ secrets.TEAMS_WEBHOOK_URL }}"
     - name: Notify on failure
       if: failure()
       env:
@@ -311,7 +311,7 @@ jobs:
               \"version\": \"1.2\"
             }
           }]
-        }" ${{ secrets.TEAMS_WEBHOOK_URL }}
+        }" "${{ secrets.TEAMS_WEBHOOK_URL }}"
     - name: Notify on failure
       if: failure()
       env:
