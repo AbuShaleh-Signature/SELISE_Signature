@@ -96,12 +96,12 @@ jobs:
         name: playwright-html-report-stage
         path: playwright-report/
         retention-days: 30
-    - name: Upload videos
+    - name: Upload test output
       uses: actions/upload-artifact@v4
       if: ${{ failure() }}
       with:
-        name: playwright-videos-stage
-        path: test-results/playwright-output/**/*.webm
+        name: playwright-output-stage
+        path: test-results/playwright-output/
         retention-days: 30
     - name: Set report date
       run: echo "REPORT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
@@ -245,12 +245,12 @@ jobs:
         name: playwright-html-report-prod
         path: playwright-report/
         retention-days: 30
-    - name: Upload videos
+    - name: Upload test output
       uses: actions/upload-artifact@v4
       if: ${{ failure() }}
       with:
-        name: playwright-videos-prod
-        path: test-results/playwright-output/**/*.webm
+        name: playwright-output-prod
+        path: test-results/playwright-output/
         retention-days: 30
     - name: Set report date
       run: echo "REPORT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
