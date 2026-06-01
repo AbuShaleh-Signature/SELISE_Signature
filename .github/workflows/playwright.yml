@@ -71,6 +71,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
     - name: Restore monthly reports cache
+      uses: actions/cache@v4
       id: cache-stage
       with:
         path: test-results/excel-reports/
@@ -225,6 +226,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
     - name: Restore monthly reports cache
+      uses: actions/cache@v4
       id: cache-prod
       with:
         path: test-results/excel-reports/
