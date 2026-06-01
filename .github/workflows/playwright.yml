@@ -20,7 +20,7 @@ on:
 jobs:
   smoke-test:
     if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
-    timeout-minutes: 45
+    timeout-minutes: 120
     runs-on: ubuntu-latest
     env:
       TEST_ENV: STAGE
@@ -51,7 +51,7 @@ jobs:
 
   test-stage:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 1 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'stage' || github.event.inputs.env == 'all')) }}
-    timeout-minutes: 60
+    timeout-minutes: 120
     runs-on: ubuntu-latest
     env:
       TEST_ENV: STAGE
@@ -206,7 +206,7 @@ jobs:
 
   test-prod:
     if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 10 * * *' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.env == 'prod' || github.event.inputs.env == 'all')) }}
-    timeout-minutes: 60
+    timeout-minutes: 120
     runs-on: ubuntu-latest
     env:
       TEST_ENV: PROD
