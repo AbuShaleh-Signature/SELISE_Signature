@@ -62,6 +62,12 @@ jobs:
         node-version: lts/*
     - name: Install dependencies
       run: npm ci
+    - name: Cache Playwright browsers
+      id: cache-pw-stage
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Restore monthly reports cache
@@ -211,6 +217,12 @@ jobs:
         node-version: lts/*
     - name: Install dependencies
       run: npm ci
+    - name: Cache Playwright browsers
+      id: cache-pw-prod
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Restore monthly reports cache
